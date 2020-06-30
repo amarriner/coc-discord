@@ -1,8 +1,7 @@
 const config = require("./config.json");
 const discord = require("./discord.js");
+const utils = require("./utils.js");
 
-const characters = require("./characters.json");
-const users = require("./users.json");
 
 const commandPrefix = "_";
 
@@ -13,8 +12,9 @@ discord.client.on('ready', () => {
 discord.client.on("message", message => {
 
    if (message.content.startsWith(commandPrefix + "attr")) {
-      var [command, attribute] = message.content.split(" ");
-      console.log(command + " " + attribute + " " + message.author.id + " " + characters[message.author.id][0].attributes[attribute]);
+      var [command, attribute, alias] = message.content.split(" ");
+      console.log(utils.getCharacterAttribute(message.author.id, attribute));
+      message.channel.send(utils.getCharacterAttribute(message.author.id, attribute, alias));
    }
 
 });
