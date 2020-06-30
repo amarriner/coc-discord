@@ -6,15 +6,16 @@ const characters = require("./characters.json");
 
 const getCharacterAttribute = function(discordId, attribute, alias) {
 
-   if (characters[discordId] === undefined) {
-      return "ERROR: Invalid discordId " + discordId;
-   }
-
    var character;
-   for (var i = 0; i < characters[discordId].length; i++) {
-      if (alias === undefined || characters[discordId][i].rodbotAlias == alias) {
-         character = characters[discordId][i];
-         break;
+   for (var characterDiscordId in characters) {
+      for (var i = 0; i < characters[characterDiscordId].length; i++) {
+         if (
+            (characterDiscordId === discordId && (alias === undefined || characters[characterDiscordId][i].rodbotAlias == alias)) ||
+            (alias !== undefined && characters[characterDiscordId][i].rodbotAlias === alias && users[discordId].gm)
+            ) {
+            character = characters[characterDiscordId][i];
+            break;
+         }
       }
    }
 
