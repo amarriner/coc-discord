@@ -1,0 +1,13 @@
+{
+  "name": "coc-discord",
+  "version": "1.0.0",
+  "description": "Discord bot to help run Call of Cthulhu",
+  "main": "index.js",
+  "repository": "https://github.com/amarriner/coc-discord",
+  "author": "Aaron Marriner <amarriner@amarriner.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "discord.js": "11.4.2"
+  }
+}
