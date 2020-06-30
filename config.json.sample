@@ -1,4 +1,5 @@
 {
-    "botToken": "YOUR_CLIENT_ID_HERE",
-    "botUrl": "https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=0"
+    "botToken": "YOUR_BOT_TOKEN_HERE",
+    "botUrl": "https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=0",
+    "commandPrefix: "_"
 }
