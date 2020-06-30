@@ -3,7 +3,7 @@ const discord = require("./discord.js");
 const utils = require("./utils.js");
 
 
-const commandPrefix = "_";
+const commandPrefix = config.commandPrefix;
 
 discord.client.on('ready', () => {
     console.log('I am ready!');
