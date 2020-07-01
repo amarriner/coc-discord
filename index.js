@@ -13,6 +13,13 @@ discord.client.on('ready', () => {
       utils.loadDataFiles();
    }, 30 * 60 * 1000);
 
+   discord.client.user.setPresence({
+      game: {
+         name: "Considering non-Euclidean Geometry"
+      },
+      status: "online"
+   });
+
    console.log('I am ready!');
 
 });
@@ -42,9 +49,10 @@ discord.client.on("message", message => {
    }
 
    if (message.content.startsWith(commandPrefix + "rollmy")) {
-      var [command, attribute, alias] = message.content.split(" ");
-      var r = utils.rollCharacterAttribute(message.author.id, attribute, alias);
-      message.channel.send(r.error === undefined ? r.message : r.error);
+//      var [command, attribute, alias] = message.content.split(" ");
+//      var r = utils.rollCharacterAttribute(message.author.id, attribute, alias);
+//      message.channel.send(r.error === undefined ? r.message : r.error);
+      message.channel.send("/shrug");
    }
 
    if (message.content.startsWith(commandPrefix + "reload")) {
