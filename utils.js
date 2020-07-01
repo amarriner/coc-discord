@@ -104,8 +104,10 @@ const getCharacterStat = function(discordId, searchTerm, alias) {
       return returnObj;
    }
 
-   if (returnObj.error !== undefined) {
-      return returnObj;
+   attribute = getCharacterAttribute(discordId, searchTerm, alias);
+   console.log(attribute);
+   if (attribute.error === undefined) {
+      return attribute;
    }
 
    return getCharacterSkill(discordId, searchTerm, alias);
