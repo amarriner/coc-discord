@@ -89,7 +89,6 @@ discord.client.on("message", message => {
       var diceRollResult = utils.rollDice(dice);
       r.message.timestamp = new Date();
       r.message.footer = {};
-      console.log(diceRollResult);
       r.message.footer.text = "Roll result: " + ((diceRollResult.length > 1) ? diceRollResult.join(", ") : diceRollResult[0]);
       r.message.footer.icon_url = (parseInt(parseInt(diceRollResult[0])) <= parseInt(value)) ? config.rollSuccessUrl : config.rollFailureUrl;
       message.channel.send(r.message);

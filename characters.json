@@ -99,6 +99,94 @@
          ]
       },
       {
+         "name": "Louise 'Lulu' Winney",
+         "description": "Dancer, age 23",
+         "birthplace": "Blackwater Creek, MA",
+         "residence": "Arkham, MA",
+         "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/643541050677526528/unknown.png",
+         "rodbotAlias": "lulu",
+         "attributes": {
+            "STR": 70,
+            "CON": 55,
+            "SIZ": 65,
+            "DEX": 65,
+            "INT": 75,
+            "APP": 70,
+            "POW": 50,
+            "EDU": 50,
+            "SAN": 68,
+            "HP": 11,
+            "MP": 10,
+            "Luck": 52
+         },
+         "skills": [
+            {
+               "name": "accounting",
+               "value": 15
+            },
+            {
+               "name": "dancing",
+               "value": 45
+            },
+            {
+               "name": "climb",
+               "value": 40
+            },
+            {
+               "name": "dodge",
+               "value": 62
+            },
+            {
+               "name": "fightingbrawl",
+               "value": 49
+            },
+            {
+               "name": "firearmshandgun",
+               "value": 25
+            },
+            {
+               "name": "firearmsshotgunrifle",
+               "value": 57
+            },
+            {
+               "name": "firstaid",
+               "value": 75
+            },
+            {
+               "name": "jump",
+               "value": 40
+            },
+            {
+               "name": "persuade",
+               "value": 65
+            },
+            {
+               "name": "psychology",
+               "value": 50
+            },
+            {
+               "name": "sleightofhand",
+               "value": 50
+            },
+            {
+               "name": "spothidden",
+               "value": 35
+            },
+            {
+               "name": "swim",
+               "value": 50
+            },
+            {
+               "name": "track",
+               "value": 50
+            },
+            {
+               "name": "martialarts",
+               "value": 10
+            }
+         ]
+      },
+      {
          "name": "The Keeper of Arcane Lore",
          "rodbotAlias": "k"
       }
