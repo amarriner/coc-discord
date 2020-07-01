@@ -2,6 +2,10 @@
    "84268068800311296": [
       {
          "name": "Jackson Elias",
+         "description": "Fearless Investigator, age 41",
+         "birthplace": "New York City",
+         "residence": "New York City",
+         "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/660299756245090335/unknown.png",
          "rodbotAlias": "j",
          "attributes": {
             "STR": 70,
@@ -12,7 +16,83 @@
             "APP": 55,
             "POW": 80,
             "EDU": 70
-         }
+         },
+         "skills": [
+            {
+               "name": "artcraft",
+               "value": 70,
+               "description": "Art/Craft (Writing)"
+            },
+            {
+               "name": "charm",
+               "value": 45
+            },
+            {
+               "name": "climb",
+               "value": 60
+            },
+            {
+               "name": "creditrating",
+               "value": 40
+            },
+            {
+               "name": "cthulhumythos",
+               "value": 4
+            },
+            {
+               "name": "driveauto",
+               "value": 50
+            },
+            {
+               "name": "fasttalk",
+               "value": 70
+            },
+            {
+               "name": "libraryuse",
+               "value": 65
+            },
+            {
+               "name": "listen",
+               "value": 55
+            },
+            {
+               "name": "mechanicalrepair",
+               "value": 50
+            },
+            {
+               "name": "naturalworld",
+               "value": 45
+            },
+            {
+               "name": "occult",
+               "value": 70
+            },
+            {
+               "name": "persuade",
+               "value": 40
+            },
+            {
+               "name": "psychology",
+               "value": 50
+            },
+            {
+               "name": "spothidden",
+               "value": 60
+            },
+            {
+               "name": "stealth",
+               "value": 65
+            },
+            {
+               "name": "survival",
+               "value": 25,
+               "description": "Survival (Mountains)"
+            },
+            {
+               "name": "throw",
+               "value": 35
+            }
+         ]
       },
       {
          "name": "The Keeper of Arcane Lore",
