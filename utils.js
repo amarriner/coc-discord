@@ -148,7 +148,8 @@ const getCharacterAttribute = function(discordId, searchTerm, alias) {
    });
 
    returnObj.message = embed;
-   returnObj.value = character.attributes[attribute];
+   returnObj.attributeValue = character.attributes[attribute];
+   returnObj.attributeName = attribute;
    return returnObj;
 
 };
@@ -190,6 +191,7 @@ const getCharacterSkill = function(discordId, searchTerm, alias) {
    }
 
    returnObj.message = embed;
+   returnObj.skills = skills;
    return returnObj;
 
 };
@@ -225,9 +227,9 @@ const getCharacterEmbed = function(character) {
    embed.thumbnail = {
       "url": character.avatar
    };
-   embed.footer = {
-      "text": "Born: " + character.birthplace + " | Lives: " + character.residence
-   }
+   //embed.footer = {
+   //   "text": "Born: " + character.birthplace + " | Lives: " + character.residence
+   //}
 
    embed.fields = [];
    /*
@@ -296,7 +298,35 @@ const getUser = function(discordId) {
    }
 
    return users[discordId];
-}
+};
+
+const rollDice = function(numberOfTens = 1) {
+
+   var results = [];
+   var onesDie = Math.floor(Math.random() * 9);
+
+   for (var i = 0; i < Math.abs(numberOfTens); i++) {
+      var tensDie = (Math.floor(Math.random() * 9)) * 10;
+
+      if (tensDie === 0 && onesDie === 0) {
+         results.push(parseInt(100));
+      }
+      else {
+         results.push(parseInt(tensDie) + parseInt(onesDie));
+      }
+   }
+
+   results = results.sort(function(a, b) {
+                             return a - b;
+                          });
+
+   if (numberOfTens < 0) {
+      results = results.reverse();
+   }
+
+   return results;
+
+};
 
 module.exports = {
 
@@ -309,4 +339,6 @@ module.exports = {
    getUser: getUser,
    loadDataFiles: loadDataFiles,
    rollCharacterAttribute: rollCharacterAttribute,
+   rollDice: rollDice
+
 };
