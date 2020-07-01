@@ -1,10 +1,11 @@
 const config = require("./config.json")
 const discord = require("./discord");
+const fs = require("fs");
 const fuzzysort = require("fuzzysort");
 
-const users = require("./users.json");
-const characters = require("./characters.json");
-const skills = require("./skills.json");
+var users;
+var characters;
+var skills;
 
 const findCharacterAttribute = function(character, searchTerm) {
 
@@ -262,6 +263,14 @@ const getCharacterSheet = function(discordId, alias) {
 
 };
 
+const loadDataFiles = function() {
+
+   characters = JSON.parse(fs.readFileSync('characters.json'));
+   skills = JSON.parse(fs.readFileSync('skills.json'));
+   users = JSON.parse(fs.readFileSync('users.json'));
+
+}
+
 const rollCharacterAttribute = function(discordId, attribute, alias) {
 
    var r = getCharacterAttribute(discordId, attribute, alias);
@@ -282,6 +291,7 @@ module.exports = {
    getCharacterSheet: getCharacterSheet,
    getCharacterSkill: getCharacterSkill,
    getCharacterStat: getCharacterStat,
+   loadDataFiles: loadDataFiles,
    rollCharacterAttribute: rollCharacterAttribute
 
 };

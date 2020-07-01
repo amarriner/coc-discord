@@ -6,7 +6,15 @@ const utils = require("./utils.js");
 const commandPrefix = config.commandPrefix;
 
 discord.client.on('ready', () => {
-    console.log('I am ready!');
+
+   utils.loadDataFiles();
+
+   setInterval(function() {
+      console.log("Updating data ...");
+      utils.loadDataFiles();
+   }, 30 * 60 * 1000);
+
+   console.log('I am ready!');
 });
 
 discord.client.on("message", message => {
