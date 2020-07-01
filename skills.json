@@ -1,4 +1,4 @@
-{[
+[
    {
       "name": "accounting",
       "description": "Accounting",
@@ -224,4 +224,4 @@
       "description": "Track",
       "default": 10
    }
-}
+]
