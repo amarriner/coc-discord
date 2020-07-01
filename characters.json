@@ -27,7 +27,72 @@
          "residence": "Arkham, MA",
          "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/652577427012190278/finnigan.jpg",
          "sheet": "https://drive.google.com/file/d/1syTII9ppIfq8EymQBFYE_FsdRsImG-tA/view?usp=sharing",
-         "rodbotAlias": "james"
+         "rodbotAlias": "james",
+         "attributes": {
+            "STR": 50,
+            "CON": 50,
+            "SIZ": 40,
+            "DEX": 60,
+            "INT": 70,
+            "APP": 60,
+            "POW": 50,
+            "EDU": 80,
+            "SAN": 32,
+            "HP": 11,
+            "MP": 9,
+            "Luck": 45
+         },
+         "skills": [
+            {
+               "name": "anthropology",
+               "value": 51
+            },
+            {
+               "name": "archaeology",
+               "value": 60
+            },
+            {
+               "name": "charm",
+               "value": 45
+            },
+            {
+               "name": "fightingbrawl",
+               "value": 50
+            },
+            {
+               "name": "firearmshandgun",
+               "value": 55
+            },
+            {
+               "name": "history",
+               "value": 55
+            },
+            {
+               "name": "language",
+               "value": 51,
+               "description": "Language (Latin)"
+            },
+            {
+               "name": "libraryuse",
+               "value": 50
+            },
+            {
+               "name": "listen",
+               "value": 50
+            },
+            {
+               "name": "occult",
+               "value": 55
+            },
+            {
+               "name": "psychology",
+               "value": 30
+            },
+            {
+               "name": "spothidden",
+               "value": 51
+            }
+         ]
       }
    ],
    "643099746868920331": [
@@ -38,7 +103,92 @@
          "residence": "Arkham, MA",
          "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/643185018125942794/Screenshot_20191110-152624.png",
          "sheet": "https://drive.google.com/file/d/1t7RzsZ3-3ih69-GWqP9HgGGdZ6bMiQAl/view?usp=sharing",
-         "rodbotAlias": "ant"
+         "rodbotAlias": "ant",
+         "attributes": {
+            "STR": 60,
+            "CON": 60,
+            "SIZ": 50,
+            "DEX": 60,
+            "INT": 80,
+            "APP": 70,
+            "POW": 65,
+            "EDU": 15,
+            "SAN": 76,
+            "HP": 11,
+            "MP": 13,
+            "Luck": 44
+         },
+         "skills": [
+            {
+               "name": "accounting",
+               "value": 15
+            },
+            {
+               "name": "charm",
+               "value": 35
+            },
+            {
+               "name": "dodge",
+               "value": 30
+            },
+            {
+               "name": "driveauto",
+               "value": 42
+            },
+            {
+               "name": "fasttalk",
+               "value": 15
+            },
+            {
+               "name": "fightingbrawl",
+               "value": 50
+            },
+            {
+               "name": "firearmshandgun",
+               "value": 43
+            },
+            {
+               "name": "firearmsshotgunrifle",
+               "value": 26
+            },
+            {
+               "name": "firstaid",
+               "value": 30
+            },
+            {
+               "name": "history",
+               "value": 45
+            },
+            {
+               "name": "language",
+               "value": 35,
+               "description": "Language (Italian)"
+            },
+            {
+               "name": "libraryuse",
+               "value": 35
+            },
+            {
+               "name": "persuade",
+               "value": 50
+            },
+            {
+               "name": "psychology",
+               "value": 25
+            },
+            {
+               "name": "sleightofhand",
+               "value": 26
+            },
+            {
+               "name": "spothidden",
+               "value": 42
+            },
+            {
+               "name": "throw",
+               "value": 27
+            }
+         ]
       }
    ],
    "643129636871602179": [
@@ -49,7 +199,92 @@
          "residence": "Arkham, MA",
          "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/653697884881158146/d65b4fc0811fbe56232551f81a16f40f_2.jpg",
          "sheet": "https://drive.google.com/file/d/1syTII9ppIfq8EymQBFYE_FsdRsImG-tA/view?usp=sharing",
-         "rodbotAlias": "don"
+         "rodbotAlias": "don",
+         "attributes": {
+            "STR": 80,
+            "CON": 65,
+            "SIZ": 70,
+            "DEX": 60,
+            "INT": 55,
+            "APP": 50,
+            "POW": 45,
+            "EDU": 30,
+            "SAN": 53,
+            "HP": 11,
+            "MP": 9,
+            "Luck": 51
+         },
+         "skills": [
+            {
+               "name": "anthropology",
+               "value": 31
+            },
+            {
+               "name": "charm",
+               "value": 31
+            },
+            {
+               "name": "electricrepair",
+               "value": 45
+            },
+            {
+               "name": "fightingbrawl",
+               "value": 69
+            },
+            {
+               "name": "firearmshandgun",
+               "value": 44
+            },
+            {
+               "name": "firearmsshotgunrifle",
+               "value": 47
+            },
+            {
+               "name": "firstaid",
+               "value": 46
+            },
+            {
+               "name": "intimidate",
+               "value": 23
+            },
+            {
+               "name": "listen",
+               "value": 28
+            },
+            {
+               "name": "naturalworld",
+               "value": 48
+            },
+            {
+               "name": "navigate",
+               "value": 15
+            },
+            {
+               "name": "science",
+               "value": 16,
+               "description": "Science (Zoology)"
+            },
+            {
+               "name": "spothidden",
+               "value": 49
+            },
+            {
+               "name": "survival",
+               "value": 45
+            },
+            {
+               "name": "swim",
+               "value": 25
+            },
+            {
+               "name": "throw",
+               "value": 22
+            },
+            {
+               "name": "track",
+               "value": 22
+            }
+         ]
       }   
    ],
    "644199074714877952": [
@@ -60,7 +295,55 @@
          "residence": "Arkham, MA",
          "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/653989188542398466/spade16.jpg",
          "sheet": "https://drive.google.com/file/d/1sz4Va0EBegEfc7_jiXQOYVBz0rXd2dip/view?usp=sharing",
-         "rodbotAlias": "andy"
+         "rodbotAlias": "andy",
+         "attributes": {
+            "STR": 60,
+            "CON": 60,
+            "SIZ": 50,
+            "DEX": 60,
+            "INT": 80,
+            "APP": 70,
+            "POW": 65,
+            "EDU": 15,
+            "SAN": 63,
+            "HP": 11,
+            "MP": 13,
+            "Luck": 55
+         },
+         "skills": [
+            {
+               "name": "dodge",
+               "value": 40
+            },
+            {
+               "name": "fightingbrawl",
+               "value": 56
+            },
+            {
+               "name": "firearmsshotgunrifle",
+               "value": 56
+            },
+            {
+               "name": "firstaid",
+               "value": 40
+            },
+            {
+               "name": "intimidate",
+               "value": 65
+            },
+            {
+               "name": "libraryuse",
+               "value": 27
+            },
+            {
+               "name": "survival",
+               "value": 25
+            },
+            {
+               "name": "track",
+               "value": 29
+            }
+         ]
       }
    ]
 }
