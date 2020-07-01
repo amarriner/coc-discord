@@ -2,9 +2,9 @@ const discord = require("discord.js");
 
 var client = new discord.Client();
 
-var RichEmbed = discord.RichEmbed;
+var MessageEmbed = discord.MessageEmbed;
 
 module.exports = {
     client: client,
-    RichEmbed: RichEmbed
+    MessageEmbed: MessageEmbed
 };

@@ -211,7 +211,7 @@ const getCharacterSkillValue = function(character, skillsKey) {
 
 const getCharacterEmbed = function(character) {
 
-   var embed = new discord.RichEmbed();
+   var embed = new discord.MessageEmbed();
 
    embed.title = character.name;
    embed.url = character.sheet;
