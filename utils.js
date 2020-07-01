@@ -4,39 +4,105 @@ const discord = require("./discord");
 const users = require("./users.json");
 const characters = require("./characters.json");
 
-const getCharacterAttribute = function(discordId, attribute, alias) {
+const getCharacter = function(discordId, alias) {
 
-   var character;
    for (var characterDiscordId in characters) {
       for (var i = 0; i < characters[characterDiscordId].length; i++) {
          if (
             (characterDiscordId === discordId && (alias === undefined || characters[characterDiscordId][i].rodbotAlias == alias)) ||
             (alias !== undefined && characters[characterDiscordId][i].rodbotAlias === alias && users[discordId].gm)
             ) {
-            character = characters[characterDiscordId][i];
-            break;
+            return characters[characterDiscordId][i];
          }
       }
    }
 
+   return undefined;
+
+}
+
+const getCharacterAttribute = function(discordId, attribute, alias) {
+
+   var character = getCharacter(discordId, alias);
+
    if (character === undefined) {
-      return "ERROR: Invalid character or alias " + alias;
+      returnObj.error = "ERROR: Invalid character or alias " + alias;
+      return returnObj;
    }
 
+   var returnObj = {
+      error: undefined,
+      message: undefined,
+      value: undefined
+   };
+
    if (!character.attributes) {
-      return "ERROR: " + character.name + " has no attributes";
+      returnObj.error = "ERROR: " + character.name + " has no attributes";
+      return returnObj;
    }
 
    if (character.attributes[attribute] === undefined) {
-      return "ERROR: Invalid attribute " + attribute;
+      returnObj.error = "ERROR: Invalid attribute " + attribute;
+      return returnObj;
    }
 
-   return "[" + character.name + "] " + attribute + ": " + character.attributes[attribute];
+   returnObj.message = "[" + character.name + "] " + attribute + ": " + character.attributes[attribute];
+   returnObj.value = character.attributes[attribute];
+   return returnObj;
+
+};
+
+const getCharacterSheet = function(discordId, alias) {
+
+   var returnObj = {
+      embed: new discord.RichEmbed(),
+      error: undefined
+   };
+
+   var character = getCharacter(discordId, alias);
+
+   if (character === undefined) {
+      returnObj.error = "ERROR: Invalid character";
+      return returnObj;
+   }
+
+   returnObj.embed.title = character.name;
+   returnObj.embed.url = character.sheet;
+   returnObj.embed.author = {
+      //"name": character.name,
+      // "icon_url": character.avatar,
+      //"url": character.sheet
+   };
+   returnObj.embed.description = character.description;
+   returnObj.embed.thumbnail = {
+      "url": character.avatar
+   };
+   //returnObj.embed.footer = {
+   //   "text": "Born: " + character.birthplace + " | Lives: " + character.residence 
+   //}
+
+   return returnObj;
+
+};
+
+const rollCharacterAttribute = function(discordId, attribute, alias) {
+
+   var r = getCharacterAttribute(discordId, attribute, alias);
+   if (r.error !== undefined) {
+      return r;
+   }
+
+   var character = getCharacter(discordId, alias);
+   r.message = "/npc " + character.rodbotAlias + " /roll 1d100 # " + attribute + " " + r.value;
+   return r; 
 
 };
 
 module.exports = {
 
-   getCharacterAttribute: getCharacterAttribute
+   getCharacter: getCharacter,
+   getCharacterAttribute: getCharacterAttribute,
+   getCharacterSheet: getCharacterSheet,
+   rollCharacterAttribute: rollCharacterAttribute
 
 };

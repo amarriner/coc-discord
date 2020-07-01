@@ -11,11 +11,25 @@ discord.client.on('ready', () => {
 
 discord.client.on("message", message => {
 
-   if (message.content.startsWith(commandPrefix + "attr")) {
-      var [command, attribute, alias] = message.content.split(" ");
-      console.log(utils.getCharacterAttribute(message.author.id, attribute));
-      message.channel.send(utils.getCharacterAttribute(message.author.id, attribute, alias));
+   if (message.content.startsWith(commandPrefix + "sheet")) {
+
+      var [command, alias] = message.content.split(" ");
+      var r = utils.getCharacterSheet(message.author.id, alias);
+      message.channel.send(r.error === undefined ? r.embed : r.error );
+ 
    }
+
+   if (message.content.startsWith(commandPrefix + "my")) {
+      var r = utils.getCharacterAttribute(message.author.id, attribute, alias);
+      message.channel.send(r.error === undefined ? r.message : r.error);
+   }
+
+   if (message.content.startsWith(commandPrefix + "rollmy")) {
+      var [command, attribute, alias] = message.content.split(" ");
+      var r = utils.rollCharacterAttribute(message.author.id, attribute, alias);
+      message.channel.send(r.error === undefined ? r.message : r.error);
+   }
+
 
 });
 

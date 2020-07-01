@@ -22,24 +22,44 @@
    "424676087218307093": [
       {
          "name": "Edward M. Finnegan",
+         "description": "Professor, age 34",
+         "birthplace": "New York City",
+         "residence": "Arkham, MA",
+         "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/652577427012190278/finnigan.jpg",
+         "sheet": "https://drive.google.com/file/d/1syTII9ppIfq8EymQBFYE_FsdRsImG-tA/view?usp=sharing",
          "rodbotAlias": "james"
       }
    ],
    "643099746868920331": [
       {
          "name": "Savario Rotondo",
+         "description": "Criminal: Bootlegger, age 27",
+         "birthplace": "Boston, MA",
+         "residence": "Arkham, MA",
+         "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/643185018125942794/Screenshot_20191110-152624.png",
+         "sheet": "https://drive.google.com/file/d/1t7RzsZ3-3ih69-GWqP9HgGGdZ6bMiQAl/view?usp=sharing",
          "rodbotAlias": "ant"
       }
    ],
    "643129636871602179": [
       {
          "name": "Rauthaford Candaverish",
+         "description": "Sailor (Naval), age 30",
+         "birthplace": "New York City",
+         "residence": "Arkham, MA",
+         "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/653697884881158146/d65b4fc0811fbe56232551f81a16f40f_2.jpg",
+         "sheet": "https://drive.google.com/file/d/1syTII9ppIfq8EymQBFYE_FsdRsImG-tA/view?usp=sharing",
          "rodbotAlias": "don"
       }   
    ],
    "644199074714877952": [
       {
          "name": "Lawrence Stockwell",
+         "description": "Private Investigator, age 25",
+         "birthplace": "New York City",
+         "residence": "Arkham, MA",
+         "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/653989188542398466/spade16.jpg",
+         "sheet": "https://drive.google.com/file/d/1sz4Va0EBegEfc7_jiXQOYVBz0rXd2dip/view?usp=sharing",
          "rodbotAlias": "andy"
       }
    ]
