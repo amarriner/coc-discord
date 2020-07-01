@@ -265,6 +265,8 @@ const getCharacterSheet = function(discordId, alias) {
 
 const loadDataFiles = function() {
 
+   console.log("Updating data ...");
+
    characters = JSON.parse(fs.readFileSync('characters.json'));
    skills = JSON.parse(fs.readFileSync('skills.json'));
    users = JSON.parse(fs.readFileSync('users.json'));
@@ -284,6 +286,18 @@ const rollCharacterAttribute = function(discordId, attribute, alias) {
 
 };
 
+const getUsers = function() {
+   return users;
+};
+
+const getUser = function(discordId) {
+   if (users[discordId] === undefined) {
+      return undefined;
+   }
+
+   return users[discordId];
+}
+
 module.exports = {
 
    getCharacter: getCharacter,
@@ -291,7 +305,8 @@ module.exports = {
    getCharacterSheet: getCharacterSheet,
    getCharacterSkill: getCharacterSkill,
    getCharacterStat: getCharacterStat,
+   getUsers: getUsers,
+   getUser: getUser,
    loadDataFiles: loadDataFiles,
-   rollCharacterAttribute: rollCharacterAttribute
-
+   rollCharacterAttribute: rollCharacterAttribute,
 };

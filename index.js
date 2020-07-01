@@ -10,11 +10,11 @@ discord.client.on('ready', () => {
    utils.loadDataFiles();
 
    setInterval(function() {
-      console.log("Updating data ...");
       utils.loadDataFiles();
    }, 30 * 60 * 1000);
 
    console.log('I am ready!');
+
 });
 
 discord.client.on("message", message => {
@@ -47,6 +47,14 @@ discord.client.on("message", message => {
       message.channel.send(r.error === undefined ? r.message : r.error);
    }
 
+   if (message.content.startsWith(commandPrefix + "reload")) {
+
+      var user = utils.getUser(message.author.id);
+      if (user !== undefined && user.gm) {
+         utils.loadDataFiles();
+      }
+
+   }
 
 });
 
