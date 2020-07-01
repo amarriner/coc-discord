@@ -13,12 +13,7 @@ discord.client.on('ready', () => {
       utils.loadDataFiles();
    }, 30 * 60 * 1000);
 
-   discord.client.user.setPresence({
-      game: {
-         name: "Considering non-Euclidean Geometry"
-      },
-      status: "online"
-   });
+   discord.client.user.setActivity(" Great Cthulhu rise from the depths ", { type: "WATCHING" });
 
    console.log('I am ready!');
 
