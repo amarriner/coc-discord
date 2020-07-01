@@ -1,8 +1,77 @@
 const config = require("./config.json")
 const discord = require("./discord");
+const fuzzysort = require("fuzzysort");
 
 const users = require("./users.json");
 const characters = require("./characters.json");
+const skills = require("./skills.json");
+
+const findCharacterAttribute = function(character, searchTerm) {
+
+   if (character.attributes === undefined) {
+      return undefined;
+   }
+
+   for (var attribute in character.attributes) {
+      if (attribute.toLowerCase().replace(" ", "") === searchTerm.toLowerCase().replace(" ", "")) {
+         return attribute;
+      }
+   }
+
+   return undefined;
+
+};
+
+const findCharacterSkill = function(character, skillKey) {
+
+   var characterSkill;
+   var skill;
+
+   skill = skills.filter(s => (s.name === skillKey));
+
+   if (!skill.length) {
+      return undefined;
+   }
+
+   skill = skill[0];
+   skill.value = skill.default;
+
+   if (character.skills !== undefined) {
+      characterSkill = character.skills.filter(s => (s.name === skillKey));
+
+      if (characterSkill.length) {
+         characterSkill = characterSkill[0];
+
+         skill.value = characterSkill.value;
+
+         if (characterSkill.description !== undefined) {
+            skill.description = characterSkillDescription;
+         }     
+      }
+   }
+
+   return skill;
+
+}
+
+const findCharacterSkillKeys = function(character, searchTerm) {
+
+   var characterSkills;
+
+   if (character.skills !== undefined) {
+      characterSkills = fuzzysort.go(searchTerm, 
+                                     character.skills.filter(s => (s.description !== undefined)), 
+                                     {key: "description", threshold: -10000});
+
+      if (characterSkills.length) {
+         return characterSkills;
+      }
+ 
+   }
+
+   return fuzzysort.go(searchTerm, skills, {key: "description", threshold: -10000});
+
+}    
 
 const getCharacter = function(discordId, alias) {
 
@@ -19,43 +88,163 @@ const getCharacter = function(discordId, alias) {
 
    return undefined;
 
-}
+};
 
-const getCharacterAttribute = function(discordId, attribute, alias) {
+const getCharacterStat = function(discordId, searchTerm, alias) {
 
    var character = getCharacter(discordId, alias);
-
-   if (character === undefined) {
-      returnObj.error = "ERROR: Invalid character or alias " + alias;
-      return returnObj;
-   }
-
    var returnObj = {
       error: undefined,
       message: undefined,
       value: undefined
    };
 
+   if (character === undefined) {
+      returnObj.error = "ERROR: Invalid character or alias " + alias;
+      return returnObj;
+   }
+
+   if (returnObj.error !== undefined) {
+      return returnObj;
+   }
+
+   return getCharacterSkill(discordId, searchTerm, alias);
+
+}
+
+const getCharacterAttribute = function(discordId, searchTerm, alias) {
+
+   var character = getCharacter(discordId, alias);
+   var returnObj = {
+      error: undefined,
+      message: undefined,
+      value: undefined
+   };
+
+   if (character === undefined) {
+      returnObj.error = "ERROR: Invalid character or alias " + alias;
+      return returnObj;
+   }
+
    if (!character.attributes) {
       returnObj.error = "ERROR: " + character.name + " has no attributes";
       return returnObj;
    }
 
-   if (character.attributes[attribute] === undefined) {
-      returnObj.error = "ERROR: Invalid attribute " + attribute;
+   var attribute = findCharacterAttribute(character, searchTerm);
+
+   if (attribute === undefined) {
+      returnObj.error = "ERROR: Invalid attribute " + searchTerm;
       return returnObj;
    }
 
-   returnObj.message = "[" + character.name + "] " + attribute + ": " + character.attributes[attribute];
+   var embed = getCharacterEmbed(character);
+   embed.fields.push({
+      "name": attribute,
+      "value": character.attributes[attribute],
+      "inline": true
+   });
+
+   returnObj.message = embed;
    returnObj.value = character.attributes[attribute];
    return returnObj;
 
 };
 
+const getCharacterSkill = function(discordId, searchTerm, alias) {
+
+   var character = getCharacter(discordId, alias);
+   var returnObj = {
+      error: undefined,
+      message: undefined,
+      value: undefined
+   };
+
+   if (character === undefined) {
+      returnObj.error = "ERROR: Invalid character or alias " + alias;
+      return returnObj;
+   }
+
+   if (!character.skills) {
+      returnObj.error = "ERROR: " + character.name + " has no skills";
+      return returnObj;
+   }
+
+   var skills = findCharacterSkillKeys(character, searchTerm);
+
+   if (! skills.length) {
+      returnObj.error = "ERROR: Invalid skill " + searchTerm;
+      return returnObj;
+   }
+
+   var embed = getCharacterEmbed(character);
+
+   for (var i = 0; i < skills.length; i++) {
+      embed.fields.push({
+         "name": getCharacterSkillDescription(character, skills[i].obj.name),
+         "value": getCharacterSkillValue(character, skills[i].obj.name),
+         "inline": true
+      });
+   }
+
+   returnObj.message = embed;
+   return returnObj;
+
+};
+
+const getCharacterSkillDescription = function(character, skillsKey) {
+
+   var skill = findCharacterSkill(character, skillsKey);
+   return skill.description;
+
+};
+
+const getCharacterSkillValue = function(character, skillsKey) {
+
+   var skill = findCharacterSkill(character, skillsKey);
+   return skill.value;
+
+};
+
+
+const getCharacterEmbed = function(character) {
+
+   var embed = new discord.RichEmbed();
+
+   embed.title = character.name;
+   embed.url = character.sheet;
+   embed.color = 30750;
+   embed.author = {
+      //"name": character.name,
+      // "icon_url": character.avatar,
+      //"url": character.sheet
+   };
+   embed.description = character.description;
+   embed.thumbnail = {
+      "url": character.avatar
+   };
+   embed.footer = {
+      "text": "Born: " + character.birthplace + " | Lives: " + character.residence
+   }
+
+   embed.fields = [];
+   /*
+   for (var attribute in character.attributes) {
+      embed.fields.push({
+         "name": attribute,
+         "value": character.attributes[attribute],
+         "inline": true
+      });
+   }
+   */
+
+   return embed;
+}
+
 const getCharacterSheet = function(discordId, alias) {
 
    var returnObj = {
-      embed: new discord.RichEmbed(),
+      embed: undefined,
       error: undefined
    };
 
@@ -66,20 +255,7 @@ const getCharacterSheet = function(discordId, alias) {
       return returnObj;
    }
 
-   returnObj.embed.title = character.name;
-   returnObj.embed.url = character.sheet;
-   returnObj.embed.author = {
-      //"name": character.name,
-      // "icon_url": character.avatar,
-      //"url": character.sheet
-   };
-   returnObj.embed.description = character.description;
-   returnObj.embed.thumbnail = {
-      "url": character.avatar
-   };
-   //returnObj.embed.footer = {
-   //   "text": "Born: " + character.birthplace + " | Lives: " + character.residence 
-   //}
+   character.embed = getCharacterEmbed(discordId, alias);
 
    return returnObj;
 
@@ -103,6 +279,8 @@ module.exports = {
    getCharacter: getCharacter,
    getCharacterAttribute: getCharacterAttribute,
    getCharacterSheet: getCharacterSheet,
+   getCharacterSkill: getCharacterSkill,
+   getCharacterStat: getCharacterStat,
    rollCharacterAttribute: rollCharacterAttribute
 
 };

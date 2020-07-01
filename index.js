@@ -20,7 +20,8 @@ discord.client.on("message", message => {
    }
 
    if (message.content.startsWith(commandPrefix + "my")) {
-      var r = utils.getCharacterAttribute(message.author.id, attribute, alias);
+      var [command, attribute, alias] = message.content.split(" ");
+      var r = utils.getCharacterStat(message.author.id, attribute, alias);
       message.channel.send(r.error === undefined ? r.message : r.error);
    }
 
