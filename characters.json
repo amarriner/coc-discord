@@ -126,6 +126,7 @@
             },
             {
                "name": "dancing",
+               "description": "Dancing",
                "value": 45
             },
             {
@@ -182,6 +183,7 @@
             },
             {
                "name": "martialarts",
+               "description": "Martial Arts",
                "value": 10
             }
          ]

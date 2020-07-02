@@ -110,11 +110,6 @@
       "default": 80
    },
    {
-      "name": "language",
-      "description": "Language",
-      "default": 1
-   },
-   {
       "name": "law",
       "description": "Law",
       "default": 5
