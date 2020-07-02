@@ -91,6 +91,34 @@ const getCharacter = function(discordId, alias) {
 
 };
 
+const getCharacterByAlias = function(alias) {
+
+   for (var discordId in characters) {
+     for (var i = 0; i < characters[discordId].length; i++) {
+        if (characters[discordId][i].rodbotAlias !== undefined && characters[discordId][i].rodbotAlias === alias) {
+           return characters[discordId][i];
+        }
+     }
+   }
+
+   return undefined;
+
+}
+
+const getDiscordIdByAlias = function(alias) {
+
+   for (var discordId in characters) {
+     for (var i = 0; i < characters[discordId].length; i++) {
+        if (characters[discordId][i].rodbotAlias !== undefined && characters[discordId][i].rodbotAlias === alias) {
+           return discordId;
+        }
+     }
+   }
+
+   return undefined;
+
+}
+
 const getCharacterStat = function(discordId, searchTerm, alias) {
 
    var character = getCharacter(discordId, alias);
@@ -271,18 +299,13 @@ const loadDataFiles = function() {
    skills = JSON.parse(fs.readFileSync('skills.json'));
    users = JSON.parse(fs.readFileSync('users.json'));
 
-}
+};
 
-const rollCharacterAttribute = function(discordId, attribute, alias) {
+const saveDataFiles = function() {
 
-   var r = getCharacterAttribute(discordId, attribute, alias);
-   if (r.error !== undefined) {
-      return r;
-   }
-
-   var character = getCharacter(discordId, alias);
-   r.message = "/npc " + character.rodbotAlias + " /roll 1d100 # " + attribute + " " + r.value;
-   return r; 
+   fs.writeFileSync('characters.json', JSON.stringify(characters, null, 4));
+   fs.writeFileSync('skills.json', JSON.stringify(skills, null, 4));
+   fs.writeFileSync('users.json', JSON.stringify(users, null, 4));
 
 };
 
@@ -296,6 +319,44 @@ const getUser = function(discordId) {
    }
 
    return users[discordId];
+};
+
+const updateCharacterStat = function(stat, value, alias) {
+
+   var r;
+   var discordId = getDiscordIdByAlias(alias);
+   if (discordId === undefined ) { return "ERROR: Invalid character " + alias; }
+
+   var character = getCharacter(discordId, alias);
+   if (character === undefined) { return "ERROR: Invalid character " + alias; }
+
+   var attribute = getCharacterAttribute(discordId, stat, alias);
+   var skill = findCharacterSkillKeys(discordId, stat, alias);
+
+   if (attribute.error === undefined) {
+
+      character.attributes[attribute.attributeName] = value;
+      saveDataFiles();
+      r = getCharacterAttribute(discordId, stat, alias);
+      r.message.footer = { text: "Updated attribute " + r.attributeName + " to " + r.attributeValue };
+      return r.message; 
+
+   }
+   else if (skill.length === 1) {
+
+      if (character.skills !== undefined && character.skills.filter(s => (s.name === skill[0])).length === 1) {
+
+         character.skills[character.skills.map(function(e) { return e.name; }).indexOf(skill[0])].value = value;      
+         saveDataFiles();
+         r = getCharacterSkill(discordId, stat, alias);
+         r.message.footer = { text: "Updated skill " +  getCharacterSkillDescription(character, skill[0]) + " to " + value };
+         return r.message;
+      }
+
+   }
+
+   return "ERROR: Invalid attribute or skill " + stat + " for " + character.name;
+
 };
 
 const rollDice = function(numberOfTens = 1) {
@@ -336,7 +397,8 @@ module.exports = {
    getUsers: getUsers,
    getUser: getUser,
    loadDataFiles: loadDataFiles,
-   rollCharacterAttribute: rollCharacterAttribute,
-   rollDice: rollDice
+   saveDataFiles: saveDataFiles,
+   rollDice: rollDice,
+   updateCharacterStat: updateCharacterStat
 
 };

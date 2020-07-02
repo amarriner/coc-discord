@@ -9,8 +9,12 @@ discord.client.on('ready', () => {
    utils.loadDataFiles();
 
    setInterval(function() {
-      utils.loadDataFiles();
+      utils.saveDataFiles();
    }, 30 * 60 * 1000);
+
+   setInterval(function() {
+      utils.loadDataFiles();
+   }, (30 * 60 * 1000) + (5 * 1000));
 
    discord.client.user.setActivity(" Great Cthulhu rise from the depths ", { type: "WATCHING" });
 
@@ -20,6 +24,11 @@ discord.client.on('ready', () => {
 
 discord.client.on("message", message => {
 
+   //
+   // Display character sheet
+   // This is mostly obsolete since the other actions also display the same 
+   // information or more
+   //
    if (message.content.toLowerCase().startsWith(commandPrefix + "sheet")) {
 
       var [command, alias] = message.content.split(" ");
@@ -28,6 +37,10 @@ discord.client.on("message", message => {
  
    }
 
+   //
+   // This will look up attributes and/or skills and display them as a discord
+   // embed assuming if finds them
+   //
    if (message.content.toLowerCase().startsWith(commandPrefix + "my")) {
 
       var parameters = message.content.split(" ");
@@ -55,6 +68,9 @@ discord.client.on("message", message => {
 
    }
 
+   //
+   // This will roll percentile dice against an attribute or skill
+   //
    if (message.content.toLowerCase().startsWith(commandPrefix + "rollmy")) {
 
       var parameters = message.content.split(" ");
@@ -110,6 +126,30 @@ discord.client.on("message", message => {
 
    }
 
+   //
+   // Update a character's attribute or skill
+   //
+   if (message.content.toLowerCase().startsWith(commandPrefix + "set")) {
+
+      var parameters = message.content.split(" ");
+      parameters.shift();
+
+      var stat = parameters.filter(p => (!p.startsWith("*") && !p.startsWith("+"))).join(" ");
+      var value = parameters.filter(p => (p.startsWith("+"))).join().replace(/^\+/, "");
+      var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
+
+      if (stat === "" || value === "" || alias === "") {
+         message.channel.send("ERROR: Invalid set command");
+         return;
+      }
+
+      message.channel.send(utils.updateCharacterStat(stat, parseInt(value), alias));
+
+   }
+
+   //
+   // Reload JSON files from disk
+   //
    if (message.content.toLowerCase().startsWith(commandPrefix + "reload")) {
 
       var user = utils.getUser(message.author.id);
@@ -117,6 +157,18 @@ discord.client.on("message", message => {
          utils.loadDataFiles();
       }
 
+   }
+
+   //
+   // Save data objects out to disk as JSON
+   //
+   if (message.content.toLowerCase().startsWith(commandPrefix + "save")) {
+
+      var user = utils.getUser(message.author.id);
+      if (user !== undefined && user.gm) {
+         utils.saveDataFiles();
+      }
+   
    }
 
 });
