@@ -8,14 +8,6 @@ discord.client.on('ready', () => {
 
    utils.loadDataFiles();
 
-   setInterval(function() {
-      utils.saveDataFiles();
-   }, 30 * 60 * 1000);
-
-   setInterval(function() {
-      utils.loadDataFiles();
-   }, (30 * 60 * 1000) + (5 * 1000));
-
    discord.client.user.setActivity(" Great Cthulhu rise from the depths ", { type: "WATCHING" });
 
    console.log('I am ready!');
