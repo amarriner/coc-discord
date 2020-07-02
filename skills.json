@@ -1,222 +1,222 @@
 [
-   {
-      "name": "accounting",
-      "description": "Accounting",
-      "default": 5
-   },
-   {
-      "name": "anthropology",
-      "description": "Anthropology",
-      "default": 1
-   },
-   {
-      "name": "appraise",
-      "description": "Appraise",
-      "default": 5
-   },
-   {
-      "name": "archaeology",
-      "description": "Archaeology",
-      "default": 1
-   },
-   {
-      "name": "artcraft",
-      "description": "Art/Craft",
-      "default": 5
-   },
-   {
-      "name": "charm",
-      "description": "Charm",
-      "default": 15
-   },
-   {
-      "name": "climb",
-      "description": "Climb",
-      "default": 20
-   },
-   {
-      "name": "creditrating",
-      "description": "Credit Rating",
-      "default": 20
-   },
-   {
-      "name": "cthulhumythos",
-      "description": "Cthulhu Mythos",
-      "default": 0
-   },
-   {
-      "name": "disguise",
-      "description": "Disguise",
-      "default": 5
-   },
-   {
-      "name": "dodge",
-      "description": "Dodge",
-      "default": 30
-   },
-   {
-      "name": "driveauto",
-      "description": "Drive Auto",
-      "default": 20
-   },
-   {
-      "name": "electricrepair",
-      "description": "Electric Repair",
-      "default": 10
-   },
-   {
-      "name": "fasttalk",
-      "description": "Fast Talk",
-      "default": 5
-   },
-   {
-      "name": "fightingbrawl",
-      "description": "Fighting (Brawl)",
-      "default": 25
-   },
-   {
-      "name": "firearmshandgun",
-      "description": "Firearms (Handgun)",
-      "default": 20
-   },
-   {
-      "name": "firearmsshotgunrifle",
-      "description": "Firearms (Shotgun/Rifle)",
-      "default": 25
-   },
-   {
-      "name": "firstaid",
-      "description": "First Aid",
-      "default": 30
-   },
-   {
-      "name": "history",
-      "description": "History",
-      "default": 5
-   },
-   {
-      "name": "intimidate",
-      "description": "Intimidate",
-      "default": 15
-   },
-   {
-      "name": "jump",
-      "description": "Jump",
-      "default": 20
-   },
-   {
-      "name": "languageown",
-      "description": "Language (Own)",
-      "default": 80
-   },
-   {
-      "name": "law",
-      "description": "Law",
-      "default": 5
-   },
-   {
-      "name": "libraryuse",
-      "description": "Library Use",
-      "default": 20
-   },
-   {
-      "name": "listen",
-      "description": "Listen",
-      "default": 20
-   },
-   {
-      "name": "locksmith",
-      "description": "Locksmith",
-      "default": 20
-   },
-   {
-      "name": "mechanicalrepair",
-      "description": "Mechanical Repair",
-      "default": 10
-   },
-   {
-      "name": "medicine",
-      "description": "Medicine",
-      "default": 1
-   },
-   {
-      "name": "naturalworld",
-      "description": "Natual World",
-      "default": 10
-   },
-   {
-      "name": "navigate",
-      "description": "Navigate",
-      "default": 10
-   },
-   {
-      "name": "occult",
-      "description": "Occult",
-      "default": 5
-   },
-   {
-      "name": "operateheavymachinery",
-      "description": "Operate Heavy Machinery",
-      "default": 1
-   },
-   {
-      "name": "persuade",
-      "description": "Persuade",
-      "default": 10
-   },
-   {
-      "name": "pilotboat",
-      "description": "Pilot Boat",
-      "default": 1
-   },
-   {
-      "name": "psychology",
-      "description": "Psychology",
-      "default": 10
-   },
-   {
-      "name": "psychoanalysis",
-      "description": "Psychoanalysis",
-      "default": 1
-   },
-   {
-      "name": "ride",
-      "description": "Ride",
-      "default": 5
-   },
-   {
-      "name": "sleightofhand",
-      "description": "Sleight of Hand",
-      "default": 10
-   },
-   {
-      "name": "spothidden",
-      "description": "Spot Hidden",
-      "default": 25
-   },
-   {
-      "name": "stealth",
-      "description": "Stealth",
-      "default": 20
-   },
-   {
-      "name": "survival",
-      "description": "Survival",
-      "default": 10
-   },
-   {
-      "name": "swim",
-      "description": "Swim",
-      "default": 20
-   },
-   {
-      "name": "throw",
-      "description": "Throw",
-      "default": 20
-   },
-   {
-      "name": "track",
-      "description": "Track",
-      "default": 10
-   }
+    {
+        "name": "accounting",
+        "description": "Accounting",
+        "default": 5
+    },
+    {
+        "name": "anthropology",
+        "description": "Anthropology",
+        "default": 1
+    },
+    {
+        "name": "appraise",
+        "description": "Appraise",
+        "default": 5
+    },
+    {
+        "name": "archaeology",
+        "description": "Archaeology",
+        "default": 1
+    },
+    {
+        "name": "artcraft",
+        "description": "Art/Craft",
+        "default": 5
+    },
+    {
+        "name": "charm",
+        "description": "Charm",
+        "default": 15
+    },
+    {
+        "name": "climb",
+        "description": "Climb",
+        "default": 20
+    },
+    {
+        "name": "creditrating",
+        "description": "Credit Rating",
+        "default": 20
+    },
+    {
+        "name": "cthulhumythos",
+        "description": "Cthulhu Mythos",
+        "default": 0
+    },
+    {
+        "name": "disguise",
+        "description": "Disguise",
+        "default": 5
+    },
+    {
+        "name": "dodge",
+        "description": "Dodge",
+        "default": 30
+    },
+    {
+        "name": "driveauto",
+        "description": "Drive Auto",
+        "default": 20
+    },
+    {
+        "name": "electricrepair",
+        "description": "Electric Repair",
+        "default": 10
+    },
+    {
+        "name": "fasttalk",
+        "description": "Fast Talk",
+        "default": 5
+    },
+    {
+        "name": "fightingbrawl",
+        "description": "Fighting (Brawl)",
+        "default": 25
+    },
+    {
+        "name": "firearmshandgun",
+        "description": "Firearms (Handgun)",
+        "default": 20
+    },
+    {
+        "name": "firearmsshotgunrifle",
+        "description": "Firearms (Shotgun/Rifle)",
+        "default": 25
+    },
+    {
+        "name": "firstaid",
+        "description": "First Aid",
+        "default": 30
+    },
+    {
+        "name": "history",
+        "description": "History",
+        "default": 5
+    },
+    {
+        "name": "intimidate",
+        "description": "Intimidate",
+        "default": 15
+    },
+    {
+        "name": "jump",
+        "description": "Jump",
+        "default": 20
+    },
+    {
+        "name": "languageown",
+        "description": "Language (Own)",
+        "default": 80
+    },
+    {
+        "name": "law",
+        "description": "Law",
+        "default": 5
+    },
+    {
+        "name": "libraryuse",
+        "description": "Library Use",
+        "default": 20
+    },
+    {
+        "name": "listen",
+        "description": "Listen",
+        "default": 20
+    },
+    {
+        "name": "locksmith",
+        "description": "Locksmith",
+        "default": 20
+    },
+    {
+        "name": "mechanicalrepair",
+        "description": "Mechanical Repair",
+        "default": 10
+    },
+    {
+        "name": "medicine",
+        "description": "Medicine",
+        "default": 1
+    },
+    {
+        "name": "naturalworld",
+        "description": "Natual World",
+        "default": 10
+    },
+    {
+        "name": "navigate",
+        "description": "Navigate",
+        "default": 10
+    },
+    {
+        "name": "occult",
+        "description": "Occult",
+        "default": 5
+    },
+    {
+        "name": "operateheavymachinery",
+        "description": "Operate Heavy Machinery",
+        "default": 1
+    },
+    {
+        "name": "persuade",
+        "description": "Persuade",
+        "default": 10
+    },
+    {
+        "name": "pilotboat",
+        "description": "Pilot Boat",
+        "default": 1
+    },
+    {
+        "name": "psychology",
+        "description": "Psychology",
+        "default": 10
+    },
+    {
+        "name": "psychoanalysis",
+        "description": "Psychoanalysis",
+        "default": 1
+    },
+    {
+        "name": "ride",
+        "description": "Ride",
+        "default": 5
+    },
+    {
+        "name": "sleightofhand",
+        "description": "Sleight of Hand",
+        "default": 10
+    },
+    {
+        "name": "spothidden",
+        "description": "Spot Hidden",
+        "default": 25
+    },
+    {
+        "name": "stealth",
+        "description": "Stealth",
+        "default": 20
+    },
+    {
+        "name": "survival",
+        "description": "Survival",
+        "default": 10
+    },
+    {
+        "name": "swim",
+        "description": "Swim",
+        "default": 20
+    },
+    {
+        "name": "throw",
+        "description": "Throw",
+        "default": 20
+    },
+    {
+        "name": "track",
+        "description": "Track",
+        "default": 10
+    }
 ]
