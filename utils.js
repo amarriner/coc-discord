@@ -26,16 +26,19 @@ const findCharacterAttribute = function(character, searchTerm) {
 const findCharacterSkill = function(character, skillKey) {
 
    var characterSkill;
-   var skill;
+   var skill = {
+      name: undefined,
+      description: undefined,
+      value: undefined
+   };
 
-   skill = skills.filter(s => (s.name === skillKey));
+   var baseSkill = skills.filter(s => (s.name === skillKey));
 
-   if (!skill.length) {
-      return undefined;
+   if (baseSkill.length) {
+      skill.name = baseSkill[0].name;
+      skill.description = baseSkill[0].description;
+      skill.value = baseSkill[0].default;
    }
-
-   skill = skill[0];
-   skill.value = skill.default;
 
    if (character.skills !== undefined) {
       characterSkill = character.skills.filter(s => (s.name === skillKey));
@@ -46,7 +49,7 @@ const findCharacterSkill = function(character, skillKey) {
          skill.value = characterSkill.value;
 
          if (characterSkill.description !== undefined) {
-            skill.description = characterSkillDescription;
+            skill.description = characterSkill.description;
          }     
       }
    }
@@ -57,20 +60,17 @@ const findCharacterSkill = function(character, skillKey) {
 
 const findCharacterSkillKeys = function(character, searchTerm) {
 
-   var characterSkills;
+   var characterSkills = [];
 
    if (character.skills !== undefined) {
       characterSkills = fuzzysort.go(searchTerm, 
                                      character.skills.filter(s => (s.description !== undefined)), 
                                      {key: "description", threshold: -10000});
 
-      if (characterSkills.length) {
-         return characterSkills;
-      }
- 
    }
 
-   return fuzzysort.go(searchTerm, skills, {key: "description", threshold: -10000});
+   var baseSkills = fuzzysort.go(searchTerm, skills, {key: "description", threshold: -10000});
+   return Array.from(new Set(baseSkills.concat(characterSkills).map(s => s.obj.name)));
 
 }    
 
@@ -184,8 +184,8 @@ const getCharacterSkill = function(discordId, searchTerm, alias) {
 
    for (var i = 0; i < skills.length; i++) {
       embed.fields.push({
-         "name": getCharacterSkillDescription(character, skills[i].obj.name),
-         "value": getCharacterSkillValue(character, skills[i].obj.name),
+         "name": getCharacterSkillDescription(character, skills[i]),
+         "value": getCharacterSkillValue(character, skills[i]),
          "inline": true
       });
    }
@@ -266,8 +266,6 @@ const getCharacterSheet = function(discordId, alias) {
 };
 
 const loadDataFiles = function() {
-
-   console.log("Updating data ...");
 
    characters = JSON.parse(fs.readFileSync('characters.json'));
    skills = JSON.parse(fs.readFileSync('skills.json'));

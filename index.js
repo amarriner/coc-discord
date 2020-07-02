@@ -20,7 +20,7 @@ discord.client.on('ready', () => {
 
 discord.client.on("message", message => {
 
-   if (message.content.startsWith(commandPrefix + "sheet")) {
+   if (message.content.toLowerCase().startsWith(commandPrefix + "sheet")) {
 
       var [command, alias] = message.content.split(" ");
       var r = utils.getCharacterSheet(message.author.id, alias);
@@ -28,22 +28,34 @@ discord.client.on("message", message => {
  
    }
 
-   if (message.content.startsWith(commandPrefix + "my")) {
+   if (message.content.toLowerCase().startsWith(commandPrefix + "my")) {
 
       var parameters = message.content.split(" ");
       parameters.shift();
 
-      var stat = parameters.filter(p => (!p.startsWith("*"))).join(" ");
-
       var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
       if (alias === "") { alias = undefined; }
 
-      var r = utils.getCharacterStat(message.author.id, stat, alias);
+      var r;
+      var stat = parameters.filter(p => (!p.startsWith("*"))).join(" ");
+      for (var i = 0; i < stat.split(",").length; i++) {
+
+         s = utils.getCharacterStat(message.author.id, stat.split(",")[i].trim(), alias);
+         if (r === undefined) {
+            r = s;
+         }
+
+         else if (s.error === undefined) {
+            r.message.fields = r.message.fields.concat(s.message.fields); 
+         }
+
+      }
+
       message.channel.send(r.error === undefined ? r.message : r.error);
 
    }
 
-   if (message.content.startsWith(commandPrefix + "rollmy")) {
+   if (message.content.toLowerCase().startsWith(commandPrefix + "rollmy")) {
 
       var parameters = message.content.split(" ");
       parameters.shift();
@@ -98,7 +110,7 @@ discord.client.on("message", message => {
 
    }
 
-   if (message.content.startsWith(commandPrefix + "reload")) {
+   if (message.content.toLowerCase().startsWith(commandPrefix + "reload")) {
 
       var user = utils.getUser(message.author.id);
       if (user !== undefined && user.gm) {
