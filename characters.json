@@ -81,7 +81,8 @@
                 },
                 {
                     "name": "spothidden",
-                    "value": 60
+                    "value": 60,
+                    "checked": true
                 },
                 {
                     "name": "stealth",
@@ -200,7 +201,7 @@
             "birthplace": "New York City",
             "residence": "Arkham, MA",
             "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/652577427012190278/finnigan.jpg",
-            "sheet": "https://drive.google.com/file/d/1syTII9ppIfq8EymQBFYE_FsdRsImG-tA/view?usp=sharing",
+            "sheet": "https://amarriner.github.io/coc-discord/character_sheets/Edward_M_Finnigan.pdf",
             "rodbotAlias": "james",
             "attributes": {
                 "STR": 50,
@@ -276,7 +277,7 @@
             "birthplace": "Boston, MA",
             "residence": "Arkham, MA",
             "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/643185018125942794/Screenshot_20191110-152624.png",
-            "sheet": "https://drive.google.com/file/d/1t7RzsZ3-3ih69-GWqP9HgGGdZ6bMiQAl/view?usp=sharing",
+            "sheet": "https://amarriner.github.io/coc-discord/character_sheets/Savario_Rotondo.pdf",
             "rodbotAlias": "ant",
             "attributes": {
                 "STR": 60,
@@ -372,7 +373,7 @@
             "birthplace": "New York City",
             "residence": "Arkham, MA",
             "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/653697884881158146/d65b4fc0811fbe56232551f81a16f40f_2.jpg",
-            "sheet": "https://drive.google.com/file/d/1syTII9ppIfq8EymQBFYE_FsdRsImG-tA/view?usp=sharing",
+            "sheet": "https://amarriner.github.io/coc-discord/character_sheets/Rauthaford_Candaverish.pdf",
             "rodbotAlias": "don",
             "attributes": {
                 "STR": 80,
@@ -468,7 +469,7 @@
             "birthplace": "New York City",
             "residence": "Arkham, MA",
             "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/653989188542398466/spade16.jpg",
-            "sheet": "https://drive.google.com/file/d/1sz4Va0EBegEfc7_jiXQOYVBz0rXd2dip/view?usp=sharing",
+            "sheet": "https://amarriner.github.io/coc-discord/character_sheets/Lawrence_Stockwell.pdf",
             "rodbotAlias": "andy",
             "attributes": {
                 "STR": 60,

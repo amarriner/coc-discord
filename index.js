@@ -33,7 +33,7 @@ discord.client.on("message", message => {
    // This will look up attributes and/or skills and display them as a discord
    // embed assuming if finds them
    //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "my")) {
+   if (message.content.toLowerCase().startsWith(commandPrefix + "my ")) {
 
       var parameters = message.content.split(" ");
       parameters.shift();
@@ -96,9 +96,9 @@ discord.client.on("message", message => {
          value = r.attributeValue;
       }
 
-      else if (r.skills !== undefined && r.skills.length === 1) {
-         title = r.skills[0].obj.description;
-         value = r.skills[0].obj.value;
+      else if (r.skillObjects !== undefined && r.skillObjects.length === 1) {
+         title = r.skillObjects[0].name;
+         value = r.skillObjects[0].value;
       }
 
       else {
@@ -107,9 +107,8 @@ discord.client.on("message", message => {
       }
 
       var diceRollResult = utils.rollDice(dice);
-      r.message.timestamp = new Date();
       if ((parseInt(parseInt(diceRollResult[0])) > parseInt(value))) {
-         r.message.color = 15158332;
+         r.message.color = config.rollFailureColor;
       }
       r.message.footer = {};
       r.message.footer.text = "Roll result: " + ((diceRollResult.length > 1) ? diceRollResult.join(", ") : diceRollResult[0]);
@@ -122,6 +121,8 @@ discord.client.on("message", message => {
    // Update a character's attribute or skill
    //
    if (message.content.toLowerCase().startsWith(commandPrefix + "set")) {
+
+      if (user !== undefined && user.gm) { return; }
 
       var parameters = message.content.split(" ");
       parameters.shift();
@@ -136,6 +137,67 @@ discord.client.on("message", message => {
       }
 
       message.channel.send(utils.updateCharacterStat(stat, parseInt(value), alias));
+
+   }
+
+   //
+   // Check a skill for a character
+   // 
+   if (message.content.toLowerCase().startsWith(commandPrefix + "addcheck")) {
+
+      var parameters = message.content.split(" ");
+      
+      if (user !== undefined && user.gm) { return; }
+      parameters.shift();
+
+      var skillSearchTerm = parameters.filter(p => (!p.startsWith("*"))).join(" ");
+      var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
+
+      if (stat === "" || alias === "") {
+         message.channel.send("ERROR: Invalid check command");
+         return;
+      }
+
+      message.channel.send(utils.addCharacterSkillCheck(skillSearchTerm, alias));
+
+   }
+
+   //
+   // Uncheck a skill for a character
+   //
+   if (message.content.toLowerCase().startsWith(commandPrefix + "removecheck")) {
+
+      if (user !== undefined && user.gm) { return; }
+
+      var parameters = message.content.split(" ");
+      parameters.shift();
+
+      var skillSearchTerm = parameters.filter(p => (!p.startsWith("*"))).join(" ");
+      var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
+
+      if (stat === "" || alias === "") {
+         message.channel.send("ERROR: Invalid check command");
+         return;
+      }
+
+      message.channel.send(utils.removeCharacterSkillCheck(skillSearchTerm, alias));
+
+   }
+
+   //
+   // List a character's check marked skills
+   //
+   if (message.content.toLowerCase().startsWith(commandPrefix + "mychecks")) {
+
+      var parameters = message.content.split(" ");
+      parameters.shift();
+
+      var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
+      if (alias === "") { alias = undefined; }
+
+      var r = utils.getCharacterChecks(message.author.id, alias);
+
+      message.channel.send(r.error === undefined ? r.message : r.error);
 
    }
 

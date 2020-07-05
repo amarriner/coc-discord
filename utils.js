@@ -7,6 +7,69 @@ var users;
 var characters;
 var skills;
 
+
+const addCharacterSkillCheck = function(skillSearchTerm, alias) {
+
+   var r;
+   var discordId = getDiscordIdByAlias(alias);
+   if (discordId === undefined ) { return "ERROR: Invalid character " + alias; }
+
+   var character = getCharacter(discordId, alias);
+   if (character === undefined) { return "ERROR: Invalid character " + alias; }
+
+   var skill = findCharacterSkillKeys(discordId, skillSearchTerm, alias);
+
+   if (skill.length === 1) {
+
+      if (character.skills === undefined) { character.skills = []; }
+
+      if (character.skills.filter(s => (s.name === skill[0])).length === 0) {
+         character.skills.push(skills[skill[0]]);
+      }
+
+      character.skills[character.skills.map(function(e) { return e.name; }).indexOf(skill[0])].checked = true;
+      saveDataFiles();
+      r = getCharacterSkill(discordId, skillSearchTerm, alias);
+      r.message.footer = { text: "Checked skill " +  getCharacterSkillDescription(character, skill[0])};
+      return r.message;
+
+   }
+
+   return "ERROR: Invalid skill " + skillSearchTerm + " for " + character.name;
+
+}
+
+const removeCharacterSkillCheck = function(skillSearchTerm, alias) {
+
+   var r;
+   var discordId = getDiscordIdByAlias(alias);
+   if (discordId === undefined ) { return "ERROR: Invalid character " + alias; }
+
+   var character = getCharacter(discordId, alias);
+   if (character === undefined) { return "ERROR: Invalid character " + alias; }
+
+   var skill = findCharacterSkillKeys(discordId, skillSearchTerm, alias);
+
+   if (skill.length === 1) {
+
+      if (character.skills === undefined) { character.skills = []; }
+
+      if (character.skills.filter(s => (s.name === skill[0])).length === 0) {
+         character.skills.push(skills[skill[0]]);
+      }
+
+      character.skills[character.skills.map(function(e) { return e.name; }).indexOf(skill[0])].checked = false;
+      saveDataFiles();
+      r = getCharacterSkill(discordId, skillSearchTerm, alias);
+      r.message.footer = { text: "Unchecked skill " +  getCharacterSkillDescription(character, skill[0])};
+      return r.message;
+
+   }
+
+   return "ERROR: Invalid skill " + skillSearchTerm + " for " + character.name;
+
+};
+
 const findCharacterAttribute = function(character, searchTerm) {
 
    if (character.attributes === undefined) {
@@ -47,6 +110,10 @@ const findCharacterSkill = function(character, skillKey) {
          characterSkill = characterSkill[0];
 
          skill.value = characterSkill.value;
+
+         if (characterSkill.checked !== undefined) {
+            skill.checked = characterSkill.checked;
+         }
 
          if (characterSkill.description !== undefined) {
             skill.description = characterSkill.description;
@@ -142,6 +209,37 @@ const getCharacterStat = function(discordId, searchTerm, alias) {
 
 }
 
+const getCharacterChecks = function(discordId, alias) {
+
+   var character = getCharacter(discordId, alias);
+   var returnObj = {
+      error: undefined,
+      message: undefined,
+      value: undefined
+   };
+
+   if (character === undefined) {
+      returnObj.error = "ERROR: Invalid character or alias " + alias;
+      return returnObj;
+   }
+
+   var emoji = getEmojiByName(config.skillCheckEmoji);
+   var embed = getCharacterEmbed(character);
+   for (var s = 0; s < character.skills.length; s++) {
+      if (character.skills[s].checked !== undefined && character.skills[s].checked) {
+         embed.fields.push({
+            "name": getCharacterSkillDescription(character, character.skills[s].name),
+            "value": getCharacterSkillValue(character, character.skills[s].name) + (isCharacterSkillChecked(character, character.skills[s].name) ? " <:" + emoji.name + ":" + emoji.id + ">" : ""),
+            "inline": true
+         });
+      }
+   }
+
+   returnObj.message = embed;
+   return returnObj;
+
+}
+
 const getCharacterAttribute = function(discordId, searchTerm, alias) {
 
    var character = getCharacter(discordId, alias);
@@ -209,13 +307,19 @@ const getCharacterSkill = function(discordId, searchTerm, alias) {
    }
 
    var embed = getCharacterEmbed(character);
-
+   returnObj.skillObjects = [];
    for (var i = 0; i < skills.length; i++) {
-      embed.fields.push({
+
+      var emoji = getEmojiByName(config.skillCheckEmoji);
+      var s = {
          "name": getCharacterSkillDescription(character, skills[i]),
-         "value": getCharacterSkillValue(character, skills[i]),
+         "value": getCharacterSkillValue(character, skills[i]) + (isCharacterSkillChecked(character, skills[i]) ? " <:" + emoji.name + ":" + emoji.id + ">" : ""),
          "inline": true
-      });
+      };
+
+      embed.fields.push(s);
+      returnObj.skillObjects.push(s);
+     
    }
 
    returnObj.message = embed;
@@ -238,6 +342,12 @@ const getCharacterSkillValue = function(character, skillsKey) {
 
 };
 
+const isCharacterSkillChecked = function(character, skillsKey) {
+
+   var skill = findCharacterSkill(character, skillsKey);
+   return (skill.checked !== undefined ? skill.checked : false);
+
+};
 
 const getCharacterEmbed = function(character) {
 
@@ -245,12 +355,12 @@ const getCharacterEmbed = function(character) {
 
    embed.title = character.name;
    embed.url = character.sheet;
-   embed.color = 30750;
-   embed.author = {
-      //"name": character.name,
-      // "icon_url": character.avatar,
-      //"url": character.sheet
-   };
+   embed.color = config.rollSuccessColor;
+   //embed.author = {
+   //   "name": config.authorName,
+   //   "icon_url": config.authorIconUrl,
+   //   "url": config.authorUrl
+   //};
    embed.description = character.description;
    embed.thumbnail = {
       "url": character.avatar
@@ -306,6 +416,12 @@ const saveDataFiles = function() {
    fs.writeFileSync('characters.json', JSON.stringify(characters, null, 4));
    fs.writeFileSync('skills.json', JSON.stringify(skills, null, 4));
    fs.writeFileSync('users.json', JSON.stringify(users, null, 4));
+
+};
+
+const getEmojiByName = function(emojiName) {
+
+   return discord.client.emojis.cache.find(e => e.name === emojiName);
 
 };
 
@@ -389,15 +505,19 @@ const rollDice = function(numberOfTens = 1) {
 
 module.exports = {
 
+   addCharacterSkillCheck: addCharacterSkillCheck,
    getCharacter: getCharacter,
    getCharacterAttribute: getCharacterAttribute,
+   getCharacterChecks: getCharacterChecks,
    getCharacterSheet: getCharacterSheet,
    getCharacterSkill: getCharacterSkill,
    getCharacterStat: getCharacterStat,
+   getEmojiByName: getEmojiByName,
    getUsers: getUsers,
    getUser: getUser,
    loadDataFiles: loadDataFiles,
    saveDataFiles: saveDataFiles,
+   removeCharacterSkillCheck: removeCharacterSkillCheck,
    rollDice: rollDice,
    updateCharacterStat: updateCharacterStat
 
