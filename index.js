@@ -16,6 +16,23 @@ discord.client.on('ready', () => {
 
 discord.client.on("message", message => {
 
+   const filter = (reaction, user) => {
+      return message.embeds !== undefined && 
+             message.embeds.length === 1 && 
+             message.embeds[0].footer.iconURL === config.rollSuccessUrl && 
+             reaction._emoji.name === config.skillCheckEmoji && 
+             utils.getUser(user.id).gm;
+   };
+
+   message.awaitReactions(filter, { max: 1, time: 60000 })
+      .then(collected => {
+
+         collected.first().users.cache.first().send(utils.addCharacterSkillCheck(message.embeds[0].fields[0].name, utils.getCharacterByName(message.embeds[0].title).rodbotAlias));
+
+      }).catch(collected => {
+      }
+   );
+
    //
    // Display character sheet
    // This is mostly obsolete since the other actions also display the same 
@@ -65,7 +82,17 @@ discord.client.on("message", message => {
    //
    if (message.content.toLowerCase().startsWith(commandPrefix + "rollmy")) {
 
-      var parameters = message.content.split(" ");
+      var comment = "";
+      var parameters
+
+      if (message.content.split("#").length === 2) {
+         parameters = message.content.split("#")[0].split(" ");
+         comment = "```" + message.content.split("#")[1].substr(0, 2041) + "```";
+      }
+      else {
+         parameters = message.content.split(" ");
+      }
+
       parameters.shift();
 
       var stat = parameters.filter(p => (!p.startsWith("*") && !p.startsWith("+") && !p.startsWith("-"))).join(" ");
@@ -106,6 +133,7 @@ discord.client.on("message", message => {
          return;
       }
 
+      r.message.description += comment;
       var diceRollResult = utils.rollDice(dice);
       if ((parseInt(parseInt(diceRollResult[0])) > parseInt(value))) {
          r.message.color = config.rollFailureColor;
@@ -153,19 +181,19 @@ discord.client.on("message", message => {
       var skillSearchTerm = parameters.filter(p => (!p.startsWith("*"))).join(" ");
       var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
 
-      if (stat === "" || alias === "") {
+      if (skillSearchTerm === "" || alias === "") {
          message.channel.send("ERROR: Invalid check command");
          return;
       }
 
-      message.channel.send(utils.addCharacterSkillCheck(skillSearchTerm, alias));
+      message.author.send(utils.addCharacterSkillCheck(skillSearchTerm, alias));
 
    }
 
    //
    // Uncheck a skill for a character
    //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "removecheck")) {
+   if (message.content.toLowerCase().startsWith(commandPrefix + "removecheck ")) {
 
       if (user !== undefined && user.gm) { return; }
 
@@ -175,12 +203,32 @@ discord.client.on("message", message => {
       var skillSearchTerm = parameters.filter(p => (!p.startsWith("*"))).join(" ");
       var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
 
-      if (stat === "" || alias === "") {
+      if (skillSearchTerm=== "" || alias === "") {
          message.channel.send("ERROR: Invalid check command");
          return;
       }
 
-      message.channel.send(utils.removeCharacterSkillCheck(skillSearchTerm, alias));
+      message.author.send(utils.removeCharacterSkillCheck(skillSearchTerm, alias));
+
+   }
+
+   //
+   // Uncheck all skills for a character
+   //
+   if (message.content.toLowerCase().startsWith(commandPrefix + "removechecks")) {
+      if (user !== undefined && user.gm) { return; }
+
+      var parameters = message.content.split(" ");
+      parameters.shift();
+
+      var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
+
+      if (alias === "") {
+         message.channel.send("ERROR: Invalid check command");
+         return;
+      }
+
+      message.author.send(utils.removeCharacterSkillChecks(alias));
 
    }
 

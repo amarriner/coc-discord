@@ -82,7 +82,7 @@
                 {
                     "name": "spothidden",
                     "value": 60,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "stealth",

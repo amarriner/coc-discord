@@ -70,6 +70,30 @@ const removeCharacterSkillCheck = function(skillSearchTerm, alias) {
 
 };
 
+const removeCharacterSkillChecks = function(alias) {
+
+   var r;
+   var discordId = getDiscordIdByAlias(alias);
+   if (discordId === undefined ) { return "ERROR: Invalid character " + alias; }
+
+   var character = getCharacter(discordId, alias);
+   if (character === undefined) { return "ERROR: Invalid character " + alias; }
+
+   if (character.skills !== undefined) {
+      for (var i = 0; i < character.skills.length; i++) {
+         if (character.skills[i].checked !== undefined && character.skills[i].checked) {
+            character.skills[i].checked = false;
+         }
+      }
+   }
+
+   saveDataFiles();
+   r = getCharacterEmbed(character);
+   r.footer = { text: "Removed all character checks for " + character.name };
+   return r;
+
+}
+
 const findCharacterAttribute = function(character, searchTerm) {
 
    if (character.attributes === undefined) {
@@ -170,7 +194,21 @@ const getCharacterByAlias = function(alias) {
 
    return undefined;
 
-}
+};
+
+const getCharacterByName = function(characterName) {
+
+   for (var discordId in characters) {
+     for (var i = 0; i < characters[discordId].length; i++) {
+        if (characters[discordId][i].name !== undefined && characters[discordId][i].name === characterName) {
+           return characters[discordId][i];
+        }
+     }
+   }
+
+   return undefined;
+
+};
 
 const getDiscordIdByAlias = function(alias) {
 
@@ -319,6 +357,10 @@ const getCharacterSkill = function(discordId, searchTerm, alias) {
 
       embed.fields.push(s);
       returnObj.skillObjects.push(s);
+   
+      if (i === 0) {   
+         returnObj.author = {name: "", url: skills[i]};
+      }
      
    }
 
@@ -508,6 +550,8 @@ module.exports = {
    addCharacterSkillCheck: addCharacterSkillCheck,
    getCharacter: getCharacter,
    getCharacterAttribute: getCharacterAttribute,
+   getCharacterByAlias: getCharacterByAlias,
+   getCharacterByName: getCharacterByName,
    getCharacterChecks: getCharacterChecks,
    getCharacterSheet: getCharacterSheet,
    getCharacterSkill: getCharacterSkill,
@@ -518,6 +562,7 @@ module.exports = {
    loadDataFiles: loadDataFiles,
    saveDataFiles: saveDataFiles,
    removeCharacterSkillCheck: removeCharacterSkillCheck,
+   removeCharacterSkillChecks: removeCharacterSkillChecks,
    rollDice: rollDice,
    updateCharacterStat: updateCharacterStat
 
