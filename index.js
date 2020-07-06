@@ -133,13 +133,21 @@ discord.client.on("message", message => {
          return;
       }
 
+      var result = "Success"
       r.message.description += comment;
       var diceRollResult = utils.rollDice(dice);
-      if ((parseInt(parseInt(diceRollResult[0])) > parseInt(value))) {
+      if (diceRollResult[0] > value) {
+         result = "Failure"
          r.message.color = config.rollFailureColor;
       }
+      else if (diceRollResult[0] <= Math.floor(value / 5)) {
+         result = "Extreme Success"
+      }
+      else if (diceRollResult[0] <= Math.floor(value / 2)) {
+         result = "Hard Success"
+      }
       r.message.footer = {};
-      r.message.footer.text = "Roll result: " + ((diceRollResult.length > 1) ? diceRollResult.join(", ") : diceRollResult[0]);
+      r.message.footer.text = result + " (" + ((diceRollResult.length > 1) ? diceRollResult.join(", ") : diceRollResult[0]) + ")";
       r.message.footer.icon_url = (parseInt(parseInt(diceRollResult[0])) <= parseInt(value)) ? config.rollSuccessUrl : config.rollFailureUrl;
       message.channel.send(r.message);
 
