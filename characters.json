@@ -82,7 +82,7 @@
                 {
                     "name": "spothidden",
                     "value": 60,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "stealth",
@@ -220,7 +220,8 @@
             "skills": [
                 {
                     "name": "anthropology",
-                    "value": 51
+                    "value": 51,
+                    "checked": true
                 },
                 {
                     "name": "archaeology",
@@ -236,7 +237,8 @@
                 },
                 {
                     "name": "firearmshandgun",
-                    "value": 55
+                    "value": 55,
+                    "checked": true
                 },
                 {
                     "name": "history",
@@ -261,7 +263,8 @@
                 },
                 {
                     "name": "psychology",
-                    "value": 30
+                    "value": 30,
+                    "checked": true
                 },
                 {
                     "name": "spothidden",
@@ -320,7 +323,8 @@
                 },
                 {
                     "name": "firearmshandgun",
-                    "value": 43
+                    "value": 43,
+                    "checked": true
                 },
                 {
                     "name": "firearmsshotgunrifle",
@@ -349,7 +353,8 @@
                 },
                 {
                     "name": "psychology",
-                    "value": 25
+                    "value": 25,
+                    "checked": true
                 },
                 {
                     "name": "sleightofhand",
@@ -357,7 +362,8 @@
                 },
                 {
                     "name": "spothidden",
-                    "value": 42
+                    "value": 42,
+                    "checked": true
                 },
                 {
                     "name": "throw",
@@ -396,7 +402,8 @@
                 },
                 {
                     "name": "charm",
-                    "value": 31
+                    "value": 31,
+                    "checked": true
                 },
                 {
                     "name": "electricrepair",
@@ -408,11 +415,13 @@
                 },
                 {
                     "name": "firearmshandgun",
-                    "value": 44
+                    "value": 44,
+                    "checked": true
                 },
                 {
                     "name": "firearmsshotgunrifle",
-                    "value": 47
+                    "value": 47,
+                    "checked": true
                 },
                 {
                     "name": "firstaid",
@@ -428,7 +437,8 @@
                 },
                 {
                     "name": "naturalworld",
-                    "value": 48
+                    "value": 48,
+                    "checked": true
                 },
                 {
                     "name": "navigate",
@@ -441,7 +451,8 @@
                 },
                 {
                     "name": "spothidden",
-                    "value": 49
+                    "value": 49,
+                    "checked": true
                 },
                 {
                     "name": "survival",
@@ -453,7 +464,8 @@
                 },
                 {
                     "name": "throw",
-                    "value": 22
+                    "value": 22,
+                    "checked": true
                 },
                 {
                     "name": "track",
@@ -501,7 +513,8 @@
                 },
                 {
                     "name": "firearmsshotgunrifle",
-                    "value": 56
+                    "value": 56,
+                    "checked": true
                 },
                 {
                     "name": "firstaid",
@@ -522,6 +535,16 @@
                 {
                     "name": "track",
                     "value": 29
+                },
+                {
+                    "name": "spothidden",
+                    "value": 25,
+                    "checked": true
+                },
+                {
+                    "name": "psychology",
+                    "value": 10,
+                    "checked": true
                 }
             ]
         }

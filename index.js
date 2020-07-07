@@ -24,12 +24,13 @@ discord.client.on("message", message => {
              utils.getUser(user.id).gm;
    };
 
-   message.awaitReactions(filter, { max: 1, time: 60000 })
+   message.awaitReactions(filter, { max: 1, time: 12 * 60 * 60 * 1000 })
       .then(collected => {
 
          collected.first().users.cache.first().send(utils.addCharacterSkillCheck(message.embeds[0].fields[0].name, utils.getCharacterByName(message.embeds[0].title).rodbotAlias));
 
       }).catch(collected => {
+
       }
    );
 
@@ -136,7 +137,7 @@ discord.client.on("message", message => {
       var result = "Success"
       r.message.description += comment;
       var diceRollResult = utils.rollDice(dice);
-      if (diceRollResult[0] > value) {
+      if (parseInt(parseInt(diceRollResult[0])) > parseInt(value)) {
          result = "Failure"
          r.message.color = config.rollFailureColor;
       }
