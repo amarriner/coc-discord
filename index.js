@@ -158,7 +158,7 @@ discord.client.on("message", message => {
    //
    if (message.content.toLowerCase().startsWith(commandPrefix + "set")) {
 
-      if (user !== undefined && user.gm) { return; }
+      if (user === undefined && user.gm) { return; }
 
       var parameters = message.content.split(" ");
       parameters.shift();
@@ -181,9 +181,10 @@ discord.client.on("message", message => {
    // 
    if (message.content.toLowerCase().startsWith(commandPrefix + "addcheck")) {
 
+      var user = utils.getUser(message.author.id);  
+      if (user === undefined || !user.gm) { return; }
+
       var parameters = message.content.split(" ");
-      
-      if (user !== undefined && user.gm) { return; }
       parameters.shift();
 
       var skillSearchTerm = parameters.filter(p => (!p.startsWith("*"))).join(" ");
@@ -203,7 +204,8 @@ discord.client.on("message", message => {
    //
    if (message.content.toLowerCase().startsWith(commandPrefix + "removecheck ")) {
 
-      if (user !== undefined && user.gm) { return; }
+      var user = utils.getUser(message.author.id);
+      if (user === undefined || !user.gm) { return; }
 
       var parameters = message.content.split(" ");
       parameters.shift();
@@ -224,7 +226,9 @@ discord.client.on("message", message => {
    // Uncheck all skills for a character
    //
    if (message.content.toLowerCase().startsWith(commandPrefix + "removechecks")) {
-      if (user !== undefined && user.gm) { return; }
+
+      var user = utils.getUser(message.author.id);
+      if (user === undefined || !user.gm) { return; }
 
       var parameters = message.content.split(" ");
       parameters.shift();

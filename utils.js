@@ -17,20 +17,26 @@ const addCharacterSkillCheck = function(skillSearchTerm, alias) {
    var character = getCharacter(discordId, alias);
    if (character === undefined) { return "ERROR: Invalid character " + alias; }
 
-   var skill = findCharacterSkillKeys(discordId, skillSearchTerm, alias);
+   var searchSkill = findCharacterSkillKeys(discordId, skillSearchTerm, alias);
 
-   if (skill.length === 1) {
+   if (searchSkill.length === 1) {
 
       if (character.skills === undefined) { character.skills = []; }
 
-      if (character.skills.filter(s => (s.name === skill[0])).length === 0) {
-         character.skills.push(skills[skill[0]]);
+      if (character.skills.filter(s => (s.name === searchSkill[0])).length === 0) {
+
+         var skill = skills[skills.map(function(e) { return e.name; }).indexOf(searchSkill[0])];
+
+         character.skills.push({
+            name: skill.name,
+            value: skill.default
+         });
       }
 
-      character.skills[character.skills.map(function(e) { return e.name; }).indexOf(skill[0])].checked = true;
+      character.skills[character.skills.map(function(e) { return e.name; }).indexOf(searchSkill[0])].checked = true;
       saveDataFiles();
       r = getCharacterSkill(discordId, skillSearchTerm, alias);
-      r.message.footer = { text: "Checked skill " +  getCharacterSkillDescription(character, skill[0])};
+      r.message.footer = { text: "Checked skill " +  getCharacterSkillDescription(character, searchSkill[0])};
       return r.message;
 
    }
