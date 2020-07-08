@@ -358,6 +358,8 @@ const getCharacterSkill = function(discordId, searchTerm, alias) {
       var s = {
          "name": getCharacterSkillDescription(character, skills[i]),
          "value": getCharacterSkillValue(character, skills[i]) + (isCharacterSkillChecked(character, skills[i]) ? " <:" + emoji.name + ":" + emoji.id + ">" : ""),
+         "intValue": parseInt(getCharacterSkillValue(character, skills[i])),
+         "checked": isCharacterSkillChecked(character, skills[i]),
          "inline": true
       };
 
@@ -515,6 +517,9 @@ const updateCharacterStat = function(stat, value, alias) {
          r = getCharacterSkill(discordId, stat, alias);
          r.message.footer = { text: "Updated skill " +  getCharacterSkillDescription(character, skill[0]) + " to " + value };
          return r.message;
+      }
+      else {
+         r.error = "ERROR: Invalid attribute or skill " + stat + " for " + character.name;
       }
 
    }

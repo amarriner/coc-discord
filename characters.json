@@ -82,7 +82,7 @@
                 {
                     "name": "spothidden",
                     "value": 60,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "stealth",
@@ -96,6 +96,11 @@
                 {
                     "name": "throw",
                     "value": 35
+                },
+                {
+                    "name": "history",
+                    "value": 5,
+                    "checked": false
                 }
             ]
         },
