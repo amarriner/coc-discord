@@ -87,7 +87,7 @@ discord.client.on("message", message => {
       var parameters
 
       if (message.content.split("#").length === 2) {
-         parameters = message.content.split("#")[0].split(" ");
+         parameters = message.content.split("#")[0].trim().split(" ");
          comment = "```" + message.content.split("#")[1].substr(0, 2041) + "```";
       }
       else {
