@@ -510,17 +510,22 @@ const updateCharacterStat = function(stat, value, alias) {
    }
    else if (skill.length === 1) {
 
-      if (character.skills !== undefined && character.skills.filter(s => (s.name === skill[0])).length === 1) {
+      if (! (character.skills !== undefined && character.skills.filter(s => (s.name === skill[0])).length === 1)) {
 
-         character.skills[character.skills.map(function(e) { return e.name; }).indexOf(skill[0])].value = value;      
-         saveDataFiles();
-         r = getCharacterSkill(discordId, stat, alias);
-         r.message.footer = { text: "Updated skill " +  getCharacterSkillDescription(character, skill[0]) + " to " + value };
-         return r.message;
+         var newSkill = skills[skills.map(function(e) { return e.name; }).indexOf(skill[0])];
+
+         character.skills.push({
+            name: newSkill.name,
+            value: newSkill.default
+         });
+
       }
-      else {
-         r.error = "ERROR: Invalid attribute or skill " + stat + " for " + character.name;
-      }
+
+      character.skills[character.skills.map(function(e) { return e.name; }).indexOf(skill[0])].value = value;      
+      saveDataFiles();
+      r = getCharacterSkill(discordId, stat, alias);
+      r.message.footer = { text: "Updated skill " +  getCharacterSkillDescription(character, skill[0]) + " to " + value };
+      return r.message;
 
    }
 
