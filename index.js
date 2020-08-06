@@ -39,7 +39,8 @@ discord.client.on("message", message => {
    // This is mostly obsolete since the other actions also display the same 
    // information or more
    //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "sheet")) {
+   if (message.content.toLowerCase().startsWith(commandPrefix + "sheet") ||
+       message.content.toLowerCase().startsWith(commandPrefix + "mysheet")) {
 
       var [command, alias] = message.content.split(" ");
       var r = utils.getCharacterSheet(message.author.id, alias);
@@ -50,7 +51,8 @@ discord.client.on("message", message => {
    //
    // Display character's talents with descriptions
    //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "talents")) {
+   if (message.content.toLowerCase().startsWith(commandPrefix + "talents") ||
+       message.content.toLowerCase().startsWith(commandPrefix + "mytalents")) {
 
       var [command, alias] = message.content.split(" ");
       var r = utils.getCharacterTalents(message.author.id, alias);
@@ -343,7 +345,8 @@ discord.client.on("message", message => {
    //
    // List a character's check marked skills
    //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "mychecks")) {
+   if (message.content.toLowerCase().startsWith(commandPrefix + "checks") ||
+       message.content.toLowerCase().startsWith(commandPrefix + "mychecks")) {
 
       var parameters = message.content.split(" ");
       parameters.shift();
