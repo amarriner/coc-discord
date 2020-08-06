@@ -16,7 +16,7 @@
                 "APP": 55,
                 "POW": 80,
                 "EDU": 70,
-                "SAN": 76,
+                "SAN": 69,
                 "HP": 15,
                 "MP": 16,
                 "Luck": 80
@@ -120,7 +120,7 @@
                 "APP": 70,
                 "POW": 50,
                 "EDU": 50,
-                "SAN": 68,
+                "SAN": 65,
                 "HP": 11,
                 "MP": 10,
                 "Luck": 52
@@ -217,16 +217,16 @@
                 "APP": 60,
                 "POW": 50,
                 "EDU": 80,
-                "SAN": 32,
+                "SAN": 44,
                 "HP": 11,
                 "MP": 9,
-                "Luck": 45
+                "Luck": 51
             },
             "skills": [
                 {
                     "name": "anthropology",
                     "value": 51,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "archaeology",
@@ -238,12 +238,13 @@
                 },
                 {
                     "name": "fightingbrawl",
-                    "value": 50
+                    "value": 50,
+                    "checked": false
                 },
                 {
                     "name": "firearmshandgun",
                     "value": 55,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "history",
@@ -268,12 +269,16 @@
                 },
                 {
                     "name": "psychology",
-                    "value": 30,
-                    "checked": true
+                    "value": 39,
+                    "checked": false
                 },
                 {
                     "name": "spothidden",
                     "value": 51
+                },
+                {
+                    "name": "cthulhumythos",
+                    "value": 2
                 }
             ]
         }
@@ -296,10 +301,10 @@
                 "APP": 70,
                 "POW": 65,
                 "EDU": 15,
-                "SAN": 76,
-                "HP": 11,
+                "SAN": 85,
+                "HP": 8,
                 "MP": 13,
-                "Luck": 44
+                "Luck": 54
             },
             "skills": [
                 {
@@ -328,8 +333,8 @@
                 },
                 {
                     "name": "firearmshandgun",
-                    "value": 43,
-                    "checked": true
+                    "value": 50,
+                    "checked": false
                 },
                 {
                     "name": "firearmsshotgunrifle",
@@ -358,8 +363,8 @@
                 },
                 {
                     "name": "psychology",
-                    "value": 25,
-                    "checked": true
+                    "value": 27,
+                    "checked": false
                 },
                 {
                     "name": "sleightofhand",
@@ -367,8 +372,8 @@
                 },
                 {
                     "name": "spothidden",
-                    "value": 42,
-                    "checked": true
+                    "value": 51,
+                    "checked": false
                 },
                 {
                     "name": "throw",
@@ -395,7 +400,7 @@
                 "APP": 50,
                 "POW": 45,
                 "EDU": 30,
-                "SAN": 53,
+                "SAN": 51,
                 "HP": 11,
                 "MP": 9,
                 "Luck": 51
@@ -407,8 +412,8 @@
                 },
                 {
                     "name": "charm",
-                    "value": 31,
-                    "checked": true
+                    "value": 36,
+                    "checked": false
                 },
                 {
                     "name": "electricrepair",
@@ -417,21 +422,22 @@
                 {
                     "name": "fightingbrawl",
                     "value": 69,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "firearmshandgun",
                     "value": 44,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "firearmsshotgunrifle",
-                    "value": 47,
-                    "checked": true
+                    "value": 56,
+                    "checked": false
                 },
                 {
                     "name": "firstaid",
-                    "value": 46
+                    "value": 46,
+                    "checked": false
                 },
                 {
                     "name": "intimidate",
@@ -444,7 +450,7 @@
                 {
                     "name": "naturalworld",
                     "value": 48,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "navigate",
@@ -457,8 +463,8 @@
                 },
                 {
                     "name": "spothidden",
-                    "value": 49,
-                    "checked": true
+                    "value": 57,
+                    "checked": false
                 },
                 {
                     "name": "survival",
@@ -470,8 +476,8 @@
                 },
                 {
                     "name": "throw",
-                    "value": 22,
-                    "checked": true
+                    "value": 30,
+                    "checked": false
                 },
                 {
                     "name": "track",
@@ -479,8 +485,8 @@
                 },
                 {
                     "name": "psychology",
-                    "value": 10,
-                    "checked": true
+                    "value": 14,
+                    "checked": false
                 },
                 {
                     "name": "firearms lightning gun",
@@ -507,10 +513,10 @@
                 "APP": 70,
                 "POW": 65,
                 "EDU": 15,
-                "SAN": 63,
+                "SAN": 74,
                 "HP": 11,
                 "MP": 13,
-                "Luck": 55
+                "Luck": 64
             },
             "skills": [
                 {
@@ -523,8 +529,8 @@
                 },
                 {
                     "name": "firearmsshotgunrifle",
-                    "value": 56,
-                    "checked": true
+                    "value": 58,
+                    "checked": false
                 },
                 {
                     "name": "firstaid",
@@ -548,13 +554,13 @@
                 },
                 {
                     "name": "spothidden",
-                    "value": 25,
-                    "checked": true
+                    "value": 28,
+                    "checked": false
                 },
                 {
                     "name": "psychology",
-                    "value": 10,
-                    "checked": true
+                    "value": 18,
+                    "checked": false
                 }
             ]
         }

@@ -247,16 +247,19 @@ discord.client.on("message", message => {
       var parameters = message.content.split(" ");
       parameters.shift();
 
-      var stat = parameters.filter(p => (!p.startsWith("*") && !p.startsWith("+"))).join(" ");
-      var value = parameters.filter(p => (p.startsWith("+"))).join().replace(/^\+/, "");
+      var stat = parameters.filter(p => (!p.startsWith("*") && !p.startsWith("+") && !p.startsWith("-") && !p.startsWith("="))).join(" ");
+      var value = parameters.filter(p => (p.startsWith("+") || p.startsWith("-") || p.startsWith("="))).join().replace(/^[+-=]/, "");
+      var action = parameters.filter(p => (p.startsWith("+") || p.startsWith("-") || p.startsWith("="))).join().charAt(0);
       var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
+
+      console.log(stat + " :: " + value + " :: " + alias + " :: " + action);
 
       if (stat === "" || value === "" || alias === "") {
          message.channel.send("ERROR: Invalid set command");
          return;
       }
 
-      message.channel.send(utils.updateCharacterStat(stat, parseInt(value), alias));
+      message.channel.send(utils.updateCharacterStat(stat, parseInt(value), alias, action));
 
    }
 

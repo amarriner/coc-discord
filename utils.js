@@ -420,16 +420,7 @@ const getCharacterEmbed = function(character) {
    //}
 
    embed.fields = [];
-   /*
-   for (var attribute in character.attributes) {
-      embed.fields.push({
-         "name": attribute,
-         "value": character.attributes[attribute],
-         "inline": true
-      });
-   }
-   */
-
+   
    return embed;
 }
 
@@ -447,7 +438,23 @@ const getCharacterSheet = function(discordId, alias) {
       return returnObj;
    }
 
-   character.embed = getCharacterEmbed(discordId, alias);
+   returnObj.embed = getCharacterEmbed(character);
+
+   for (var attribute in character.attributes) {
+      returnObj.embed.fields.push({
+         "name": attribute,
+         "value": character.attributes[attribute],
+         "inline": true
+      });
+   }
+
+   for (var skill in character.skills) {
+      returnObj.embed.fields.push({
+         "name": (skill.description !== undefined ? skill.description : skills[skill].description),
+         "value": character.skills[skill].value,
+         "inline": true
+      });
+   }
 
    return returnObj;
 
@@ -487,7 +494,7 @@ const getUser = function(discordId) {
    return users[discordId];
 };
 
-const updateCharacterStat = function(stat, value, alias) {
+const updateCharacterStat = function(stat, value, alias, action) {
 
    var r;
    var discordId = getDiscordIdByAlias(alias);
@@ -501,7 +508,20 @@ const updateCharacterStat = function(stat, value, alias) {
 
    if (attribute.error === undefined) {
 
-      character.attributes[attribute.attributeName] = value;
+      switch (action) {
+         case "=":
+            character.attributes[attribute.attributeName] = value;
+            break;
+
+         case "+":
+            character.attributes[attribute.attributeName] += value;
+            break;
+
+         case "-":
+            character.attributes[attribute.attributeName] -= value;
+            break;
+      }
+
       saveDataFiles();
       r = getCharacterAttribute(discordId, stat, alias);
       r.message.footer = { text: "Updated attribute " + r.attributeName + " to " + r.attributeValue };
@@ -521,10 +541,23 @@ const updateCharacterStat = function(stat, value, alias) {
 
       }
 
-      character.skills[character.skills.map(function(e) { return e.name; }).indexOf(skill[0])].value = value;      
+      switch (action) {
+         case "=":
+            character.skills[character.skills.map(function(e) { return e.name; }).indexOf(skill[0])].value = value;      
+            break;
+
+         case "+":
+            character.skills[character.skills.map(function(e) { return e.name; }).indexOf(skill[0])].value += value;
+            break;
+
+         case "-":
+            character.skills[character.skills.map(function(e) { return e.name; }).indexOf(skill[0])].value -= value;
+            break;
+      }
+
       saveDataFiles();
       r = getCharacterSkill(discordId, stat, alias);
-      r.message.footer = { text: "Updated skill " +  getCharacterSkillDescription(character, skill[0]) + " to " + value };
+      r.message.footer = { text: "Updated skill " +  getCharacterSkillDescription(character, skill[0]) + " to " + character.skills[character.skills.map(function(e) { return e.name; }).indexOf(skill[0])].value };
       return r.message;
 
    }
