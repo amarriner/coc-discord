@@ -280,6 +280,10 @@
                     "name": "cthulhumythos",
                     "value": 2
                 }
+            ],
+            "talents": [
+               "resilient",
+               "lucky"
             ]
         }
     ],
@@ -492,6 +496,10 @@
                     "name": "firearms lightning gun",
                     "value": 25
                 }
+            ],
+            "talents": [
+               "linguist",
+               "rapidfire"
             ]
         }
     ],
