@@ -48,6 +48,17 @@ discord.client.on("message", message => {
    }
 
    //
+   // Display character's talents with descriptions
+   //
+   if (message.content.toLowerCase().startsWith(commandPrefix + "talents")) {
+
+      var [command, alias] = message.content.split(" ");
+      var r = utils.getCharacterTalents(message.author.id, alias);
+      message.channel.send(r.error === undefined ? r.embed : r.error );
+
+   }
+
+   //
    // This will look up attributes and/or skills and display them as a discord
    // embed assuming if finds them
    //

@@ -1,0 +1,32 @@
+[
+   {
+      "name": "resilient",
+      "title": "Resilient",
+      "description": "May spend Luck points to shrug-off points of Sanity loss, on a one-for-one basis"
+   },
+   {
+      "name": "lucky",
+      "title": "Lucky",
+      "description": "Regains an additional +1D10 Luck points when Luck Recovery rolls are made"
+   },
+   {
+      "name": "linguist",
+      "title": "Linguist",
+      "description": "Able to determine what language is being spoken (or what is written); gains a bonus die to Language rolls"
+   },
+   {
+      "name": "rapidfire",
+      "title": "Rapid Fire",
+      "description": "Ignores penalty die for multiple handgun shots"
+   },
+   {
+      "name": "resourceful",
+      "title": "Resourceful",
+      "description": "Always seems to have what they need to hand; may spend 10 Luck points (rather than make Luck roll) to find a certain useful piece of equipment (e.g. a flashlight, length of rope, a weapon, etc.) in their current location"
+   },
+   {  
+      "name": "scary",
+      "title": "Scary",
+      "description": "Reduces difficulty by one level or gains bonus die (at the Keeper’s discretion) to Intimidate rolls"
+   }
+]

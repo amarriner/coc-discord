@@ -570,7 +570,11 @@
                     "value": 18,
                     "checked": false
                 }
-            ]
+            ],      
+            "talents": [
+               "resourceful",
+               "scary"
+            ] 
         }
     ]
 }

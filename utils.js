@@ -6,7 +6,36 @@ const fuzzysort = require("fuzzysort");
 var users;
 var characters;
 var skills;
+var talents;
 
+const getCharacterTalents = function(discordId, alias) {
+
+   var returnObj = {
+      embed: undefined,
+      error: undefined
+   };
+
+   var character = getCharacter(discordId, alias);
+
+   if (character === undefined) {
+      returnObj.error = "ERROR: Invalid character";
+      return returnObj;
+   }
+
+   returnObj.embed = getCharacterEmbed(character);
+
+   if (character.talents !== undefined && character.talents.length) {
+      for (talent in character.talents) {
+         returnObj.embed.fields.push({
+            "name": talents[talent].title,
+            "value": talents[talent].description
+         });
+      }
+   }
+
+   return returnObj;
+
+}
 
 const addCharacterSkillCheck = function(skillSearchTerm, alias) {
 
@@ -464,6 +493,7 @@ const loadDataFiles = function() {
 
    characters = JSON.parse(fs.readFileSync('characters.json'));
    skills = JSON.parse(fs.readFileSync('skills.json'));
+   talents = JSON.parse(fs.readFileSync('talents.json'));
    users = JSON.parse(fs.readFileSync('users.json'));
 
 };
@@ -472,6 +502,7 @@ const saveDataFiles = function() {
 
    fs.writeFileSync('characters.json', JSON.stringify(characters, null, 4));
    fs.writeFileSync('skills.json', JSON.stringify(skills, null, 4));
+   fs.writeFileSync('talents.json', JSON.stringify(skills, null, 4));
    fs.writeFileSync('users.json', JSON.stringify(users, null, 4));
 
 };
@@ -605,6 +636,7 @@ module.exports = {
    getCharacterSheet: getCharacterSheet,
    getCharacterSkill: getCharacterSkill,
    getCharacterStat: getCharacterStat,
+   getCharacterTalents: getCharacterTalents,
    getEmojiByName: getEmojiByName,
    getUsers: getUsers,
    getUser: getUser,
