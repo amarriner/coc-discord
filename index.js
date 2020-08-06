@@ -252,8 +252,6 @@ discord.client.on("message", message => {
       var action = parameters.filter(p => (p.startsWith("+") || p.startsWith("-") || p.startsWith("="))).join().charAt(0);
       var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
 
-      console.log(stat + " :: " + value + " :: " + alias + " :: " + action);
-
       if (stat === "" || value === "" || alias === "") {
          message.channel.send("ERROR: Invalid set command");
          return;
