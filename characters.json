@@ -416,7 +416,8 @@
                 },
                 {
                     "name": "fightingbrawl",
-                    "value": 69
+                    "value": 69,
+                    "checked": true
                 },
                 {
                     "name": "firearmshandgun",
@@ -480,6 +481,10 @@
                     "name": "psychology",
                     "value": 10,
                     "checked": true
+                },
+                {
+                    "name": "firearms lightning gun",
+                    "value": 25
                 }
             ]
         }

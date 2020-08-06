@@ -85,6 +85,11 @@
         "default": 25
     },
     {
+        "name": "firearms lightning gun",
+        "description": "Firearms (Lightning Gun)",
+        "default": 10
+    },
+    {
         "name": "firstaid",
         "description": "First Aid",
         "default": 30
