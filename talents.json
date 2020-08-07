@@ -28,5 +28,15 @@
       "name": "scary",
       "title": "Scary",
       "description": "Reduces difficulty by one level or gains bonus die (at the Keeper’s discretion) to Intimidate rolls"
+   },
+   {
+      "name": "shadow",
+      "title": "Shadow",
+      "description": "Reduces difficulty by one level or gains bonus die (at the Keeper’s discretion) to Stealth rolls, and if currently unseen is able to make two surprise attacks before their location is discovered"
+   },
+   {
+      "name": "handy",
+      "title": "Handy",
+      "description": "Reduces difficulty by one level or gains bonus die (at the Keeper’s discretion) when making Electrical Repair, Mechanical Repair, and Operate Heavy Machinery rolls"
    }
 ]
