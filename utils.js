@@ -8,6 +8,18 @@ var characters;
 var skills;
 var talents;
 
+const getSkillByName = function(skillName) {
+
+   for(var i in skills) {
+      if (skills[i].name === skillName) {
+         return skills[i];
+      }
+   }
+
+   return undefined;
+
+}
+
 const getTalentByName = function(talentName) {
 
    for(var i in talents) {
@@ -492,10 +504,10 @@ const getCharacterSheet = function(discordId, alias) {
       });
    }
 
-   for (var skill in character.skills) {
+   for (var s in character.skills) {
       returnObj.embed.fields.push({
-         "name": (skill.description !== undefined ? skill.description : skills[skill].description),
-         "value": character.skills[skill].value,
+         "name": (character.skills[s].description !== undefined ? character.skills[s].description : getSkillByName(character.skills[s].name).description),
+         "value": character.skills[s].value,
          "inline": true
       });
    }

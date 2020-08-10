@@ -239,7 +239,7 @@
                 {
                     "name": "fightingbrawl",
                     "value": 50,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "firearmshandgun",
@@ -282,8 +282,8 @@
                 }
             ],
             "talents": [
-               "resilient",
-               "lucky"
+                "resilient",
+                "lucky"
             ]
         }
     ],
@@ -385,8 +385,8 @@
                 }
             ],
             "talents": [
-               "shadow",
-               "handy"
+                "shadow",
+                "handy"
             ]
         }
     ],
@@ -424,13 +424,13 @@
                     "checked": false
                 },
                 {
-                    "name": "electricrepair",
+                    "name": "medicine",
                     "value": 45
                 },
                 {
                     "name": "fightingbrawl",
                     "value": 69,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "firearmshandgun",
@@ -502,8 +502,8 @@
                 }
             ],
             "talents": [
-               "linguist",
-               "rapidfire"
+                "linguist",
+                "rapidfire"
             ]
         }
     ],
@@ -574,11 +574,11 @@
                     "value": 18,
                     "checked": false
                 }
-            ],      
+            ],
             "talents": [
-               "resourceful",
-               "scary"
-            ] 
+                "resourceful",
+                "scary"
+            ]
         }
     ]
 }
