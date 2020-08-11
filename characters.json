@@ -201,7 +201,7 @@
     ],
     "424676087218307093": [
         {
-            "name": "Edward M. Finnegan",
+            "name": "Edward M. Finnigan",
             "description": "Professor, age 34",
             "birthplace": "New York City",
             "residence": "Arkham, MA",
@@ -238,8 +238,8 @@
                 },
                 {
                     "name": "fightingbrawl",
-                    "value": 50,
-                    "checked": true
+                    "value": 60,
+                    "checked": false
                 },
                 {
                     "name": "firearmshandgun",
@@ -430,7 +430,7 @@
                 {
                     "name": "fightingbrawl",
                     "value": 69,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "firearmshandgun",

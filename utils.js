@@ -578,6 +578,9 @@ const updateCharacterStat = function(stat, value, alias, action) {
          case "-":
             character.attributes[attribute.attributeName] -= value;
             break;
+
+         default:
+            character.attributes[attribute.attributeName] = value;
       }
 
       saveDataFiles();
