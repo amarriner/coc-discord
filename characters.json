@@ -41,7 +41,8 @@
                 },
                 {
                     "name": "cthulhumythos",
-                    "value": 4
+                    "value": 4,
+                    "checked": false
                 },
                 {
                     "name": "driveauto",

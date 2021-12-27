@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 
-var client = new discord.Client();
+var client = new discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS"] });
 
 var MessageEmbed = discord.MessageEmbed;
 

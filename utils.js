@@ -325,6 +325,7 @@ const getCharacterChecks = function(discordId, alias) {
 
    var emoji = getEmojiByName(config.skillCheckEmoji);
    var embed = getCharacterEmbed(character);
+   checked = 0
    for (var s = 0; s < character.skills.length; s++) {
       if (character.skills[s].checked !== undefined && character.skills[s].checked) {
          embed.fields.push({
@@ -332,7 +333,14 @@ const getCharacterChecks = function(discordId, alias) {
             "value": getCharacterSkillValue(character, character.skills[s].name) + (isCharacterSkillChecked(character, character.skills[s].name) ? " <:" + emoji.name + ":" + emoji.id + ">" : ""),
             "inline": true
          });
+         checked += 1;
       }
+   }
+
+   if (checked === 0) {
+       embed.footer = {
+           "text": "No checks yet"
+       }
    }
 
    returnObj.message = embed;
@@ -499,7 +507,7 @@ const getCharacterSheet = function(discordId, alias) {
    for (var attribute in character.attributes) {
       returnObj.embed.fields.push({
          "name": attribute,
-         "value": character.attributes[attribute],
+         "value": character.attributes[attribute].toString(),
          "inline": true
       });
    }
@@ -507,7 +515,7 @@ const getCharacterSheet = function(discordId, alias) {
    for (var s in character.skills) {
       returnObj.embed.fields.push({
          "name": (character.skills[s].description !== undefined ? character.skills[s].description : getSkillByName(character.skills[s].name).description),
-         "value": character.skills[s].value,
+         "value": character.skills[s].value.toString(),
          "inline": true
       });
    }

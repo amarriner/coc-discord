@@ -4,7 +4,7 @@ const utils = require("./utils.js");
 
 const commandPrefix = config.commandPrefix;
 
-discord.client.on('ready', () => {
+discord.client.once('ready', () => {
 
    utils.loadDataFiles();
 
@@ -14,25 +14,7 @@ discord.client.on('ready', () => {
 
 });
 
-discord.client.on("message", message => {
-
-   const filter = (reaction, user) => {
-      return message.embeds !== undefined && 
-             message.embeds.length === 1 && 
-             message.embeds[0].footer.iconURL === config.rollSuccessUrl && 
-             reaction._emoji.name === config.skillCheckEmoji && 
-             utils.getUser(user.id).gm;
-   };
-
-   message.awaitReactions(filter, { max: 1, time: 12 * 60 * 60 * 1000 })
-      .then(collected => {
-
-         collected.first().users.cache.first().send(utils.addCharacterSkillCheck(message.embeds[0].fields[0].name, utils.getCharacterByName(message.embeds[0].title).rodbotAlias));
-
-      }).catch(collected => {
-
-      }
-   );
+discord.client.on("messageCreate", message => {
 
    //
    // Display character sheet
@@ -44,7 +26,7 @@ discord.client.on("message", message => {
 
       var [command, alias] = message.content.split(" ");
       var r = utils.getCharacterSheet(message.author.id, alias);
-      message.channel.send(r.error === undefined ? r.embed : r.error );
+      message.channel.send(r.error === undefined ? { embeds: [r.embed] } : r.error );
  
    }
 
@@ -56,7 +38,7 @@ discord.client.on("message", message => {
 
       var [command, alias] = message.content.split(" ");
       var r = utils.getCharacterTalents(message.author.id, alias);
-      message.channel.send(r.error === undefined ? r.embed : r.error );
+      message.channel.send(r.error === undefined ? { embeds: [r.embed] } : r.error );
 
    }
 
@@ -87,7 +69,7 @@ discord.client.on("message", message => {
 
       }
 
-      message.channel.send(r.error === undefined ? r.message : r.error);
+      message.channel.send(r.error === undefined ? { embeds: [r.message] } : r.error);
 
    }
 
@@ -163,8 +145,24 @@ discord.client.on("message", message => {
       r.message.footer = {};
       r.message.footer.text = result + " (" + ((diceRollResult.length > 1) ? diceRollResult.join(", ") : diceRollResult[0]) + ")";
       r.message.footer.icon_url = (parseInt(parseInt(diceRollResult[0])) <= parseInt(value)) ? config.rollSuccessUrl : config.rollFailureUrl;
-      message.channel.send(r.message);
-
+      
+      rollMessage = message.channel.send({ embeds: [r.message] })
+         .then((rollMessage) => {
+      
+            console.log(rollMessage);
+            filter = (reaction, user) => {
+               return rollMessage.embeds !== undefined &&
+                      rollMessage.embeds.length === 1 &&
+                      rollMessage.embeds[0].footer.iconURL === config.rollSuccessUrl &&
+                      reaction._emoji.name === config.skillCheckEmoji &&
+                      utils.getUser(user.id).gm;
+            };
+            collector = rollMessage.createReactionCollector({ filter, time: 15000 });
+            collector.on('collect', (reaction, user) => {
+               console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
+               user.send({ embeds: [utils.addCharacterSkillCheck(rollMessage.embeds[0].fields[0].name, utils.getCharacterByName(rollMessage.embeds[0].title).rodbotAlias)] });
+            });
+      });
    }
 
    //
@@ -224,7 +222,7 @@ discord.client.on("message", message => {
          var cthulhuMythos = utils.getCharacterStat(message.author.id, "Cthulhu Mythos", alias)[0];
          if (moreSanity > cthulhuMythos.skillObjects[0].value) { moreSanity = cthulhuMythos.value; }
 
-         utils.updateCharacterStat("SAN", currentSanity.attribute.value + moreSanity, alias);
+         utils.updateCharacterStat("SAN", currentSanity.attribute.value + moreSanity, alias, '=');
          r.message.description += "```Adding " + moreSanity + " to SAN because " + title + " is >= 90```";
 
       }
@@ -235,7 +233,8 @@ discord.client.on("message", message => {
       }
       else {
          var upgradeAmount = Math.floor(Math.random() * 10) + 1;
-         utils.updateCharacterStat(stat, intValue + upgradeAmount, alias)
+         console.log(`${stat} ${intValue} ${upgradeAmount} ${alias}`);
+         utils.updateCharacterStat(title, intValue + upgradeAmount, alias, '=')
          r.message.description += "```Adding " + upgradeAmount + " to " + title + " ```";
       }
 
@@ -244,7 +243,7 @@ discord.client.on("message", message => {
       r.message.footer = {};
       r.message.footer.text = result;
       r.message.footer.icon_url = (r.message.color === config.rollSuccessColor) ? config.rollSuccessUrl : config.rollFailureUrl;
-      message.channel.send(r.message);
+      message.channel.send({ embeds: [r.message] });
 
    }
 
@@ -270,7 +269,7 @@ discord.client.on("message", message => {
          return;
       }
 
-      message.channel.send(utils.updateCharacterStat(stat, parseInt(value), alias, action));
+      message.channel.send({ embeds: [utils.updateCharacterStat(stat, parseInt(value), alias, action)] });
 
    }
 
@@ -293,7 +292,8 @@ discord.client.on("message", message => {
          return;
       }
 
-      message.author.send(utils.addCharacterSkillCheck(skillSearchTerm, alias));
+      result = utils.addCharacterSkillCheck(skillSearchTerm, alias);
+      message.author.send(typeof result === "string" ? result : { embeds: [result] });
 
    }
 
@@ -316,7 +316,8 @@ discord.client.on("message", message => {
          return;
       }
 
-      message.author.send(utils.removeCharacterSkillCheck(skillSearchTerm, alias));
+      result = utils.removeCharacterSkillCheck(skillSearchTerm, alias);
+      message.author.send(typeof result === "string" ? result : { embeds: [result] });
 
    }
 
@@ -338,7 +339,8 @@ discord.client.on("message", message => {
          return;
       }
 
-      message.author.send(utils.removeCharacterSkillChecks(alias));
+      result = utils.removeCharacterSkillChecks(alias);
+      message.author.send(typeof result === "string" ? result : { embeds: [result] });
 
    }
 
@@ -356,7 +358,7 @@ discord.client.on("message", message => {
 
       var r = utils.getCharacterChecks(message.author.id, alias);
 
-      message.channel.send(r.error === undefined ? r.message : r.error);
+      message.channel.send(r.error === undefined ? { embeds: [r.message] } : r.error);
 
    }
 
