@@ -169,7 +169,8 @@
                 },
                 {
                     "name": "psychology",
-                    "value": 50
+                    "value": 50,
+                    "checked": true
                 },
                 {
                     "name": "sleightofhand",
@@ -220,7 +221,7 @@
                 "SAN": 44,
                 "HP": 11,
                 "MP": 9,
-                "Luck": 51
+                "Luck": 50
             },
             "skills": [
                 {
@@ -244,7 +245,7 @@
                 {
                     "name": "firearmshandgun",
                     "value": 55,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "history",
@@ -265,7 +266,8 @@
                 },
                 {
                     "name": "occult",
-                    "value": 55
+                    "value": 55,
+                    "checked": true
                 },
                 {
                     "name": "psychology",
@@ -274,7 +276,8 @@
                 },
                 {
                     "name": "spothidden",
-                    "value": 51
+                    "value": 51,
+                    "checked": true
                 },
                 {
                     "name": "cthulhumythos",
@@ -282,8 +285,8 @@
                 }
             ],
             "talents": [
-                "resilient",
-                "lucky"
+                "lucky",
+                "resilient"
             ]
         }
     ],
@@ -377,7 +380,7 @@
                 {
                     "name": "spothidden",
                     "value": 51,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "throw",
@@ -408,7 +411,7 @@
                 "APP": 50,
                 "POW": 45,
                 "EDU": 30,
-                "SAN": 51,
+                "SAN": 50,
                 "HP": 11,
                 "MP": 9,
                 "Luck": 51
@@ -435,12 +438,12 @@
                 {
                     "name": "firearmshandgun",
                     "value": 44,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "firearmsshotgunrifle",
                     "value": 56,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "firstaid",
@@ -542,7 +545,7 @@
                 {
                     "name": "firearmsshotgunrifle",
                     "value": 58,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "firstaid",
@@ -550,7 +553,8 @@
                 },
                 {
                     "name": "intimidate",
-                    "value": 65
+                    "value": 65,
+                    "checked": true
                 },
                 {
                     "name": "libraryuse",

@@ -529,7 +529,7 @@ const saveDataFiles = function() {
 
    fs.writeFileSync('characters.json', JSON.stringify(characters, null, 4));
    fs.writeFileSync('skills.json', JSON.stringify(skills, null, 4));
-   fs.writeFileSync('talents.json', JSON.stringify(skills, null, 4));
+   fs.writeFileSync('talents.json', JSON.stringify(talents, null, 4));
    fs.writeFileSync('users.json', JSON.stringify(users, null, 4));
 
 };
