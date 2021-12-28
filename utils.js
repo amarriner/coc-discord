@@ -1,7 +1,9 @@
+const bot = require("./bot.js");
 const config = require("./config.json")
-const discord = require("./discord");
 const fs = require("fs");
 const fuzzysort = require("fuzzysort");
+
+const { MessageEmbed } = require('discord.js');
 
 var users;
 var characters;
@@ -465,7 +467,7 @@ const isCharacterSkillChecked = function(character, skillsKey) {
 
 const getCharacterEmbed = function(character) {
 
-   var embed = new discord.MessageEmbed();
+   var embed = new MessageEmbed();
 
    embed.title = character.name;
    embed.url = character.sheet;
@@ -544,7 +546,7 @@ const saveDataFiles = function() {
 
 const getEmojiByName = function(emojiName) {
 
-   return discord.client.emojis.cache.find(e => e.name === emojiName);
+   return bot.client.emojis.cache.find(e => e.name === emojiName);
 
 };
 

@@ -1,392 +1,201 @@
+const bot = require("./bot.js");
 const config = require("./config.json");
-const discord = require("./discord.js");
+const discord = require("discord.js");
+const fs = require("fs")
 const utils = require("./utils.js");
+
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 
 const commandPrefix = config.commandPrefix;
 
-discord.client.once('ready', () => {
+// https://discordjs.guide/creating-your-bot/command-handling.html#reading-command-files
+bot.client.commands = new discord.Collection();
+var commands = [];
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    // Set a new item in the Collection
+    // With the key as the command name and the value as the exported module
+    bot.client.commands.set(command.data.name, command);
+    commands.push(command.data);
+}
 
-   utils.loadDataFiles();
+const rest = new REST({ version: '9' }).setToken(config.botToken);
 
-   discord.client.user.setActivity(" Great Cthulhu rise from the depths ", { type: "WATCHING" });
+rest.put(Routes.applicationGuildCommands(config.clientId, config.guildId), { body: commands.map(command => command.toJSON()) })
+    .then(() => console.log('Successfully registered application commands.'))
+    .catch(console.error);
 
-   console.log('I am ready!');
+bot.client.once('ready', () => {
+
+    utils.loadDataFiles();
+    bot.client.user.setActivity(" Great Cthulhu rise from the depths ", { type: "WATCHING" });
+    console.log('I am ready!');
 
 });
 
-discord.client.on("messageCreate", message => {
+bot.client.on('interactionCreate', async interaction => {
 
-   //
-   // Display character sheet
-   // This is mostly obsolete since the other actions also display the same 
-   // information or more
-   //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "sheet") ||
-       message.content.toLowerCase().startsWith(commandPrefix + "mysheet")) {
+    if (interaction.isCommand()) {
 
-      var [command, alias] = message.content.split(" ");
-      var r = utils.getCharacterSheet(message.author.id, alias);
-      message.channel.send(r.error === undefined ? { embeds: [r.embed] } : r.error );
- 
-   }
+        const command = bot.client.commands.get(interaction.commandName);
 
-   //
-   // Display character's talents with descriptions
-   //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "talents") ||
-       message.content.toLowerCase().startsWith(commandPrefix + "mytalents")) {
+        if (!command) return;
 
-      var [command, alias] = message.content.split(" ");
-      var r = utils.getCharacterTalents(message.author.id, alias);
-      message.channel.send(r.error === undefined ? { embeds: [r.embed] } : r.error );
+        try {
+            await command.execute(interaction);
+        } catch (error) {
+            console.error(error);
+            await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+        }
+    }
 
-   }
-
-   //
-   // This will look up attributes and/or skills and display them as a discord
-   // embed assuming if finds them
-   //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "my ")) {
-
-      var parameters = message.content.split(" ");
-      parameters.shift();
-
-      var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
-      if (alias === "") { alias = undefined; }
-
-      var r;
-      var stat = parameters.filter(p => (!p.startsWith("*"))).join(" ");
-      for (var i = 0; i < stat.split(",").length; i++) {
-
-         s = utils.getCharacterStat(message.author.id, stat.split(",")[i].trim(), alias);
-         if (r === undefined) {
-            r = s;
-         }
-
-         else if (s.error === undefined) {
-            r.message.fields = r.message.fields.concat(s.message.fields); 
-         }
-
-      }
-
-      message.channel.send(r.error === undefined ? { embeds: [r.message] } : r.error);
-
-   }
-
-   //
-   // This will roll percentile dice against an attribute or skill
-   //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "rollmy")) {
-
-      var comment = "";
-      var parameters
-
-      if (message.content.split("#").length === 2) {
-         parameters = message.content.split("#")[0].trim().split(" ");
-         comment = "```" + message.content.split("#")[1].substr(0, 2041) + "```";
-      }
-      else {
-         parameters = message.content.split(" ");
-      }
-
-      parameters.shift();
-
-      var stat = parameters.filter(p => (!p.startsWith("*") && !p.startsWith("+") && !p.startsWith("-"))).join(" ");
-
-      var dice = 1;
-      if (parameters.filter(p => (p.startsWith("+"))).join() !== "") {
-         dice = 1 + parseInt(parameters.filter(p => (p.startsWith("+"))).join().replace(/^\+/, ""));
-      }
-      if (parameters.filter(p => (p.startsWith("-"))).join() !== "") {
-         dice = -1 + parseInt(parameters.filter(p => (p.startsWith("-"))).join());
-      }
-      dice = parseInt(dice);
-
-      var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, ""); 
-      if (alias === "") { alias = undefined; }
-
-      var r = utils.getCharacterStat(message.author.id, stat, alias);
-      var title; 
-      var value;
-
-      if (r.error !== undefined) {
-         message.channel.send(r.error);
-         return;
-      } 
-
-      if (r.attributeValue) {
-         title = r.attributeName;
-         value = r.attributeValue;
-      }
-
-      else if (r.skillObjects !== undefined && r.skillObjects.length === 1) {
-         title = r.skillObjects[0].name;
-         value = r.skillObjects[0].value;
-      }
-
-      else {
-         message.channel.send("ERROR: Either more than one or zero skills found for " + stat);
-         return;
-      }
-
-      var result = "Success"
-      r.message.description += comment;
-      var diceRollResult = utils.rollDice(dice);
-      if (parseInt(parseInt(diceRollResult[0])) > parseInt(value)) {
-         result = "Failure"
-         r.message.color = config.rollFailureColor;
-      }
-      else if (diceRollResult[0] <= Math.floor(value / 5)) {
-         result = "Extreme Success"
-      }
-      else if (diceRollResult[0] <= Math.floor(value / 2)) {
-         result = "Hard Success"
-      }
-      r.message.footer = {};
-      r.message.footer.text = result + " (" + ((diceRollResult.length > 1) ? diceRollResult.join(", ") : diceRollResult[0]) + ")";
-      r.message.footer.icon_url = (parseInt(parseInt(diceRollResult[0])) <= parseInt(value)) ? config.rollSuccessUrl : config.rollFailureUrl;
-      
-      rollMessage = message.channel.send({ embeds: [r.message] })
-         .then((rollMessage) => {
-      
-            console.log(rollMessage);
-            filter = (reaction, user) => {
-               return rollMessage.embeds !== undefined &&
-                      rollMessage.embeds.length === 1 &&
-                      rollMessage.embeds[0].footer.iconURL === config.rollSuccessUrl &&
-                      reaction._emoji.name === config.skillCheckEmoji &&
-                      utils.getUser(user.id).gm;
-            };
-            collector = rollMessage.createReactionCollector({ filter, time: 15000 });
-            collector.on('collect', (reaction, user) => {
-               console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
-               user.send({ embeds: [utils.addCharacterSkillCheck(rollMessage.embeds[0].fields[0].name, utils.getCharacterByName(rollMessage.embeds[0].title).rodbotAlias)] });
-            });
-      });
-   }
-
-   //
-   // This will attempt to upgrade a character's skill and uncheck it either way
-   //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "upgrademy")) {
-
-      var parameters = message.content.split(" ");
-      parameters.shift();
-
-      var stat = parameters.filter(p => (!p.startsWith("*") && !p.startsWith("+") && !p.startsWith("-"))).join(" ");
-
-      var dice = 1;
-      var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
-      if (alias === "") { 
-         alias = utils.getCharacter(message.author.id, undefined).rodbotAlias;
-      }
-
-      var r = utils.getCharacterStat(message.author.id, stat, alias);
-      var title;
-      var value;
-      var intValue;
-      var checked;
-
-      if (r.error !== undefined) {
-         message.channel.send(r.error);
-         return;
-      }
-
-      else if (r.skillObjects !== undefined && r.skillObjects.length === 1) {
-         title = r.skillObjects[0].name;
-         value = r.skillObjects[0].value;
-         intValue = r.skillObjects[0].intValue;
-         checked = r.skillObjects[0].checked !== undefined ? r.skillObjects[0].checked : false;
-      }
-
-      else {
-         message.channel.send("ERROR: Either more than one or zero skills found for " + stat);
-         return;
-      }
-
-      var diceRollResult = utils.rollDice(dice);
-      var result = "Success (" + diceRollResult[0] + ")";
-
-      if (! checked) {
-         result = "No checkmark for " + title;
-         r.message.color = config.rollFailureColor;
-         r.message.description += "```Upgrading " + title + "```";
-      }
-      else if (intValue >= 90) {
-
-         var currentSanity = utils.getCharacterStat(message.author.id, "SAN", alias)[0]; 
-         var moreSanity = Math.floor(Math.random() * 6) + 1;
-         moreSanity += Math.floor(Math.random() * 6) + 1;
-         if (moreSanity > 99) { moreSanity = 99; }
-
-         var cthulhuMythos = utils.getCharacterStat(message.author.id, "Cthulhu Mythos", alias)[0];
-         if (moreSanity > cthulhuMythos.skillObjects[0].value) { moreSanity = cthulhuMythos.value; }
-
-         utils.updateCharacterStat("SAN", currentSanity.attribute.value + moreSanity, alias, '=');
-         r.message.description += "```Adding " + moreSanity + " to SAN because " + title + " is >= 90```";
-
-      }
-      else if (parseInt(parseInt(diceRollResult[0])) <= intValue) {
-         result = "Failure (" + diceRollResult[0] + ")";
-         r.message.color = config.rollFailureColor;
-         r.message.description += "```Upgrading " + title + "```";
-      }
-      else {
-         var upgradeAmount = Math.floor(Math.random() * 10) + 1;
-         console.log(`${stat} ${intValue} ${upgradeAmount} ${alias}`);
-         utils.updateCharacterStat(title, intValue + upgradeAmount, alias, '=')
-         r.message.description += "```Adding " + upgradeAmount + " to " + title + " ```";
-      }
-
-      utils.removeCharacterSkillCheck(title, alias);
-
-      r.message.footer = {};
-      r.message.footer.text = result;
-      r.message.footer.icon_url = (r.message.color === config.rollSuccessColor) ? config.rollSuccessUrl : config.rollFailureUrl;
-      message.channel.send({ embeds: [r.message] });
-
-   }
-
-
-   //
-   // Update a character's attribute or skill
-   //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "set")) {
-
-      var user = utils.getUser(message.author.id);
-      if (user === undefined || !user.gm) { return; }
-
-      var parameters = message.content.split(" ");
-      parameters.shift();
-
-      var stat = parameters.filter(p => (!p.startsWith("*") && !p.startsWith("+") && !p.startsWith("-") && !p.startsWith("="))).join(" ");
-      var value = parameters.filter(p => (p.startsWith("+") || p.startsWith("-") || p.startsWith("="))).join().replace(/^[+-=]/, "");
-      var action = parameters.filter(p => (p.startsWith("+") || p.startsWith("-") || p.startsWith("="))).join().charAt(0);
-      var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
-
-      if (stat === "" || value === "" || alias === "") {
-         message.channel.send("ERROR: Invalid set command");
-         return;
-      }
-
-      message.channel.send({ embeds: [utils.updateCharacterStat(stat, parseInt(value), alias, action)] });
-
-   }
-
-   //
-   // Check a skill for a character
-   // 
-   if (message.content.toLowerCase().startsWith(commandPrefix + "addcheck")) {
-
-      var user = utils.getUser(message.author.id);  
-      if (user === undefined || !user.gm) { return; }
-
-      var parameters = message.content.split(" ");
-      parameters.shift();
-
-      var skillSearchTerm = parameters.filter(p => (!p.startsWith("*"))).join(" ");
-      var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
-
-      if (skillSearchTerm === "" || alias === "") {
-         message.channel.send("ERROR: Invalid check command");
-         return;
-      }
-
-      result = utils.addCharacterSkillCheck(skillSearchTerm, alias);
-      message.author.send(typeof result === "string" ? result : { embeds: [result] });
-
-   }
-
-   //
-   // Uncheck a skill for a character
-   //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "removecheck ")) {
-
-      var user = utils.getUser(message.author.id);
-      if (user === undefined || !user.gm) { return; }
-
-      var parameters = message.content.split(" ");
-      parameters.shift();
-
-      var skillSearchTerm = parameters.filter(p => (!p.startsWith("*"))).join(" ");
-      var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
-
-      if (skillSearchTerm=== "" || alias === "") {
-         message.channel.send("ERROR: Invalid check command");
-         return;
-      }
-
-      result = utils.removeCharacterSkillCheck(skillSearchTerm, alias);
-      message.author.send(typeof result === "string" ? result : { embeds: [result] });
-
-   }
-
-   //
-   // Uncheck all skills for a character
-   //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "removechecks")) {
-
-      var user = utils.getUser(message.author.id);
-      if (user === undefined || !user.gm) { return; }
-
-      var parameters = message.content.split(" ");
-      parameters.shift();
-
-      var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
-
-      if (alias === "") {
-         message.channel.send("ERROR: Invalid check command");
-         return;
-      }
-
-      result = utils.removeCharacterSkillChecks(alias);
-      message.author.send(typeof result === "string" ? result : { embeds: [result] });
-
-   }
-
-   //
-   // List a character's check marked skills
-   //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "checks") ||
-       message.content.toLowerCase().startsWith(commandPrefix + "mychecks")) {
-
-      var parameters = message.content.split(" ");
-      parameters.shift();
-
-      var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
-      if (alias === "") { alias = undefined; }
-
-      var r = utils.getCharacterChecks(message.author.id, alias);
-
-      message.channel.send(r.error === undefined ? { embeds: [r.message] } : r.error);
-
-   }
-
-   //
-   // Reload JSON files from disk
-   //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "reload")) {
-
-      var user = utils.getUser(message.author.id);
-      if (user !== undefined && user.gm) {
-         utils.loadDataFiles();
-      }
-
-   }
-
-   //
-   // Save data objects out to disk as JSON
-   //
-   if (message.content.toLowerCase().startsWith(commandPrefix + "save")) {
-
-      var user = utils.getUser(message.author.id);
-      if (user !== undefined && user.gm) {
-         utils.saveDataFiles();
-      }
-   
-   }
+    else {
+        console.log(interaction);
+    }
 
 });
 
-discord.client.login(config.botToken);
+bot.client.on("messageCreate", message => {
+
+    //
+    // This will attempt to upgrade a character's skill and uncheck it either way
+    //
+    if (message.content.toLowerCase().startsWith(commandPrefix + "upgrademy")) {
+
+        var parameters = message.content.split(" ");
+        parameters.shift();
+
+        var stat = parameters.filter(p => (!p.startsWith("*") && !p.startsWith("+") && !p.startsWith("-"))).join(" ");
+
+        var dice = 1;
+        var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
+        if (alias === "") {
+            alias = utils.getCharacter(message.author.id, undefined).rodbotAlias;
+        }
+
+        var r = utils.getCharacterStat(message.author.id, stat, alias);
+        var title;
+        var value;
+        var intValue;
+        var checked;
+
+        if (r.error !== undefined) {
+            message.channel.send(r.error);
+            return;
+        }
+
+        else if (r.skillObjects !== undefined && r.skillObjects.length === 1) {
+            title = r.skillObjects[0].name;
+            value = r.skillObjects[0].value;
+            intValue = r.skillObjects[0].intValue;
+            checked = r.skillObjects[0].checked !== undefined ? r.skillObjects[0].checked : false;
+        }
+
+        else {
+            message.channel.send("ERROR: Either more than one or zero skills found for " + stat);
+            return;
+        }
+
+        var diceRollResult = utils.rollDice(dice);
+        var result = "Success (" + diceRollResult[0] + ")";
+
+        if (!checked) {
+            result = "No checkmark for " + title;
+            r.message.color = config.rollFailureColor;
+            r.message.description += "```Upgrading " + title + "```";
+        }
+        else if (intValue >= 90) {
+
+            var currentSanity = utils.getCharacterStat(message.author.id, "SAN", alias)[0];
+            var moreSanity = Math.floor(Math.random() * 6) + 1;
+            moreSanity += Math.floor(Math.random() * 6) + 1;
+            if (moreSanity > 99) { moreSanity = 99; }
+
+            var cthulhuMythos = utils.getCharacterStat(message.author.id, "Cthulhu Mythos", alias)[0];
+            if (moreSanity > cthulhuMythos.skillObjects[0].value) { moreSanity = cthulhuMythos.value; }
+
+            utils.updateCharacterStat("SAN", currentSanity.attribute.value + moreSanity, alias, '=');
+            r.message.description += "```Adding " + moreSanity + " to SAN because " + title + " is >= 90```";
+
+        }
+        else if (parseInt(parseInt(diceRollResult[0])) <= intValue) {
+            result = "Failure (" + diceRollResult[0] + ")";
+            r.message.color = config.rollFailureColor;
+            r.message.description += "```Upgrading " + title + "```";
+        }
+        else {
+            var upgradeAmount = Math.floor(Math.random() * 10) + 1;
+            console.log(`${stat} ${intValue} ${upgradeAmount} ${alias}`);
+            utils.updateCharacterStat(title, intValue + upgradeAmount, alias, '=')
+            r.message.description += "```Adding " + upgradeAmount + " to " + title + " ```";
+        }
+
+        utils.removeCharacterSkillCheck(title, alias);
+
+        r.message.footer = {};
+        r.message.footer.text = result;
+        r.message.footer.icon_url = (r.message.color === config.rollSuccessColor) ? config.rollSuccessUrl : config.rollFailureUrl;
+        message.channel.send({ embeds: [r.message] });
+
+    }
+
+
+    //
+    // Update a character's attribute or skill
+    //
+    else if (message.content.toLowerCase().startsWith(commandPrefix + "set")) {
+
+        var user = utils.getUser(message.author.id);
+        if (user === undefined || !user.gm) { return; }
+
+        var parameters = message.content.split(" ");
+        parameters.shift();
+
+        var stat = parameters.filter(p => (!p.startsWith("*") && !p.startsWith("+") && !p.startsWith("-") && !p.startsWith("="))).join(" ");
+        var value = parameters.filter(p => (p.startsWith("+") || p.startsWith("-") || p.startsWith("="))).join().replace(/^[+-=]/, "");
+        var action = parameters.filter(p => (p.startsWith("+") || p.startsWith("-") || p.startsWith("="))).join().charAt(0);
+        var alias = parameters.filter(p => (p.startsWith("*"))).join().replace(/^\*/, "");
+
+        if (stat === "" || value === "" || alias === "") {
+            message.channel.send("ERROR: Invalid set command");
+            return;
+        }
+
+        message.channel.send({ embeds: [utils.updateCharacterStat(stat, parseInt(value), alias, action)] });
+
+    }
+
+
+    //
+    // Reload JSON files from disk
+    //
+    else if (message.content.toLowerCase().startsWith(commandPrefix + "reload")) {
+
+        var user = utils.getUser(message.author.id);
+        if (user !== undefined && user.gm) {
+            utils.loadDataFiles();
+        }
+
+    }
+
+    //
+    // Save data objects out to disk as JSON
+    //
+    else if (message.content.toLowerCase().startsWith(commandPrefix + "save")) {
+
+        var user = utils.getUser(message.author.id);
+        if (user !== undefined && user.gm) {
+            utils.saveDataFiles();
+        }
+
+    }
+
+    else {
+        console.log(message);
+    }
+});
+
+bot.client.login(config.botToken);
 

@@ -50,7 +50,8 @@
                 },
                 {
                     "name": "fasttalk",
-                    "value": 70
+                    "value": 70,
+                    "checked": false
                 },
                 {
                     "name": "libraryuse",
@@ -83,7 +84,7 @@
                 {
                     "name": "spothidden",
                     "value": 60,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "stealth",

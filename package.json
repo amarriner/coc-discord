@@ -8,6 +8,9 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@discordjs/builders": "^0.10.0",
+    "@discordjs/rest": "^0.2.0-canary.0",
+    "discord-api-types": "^0.26.0",
     "discord.js": "^13.4.0",
     "fuzzysort": "^1.1.4"
   }
