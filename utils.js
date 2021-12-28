@@ -379,7 +379,7 @@ const getCharacterAttribute = function(discordId, searchTerm, alias) {
    var embed = getCharacterEmbed(character);
    embed.fields.push({
       "name": attribute,
-      "value": character.attributes[attribute],
+      "value": character.attributes[attribute].toString(),
       "inline": true
    });
 
@@ -423,7 +423,7 @@ const getCharacterSkill = function(discordId, searchTerm, alias) {
       var emoji = getEmojiByName(config.skillCheckEmoji);
       var s = {
          "name": getCharacterSkillDescription(character, skills[i]),
-         "value": getCharacterSkillValue(character, skills[i]) + (isCharacterSkillChecked(character, skills[i]) ? " <:" + emoji.name + ":" + emoji.id + ">" : ""),
+         "value": getCharacterSkillValue(character, skills[i]).toString() + (isCharacterSkillChecked(character, skills[i]) ? " <:" + emoji.name + ":" + emoji.id + ">" : ""),
          "intValue": parseInt(getCharacterSkillValue(character, skills[i])),
          "checked": isCharacterSkillChecked(character, skills[i]),
          "inline": true

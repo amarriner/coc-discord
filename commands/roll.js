@@ -66,12 +66,12 @@ module.exports = {
 
         if (r.attributeValue) {
             title = r.attributeName;
-            value = r.attributeValue;
+            value = r.attributeValue.toString();
         }
 
         else if (r.skillObjects !== undefined && r.skillObjects.length === 1) {
             title = r.skillObjects[0].name;
-            value = r.skillObjects[0].value;
+            value = r.skillObjects[0].value.toString();
         }
 
         else {
@@ -95,7 +95,7 @@ module.exports = {
         r.message.footer = {};
         r.message.footer.text = result + " (" + ((diceRollResult.length > 1) ? diceRollResult.join(", ") : diceRollResult[0]) + ")";
         r.message.footer.icon_url = (parseInt(parseInt(diceRollResult[0])) <= parseInt(value)) ? config.rollSuccessUrl : config.rollFailureUrl;
-
+        console.log(r.message);
         await interaction.reply({ embeds: [r.message], fetch: true });
         rollMessage = await interaction.fetchReply()
         filter = (reaction, user) => {

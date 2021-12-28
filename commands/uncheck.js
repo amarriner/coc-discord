@@ -16,7 +16,7 @@ command = new SlashCommandBuilder()
     .addStringOption(option =>
         option.setName('alias')
             .setDescription('The alias of the character to remove the checkmark for')
-            .setRequired(false));
+            .setRequired(true));
 
 module.exports = {
 
