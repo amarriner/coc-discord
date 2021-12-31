@@ -8,7 +8,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 command = new SlashCommandBuilder()
     .setName('talents')
-    .setDescription("Returns a character's talents")
+    .setDescription("Displays a character's talents")
     .addStringOption(option =>
         option.setName('alias')
             .setDescription('The alias of the character get the talents for')

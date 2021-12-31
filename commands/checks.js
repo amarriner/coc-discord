@@ -8,7 +8,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 command = new SlashCommandBuilder()
     .setName('checks')
-    .setDescription("Returns a character's checkmarks")
+    .setDescription("Displays a character's checkmarks")
     .addStringOption(option =>
         option.setName('alias')
             .setDescription('The alias of the character get the checkmarks for')

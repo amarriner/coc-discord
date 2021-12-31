@@ -9,7 +9,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 command = new SlashCommandBuilder()
     .setName('roll')
-    .setDescription('Rolls a skill or ')
+    .setDescription('Rolls a skill or attribute for a character')
     .addStringOption(option =>
         option.setName('stat')
             .setDescription('The skill or attribute to roll against')
@@ -28,7 +28,7 @@ command = new SlashCommandBuilder()
             .setRequired(false))
     .addStringOption(option =>
         option.setName('alias')
-            .setDescription('The alias of the character get the sheet for')
+            .setDescription('The alias of the character to roll for')
             .setRequired(false));
 
 module.exports = {

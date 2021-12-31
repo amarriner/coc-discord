@@ -8,7 +8,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 command = new SlashCommandBuilder()
     .setName('my')
-    .setDescription('Returns the value of a skill or attribute')
+    .setDescription('Displays the value of a skill or attribute')
     .addStringOption(option =>
         option.setName('stat')
             .setDescription('The skill or attribute to look up')

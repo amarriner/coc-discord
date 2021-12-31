@@ -390,8 +390,8 @@
                 }
             ],
             "talents": [
-                "shadow",
-                "handy"
+                "handy",
+                "shadow"
             ]
         }
     ],
@@ -568,7 +568,8 @@
                 },
                 {
                     "name": "track",
-                    "value": 29
+                    "value": 29,
+                    "checked": true
                 },
                 {
                     "name": "spothidden",

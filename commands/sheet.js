@@ -10,7 +10,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 command = new SlashCommandBuilder()
     .setName('sheet')
-    .setDescription('Returns a character sheet')
+    .setDescription('Displays a character sheet')
     .addStringOption(option =>
         option.setName('alias')
             .setDescription('The alias of the character get the sheet for')
