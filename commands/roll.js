@@ -95,7 +95,6 @@ module.exports = {
         r.message.footer = {};
         r.message.footer.text = result + " (" + ((diceRollResult.length > 1) ? diceRollResult.join(", ") : diceRollResult[0]) + ")";
         r.message.footer.icon_url = (parseInt(parseInt(diceRollResult[0])) <= parseInt(value)) ? config.rollSuccessUrl : config.rollFailureUrl;
-        console.log(r.message);
         await interaction.reply({ embeds: [r.message], fetch: true });
         rollMessage = await interaction.fetchReply()
         filter = (reaction, user) => {

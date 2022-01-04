@@ -673,6 +673,7 @@ module.exports = {
    getCharacterByAlias: getCharacterByAlias,
    getCharacterByName: getCharacterByName,
    getCharacterChecks: getCharacterChecks,
+   getCharacterEmbed: getCharacterEmbed,
    getCharacterSheet: getCharacterSheet,
    getCharacterSkill: getCharacterSkill,
    getCharacterStat: getCharacterStat,

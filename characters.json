@@ -198,8 +198,9 @@
             ]
         },
         {
-            "name": "The Keeper of Arcane Lore",
-            "rodbotAlias": "k"
+            "name": "The Keeper",
+            "rodbotAlias": "k",
+            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/658396898390048768/Screenshot_20191222-145231_1.png"
         }
     ],
     "424676087218307093": [
@@ -416,7 +417,7 @@
                 "SAN": 50,
                 "HP": 11,
                 "MP": 9,
-                "Luck": 51
+                "Luck": 49
             },
             "skills": [
                 {
@@ -450,7 +451,7 @@
                 {
                     "name": "firstaid",
                     "value": 46,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "intimidate",

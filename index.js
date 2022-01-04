@@ -31,6 +31,18 @@ bot.client.once('ready', () => {
 
     utils.loadDataFiles();
     bot.client.user.setActivity(" Great Cthulhu rise from the depths ", { type: "WATCHING" });
+
+    bot.client.guilds.cache.get(config.guildId).fetchWebhooks()
+        .then(hooks => {
+            botHooks = hooks.filter(hook => hook.owner.id === config.clientId)
+            console.log(`This server has ${botHooks.size} coc-discord hooks`)
+            for(let [id, hook] of botHooks) {
+                console.log(`Deleting old hook ID ${id} ${JSON.stringify(hook)}`);
+                hook.delete();
+            }
+        })
+        .catch(console.error);
+
     console.log('I am ready!');
 
 });
@@ -51,10 +63,6 @@ bot.client.on('interactionCreate', async interaction => {
         }
 
         utils.saveDataFiles();
-    }
-
-    else {
-        console.log(interaction);
     }
 
 });
@@ -85,9 +93,6 @@ bot.client.on("messageCreate", message => {
 
     }
 
-    else {
-        console.log(message);
-    }
 });
 
 bot.client.login(config.botToken);

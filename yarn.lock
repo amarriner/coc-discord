@@ -88,6 +88,11 @@ delayed-stream@~1.0.0:
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
 
+dice-notation-js@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/dice-notation-js/-/dice-notation-js-1.0.3.tgz#67724f4d920491b98c69630a8b8384eb1fd6c143"
+  integrity sha512-K02a/w3kjRp4QPYE3+qlXnQRVw9n00IIJHYtrxAryIIC112SP36YKo2Z9CR/f+ZKzj+YKJmCeTKnMIc4+crG5g==
+
 discord-api-types@^0.25.2:
   version "0.25.2"
   resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.25.2.tgz#e50ed152e6d48fe7963f5de1002ca6f2df57c61b"
