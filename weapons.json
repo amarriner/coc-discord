@@ -1,0 +1,14 @@
+[
+    {
+        "name": "1911",
+        "description": "Colt 1911 .45",
+        "damage": "1d10+2",
+        "skill": "firearmshandgun"
+    },
+    {
+        "name": "unarmed",
+        "description": "Unarmed",
+        "damage": "1d3+{db}",
+        "skill": "fightingbrawl"
+    }
+]
