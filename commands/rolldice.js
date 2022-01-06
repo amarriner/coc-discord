@@ -36,7 +36,7 @@ module.exports = {
         result = Dice.detailed(dice);
         embed.description = `Rolled ${dice} and got a ${result.result.toString()}`;
         embed.footer = {
-            'text': `Individual dice: ${result.rolls.join(" ")} | Modifier: ${result.modifier.toString()}`
+            'text': `Individual dice: ${result.rolls.join(", ")} | Modifier: ${result.modifier.toString()}`
         };
 
         await interaction.reply({ embeds: [embed] });

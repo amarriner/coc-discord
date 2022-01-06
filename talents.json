@@ -38,5 +38,15 @@
         "name": "handy",
         "title": "Handy",
         "description": "Reduces difficulty by one level or gains bonus die (at the Keeper’s discretion) when making Electrical Repair, Mechanical Repair, and Operate Heavy Machinery rolls"
+    },
+    {
+        "name": "powerlifter",
+        "title": "Power Lifter",
+        "description": "Gain a bonus die when making STR rolls to lift objects or people"
+    },
+    {
+        "name": "toughguy",
+        "title": "Tough Guy",
+        "description": "Soaks up damage, may spend 10 Luck points to shrug off up to 5 hit points worth of damage taken in one combat round"
     }
 ]

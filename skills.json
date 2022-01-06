@@ -95,6 +95,11 @@
         "default": 30
     },
     {
+        "name": "geology",
+        "description": "Geology",
+        "default": 1
+    },
+    {
         "name": "history",
         "description": "History",
         "default": 5

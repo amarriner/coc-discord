@@ -3,12 +3,28 @@
         "name": "1911",
         "description": "Colt 1911 .45",
         "damage": "1d10+2",
-        "skill": "firearmshandgun"
+        "skill": "firearmshandgun",
+        "range": "15 yards"
+    },
+    {
+        "name": "browning",
+        "description": "Browning A5 Shotgun",
+        "damage": "4d6",
+        "skill": "firearmsshotgunrifle",
+        "range": "10/20/50 yards"
+    },
+    {
+        "name": "brassknuckles",
+        "description": "Brass Knuckles",
+        "damage": "1d3+1+{db}",
+        "skill": "fightingbrawl",
+        "range": "Touch"
     },
     {
         "name": "unarmed",
         "description": "Unarmed",
         "damage": "1d3+{db}",
-        "skill": "fightingbrawl"
+        "skill": "fightingbrawl",
+        "range": "Touch"
     }
 ]

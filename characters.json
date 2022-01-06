@@ -1,6 +1,102 @@
 {
     "84268068800311296": [
         {
+            "name": "Louise 'Lulu' Winney",
+            "description": "Dancer, age 23",
+            "birthplace": "Blackwater Creek, MA",
+            "residence": "Arkham, MA",
+            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/643541050677526528/unknown.png",
+            "rodbotAlias": "lulu",
+            "weapons": [
+                "1911",
+                "browning"
+            ],
+            "attributes": {
+                "STR": 70,
+                "CON": 55,
+                "SIZ": 65,
+                "DEX": 65,
+                "INT": 75,
+                "APP": 70,
+                "POW": 50,
+                "EDU": 50,
+                "SAN": 65,
+                "HP": 11,
+                "MP": 10,
+                "Luck": 52
+            },
+            "skills": [
+                {
+                    "name": "accounting",
+                    "value": 15
+                },
+                {
+                    "name": "dancing",
+                    "description": "Dancing",
+                    "value": 45
+                },
+                {
+                    "name": "climb",
+                    "value": 40
+                },
+                {
+                    "name": "dodge",
+                    "value": 62
+                },
+                {
+                    "name": "fightingbrawl",
+                    "value": 49
+                },
+                {
+                    "name": "firearmshandgun",
+                    "value": 25
+                },
+                {
+                    "name": "firearmsshotgunrifle",
+                    "value": 63,
+                    "checked": false
+                },
+                {
+                    "name": "firstaid",
+                    "value": 75
+                },
+                {
+                    "name": "jump",
+                    "value": 40
+                },
+                {
+                    "name": "persuade",
+                    "value": 65
+                },
+                {
+                    "name": "psychology",
+                    "value": 53,
+                    "checked": false
+                },
+                {
+                    "name": "sleightofhand",
+                    "value": 50
+                },
+                {
+                    "name": "spothidden",
+                    "value": 35
+                },
+                {
+                    "name": "swim",
+                    "value": 50
+                },
+                {
+                    "name": "track",
+                    "value": 50
+                },
+                {
+                    "name": "martialarts",
+                    "description": "Martial Arts",
+                    "value": 10
+                }
+            ]
+        },
+        {
             "name": "Jackson Elias",
             "description": "Fearless Investigator, age 41",
             "birthplace": "New York City",
@@ -107,201 +203,13 @@
             ]
         },
         {
-            "name": "Louise 'Lulu' Winney",
-            "description": "Dancer, age 23",
-            "birthplace": "Blackwater Creek, MA",
-            "residence": "Arkham, MA",
-            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/643541050677526528/unknown.png",
-            "rodbotAlias": "lulu",
-            "attributes": {
-                "STR": 70,
-                "CON": 55,
-                "SIZ": 65,
-                "DEX": 65,
-                "INT": 75,
-                "APP": 70,
-                "POW": 50,
-                "EDU": 50,
-                "SAN": 65,
-                "HP": 11,
-                "MP": 10,
-                "Luck": 52
-            },
-            "skills": [
-                {
-                    "name": "accounting",
-                    "value": 15
-                },
-                {
-                    "name": "dancing",
-                    "description": "Dancing",
-                    "value": 45
-                },
-                {
-                    "name": "climb",
-                    "value": 40
-                },
-                {
-                    "name": "dodge",
-                    "value": 62
-                },
-                {
-                    "name": "fightingbrawl",
-                    "value": 49
-                },
-                {
-                    "name": "firearmshandgun",
-                    "value": 25
-                },
-                {
-                    "name": "firearmsshotgunrifle",
-                    "value": 57
-                },
-                {
-                    "name": "firstaid",
-                    "value": 75
-                },
-                {
-                    "name": "jump",
-                    "value": 40
-                },
-                {
-                    "name": "persuade",
-                    "value": 65
-                },
-                {
-                    "name": "psychology",
-                    "value": 50,
-                    "checked": true
-                },
-                {
-                    "name": "sleightofhand",
-                    "value": 50
-                },
-                {
-                    "name": "spothidden",
-                    "value": 35
-                },
-                {
-                    "name": "swim",
-                    "value": 50
-                },
-                {
-                    "name": "track",
-                    "value": 50
-                },
-                {
-                    "name": "martialarts",
-                    "description": "Martial Arts",
-                    "value": 10
-                }
-            ]
-        },
-        {
-            "name": "The Keeper",
-            "rodbotAlias": "k",
-            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/658396898390048768/Screenshot_20191222-145231_1.png"
-        }
-    ],
-    "424676087218307093": [
-        {
-            "name": "Edward M. Finnigan",
-            "description": "Professor, age 34",
-            "birthplace": "New York City",
-            "residence": "Arkham, MA",
-            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/652577427012190278/finnigan.jpg",
-            "sheet": "https://amarriner.github.io/coc-discord/character_sheets/Edward_M_Finnigan.pdf",
-            "rodbotAlias": "james",
-            "attributes": {
-                "STR": 50,
-                "CON": 50,
-                "SIZ": 40,
-                "DEX": 60,
-                "INT": 70,
-                "APP": 60,
-                "POW": 50,
-                "EDU": 80,
-                "SAN": 44,
-                "HP": 11,
-                "MP": 9,
-                "Luck": 50
-            },
-            "skills": [
-                {
-                    "name": "anthropology",
-                    "value": 51,
-                    "checked": false
-                },
-                {
-                    "name": "archaeology",
-                    "value": 60
-                },
-                {
-                    "name": "charm",
-                    "value": 45
-                },
-                {
-                    "name": "fightingbrawl",
-                    "value": 60,
-                    "checked": false
-                },
-                {
-                    "name": "firearmshandgun",
-                    "value": 55,
-                    "checked": true
-                },
-                {
-                    "name": "history",
-                    "value": 55
-                },
-                {
-                    "name": "language",
-                    "value": 51,
-                    "description": "Language (Latin)"
-                },
-                {
-                    "name": "libraryuse",
-                    "value": 50
-                },
-                {
-                    "name": "listen",
-                    "value": 50
-                },
-                {
-                    "name": "occult",
-                    "value": 55,
-                    "checked": true
-                },
-                {
-                    "name": "psychology",
-                    "value": 39,
-                    "checked": false
-                },
-                {
-                    "name": "spothidden",
-                    "value": 51,
-                    "checked": true
-                },
-                {
-                    "name": "cthulhumythos",
-                    "value": 2
-                }
-            ],
-            "talents": [
-                "lucky",
-                "resilient"
-            ]
-        }
-    ],
-    "643099746868920331": [
-        {
             "name": "Savario Rotondo",
             "description": "Criminal: Bootlegger, age 27",
             "birthplace": "Boston, MA",
             "residence": "Arkham, MA",
             "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/643185018125942794/Screenshot_20191110-152624.png",
             "sheet": "https://amarriner.github.io/coc-discord/character_sheets/Savario_Rotondo.pdf",
-            "rodbotAlias": "ant",
+            "rodbotAlias": "savario",
             "attributes": {
                 "STR": 60,
                 "CON": 60,
@@ -394,6 +302,196 @@
                 "handy",
                 "shadow"
             ]
+        },
+        {
+            "name": "The Keeper",
+            "rodbotAlias": "k",
+            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/658396898390048768/Screenshot_20191222-145231_1.png"
+        }
+    ],
+    "424676087218307093": [
+        {
+            "name": "Edward M. Finnigan",
+            "description": "Professor, age 34",
+            "birthplace": "New York City",
+            "residence": "Arkham, MA",
+            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/652577427012190278/finnigan.jpg",
+            "sheet": "https://amarriner.github.io/coc-discord/character_sheets/Edward_M_Finnigan.pdf",
+            "rodbotAlias": "james",
+            "weapons": [
+                "1911",
+                "browning"
+            ],
+            "attributes": {
+                "STR": 50,
+                "CON": 50,
+                "SIZ": 40,
+                "DEX": 60,
+                "INT": 70,
+                "APP": 60,
+                "POW": 50,
+                "EDU": 80,
+                "SAN": 44,
+                "HP": 11,
+                "MP": 9,
+                "Luck": 50
+            },
+            "skills": [
+                {
+                    "name": "anthropology",
+                    "value": 51,
+                    "checked": false
+                },
+                {
+                    "name": "archaeology",
+                    "value": 60
+                },
+                {
+                    "name": "charm",
+                    "value": 45
+                },
+                {
+                    "name": "fightingbrawl",
+                    "value": 60,
+                    "checked": false
+                },
+                {
+                    "name": "firearmshandgun",
+                    "value": 55,
+                    "checked": false
+                },
+                {
+                    "name": "history",
+                    "value": 55
+                },
+                {
+                    "name": "language",
+                    "value": 51,
+                    "description": "Language (Latin)"
+                },
+                {
+                    "name": "libraryuse",
+                    "value": 50
+                },
+                {
+                    "name": "listen",
+                    "value": 50
+                },
+                {
+                    "name": "occult",
+                    "value": 55,
+                    "checked": false
+                },
+                {
+                    "name": "psychology",
+                    "value": 39,
+                    "checked": false
+                },
+                {
+                    "name": "spothidden",
+                    "value": 51,
+                    "checked": false
+                },
+                {
+                    "name": "cthulhumythos",
+                    "value": 2
+                }
+            ],
+            "talents": [
+                "lucky",
+                "resilient"
+            ]
+        }
+    ],
+    "643099746868920331": [
+        {
+            "name": "Miles 'Thunderball' McGillicutty",
+            "description": "Boxer, age 33",
+            "birthplace": "Boston, MA",
+            "residence": "Arkham, MA",
+            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/928443543142400061/3163789878506983776.jpg",
+            "sheet": "https://amarriner.github.io/coc-discord/character_sheets",
+            "rodbotAlias": "ant",
+            "weapons": [
+                "1911",
+                "browning"
+            ],
+            "attributes": {
+                "STR": 60,
+                "CON": 80,
+                "SIZ": 75,
+                "DEX": 45,
+                "INT": 80,
+                "APP": 35,
+                "POW": 40,
+                "EDU": 90,
+                "SAN": 40,
+                "HP": 8,
+                "MP": 13,
+                "Luck": 54
+            },
+            "skills": [
+                {
+                    "name": "fightingbrawl",
+                    "value": 100
+                },
+                {
+                    "name": "dodge",
+                    "value": 67
+                },
+                {
+                    "name": "intimidate",
+                    "value": 60
+                },
+                {
+                    "name": "jump",
+                    "value": 60
+                },
+                {
+                    "name": "psychology",
+                    "value": 30
+                },
+                {
+                    "name": "spothidden",
+                    "value": 45
+                },
+                {
+                    "name": "history",
+                    "value": 45
+                },
+                {
+                    "name": "firearmshandgun",
+                    "value": 85
+                },
+                {
+                    "name": "driveauto",
+                    "value": 50
+                },
+                {
+                    "name": "fasttalk",
+                    "value": 45
+                },
+                {
+                    "name": "libraryuse",
+                    "value": 60
+                },
+                {
+                    "name": "archaeology",
+                    "value": 46
+                },
+                {
+                    "name": "creditrating",
+                    "value": 30
+                },
+                {
+                    "name": "geology",
+                    "value": 46
+                }
+            ],
+            "talents": [
+                "powerlifter",
+                "toughguy"
+            ]
         }
     ],
     "643129636871602179": [
@@ -405,6 +503,11 @@
             "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/653697884881158146/d65b4fc0811fbe56232551f81a16f40f_2.jpg",
             "sheet": "https://amarriner.github.io/coc-discord/character_sheets/Rauthaford_Candaverish.pdf",
             "rodbotAlias": "don",
+            "weapons": [
+                "1911",
+                "browning",
+                "brassknuckles"
+            ],
             "attributes": {
                 "STR": 80,
                 "CON": 65,
@@ -441,17 +544,17 @@
                 {
                     "name": "firearmshandgun",
                     "value": 44,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "firearmsshotgunrifle",
-                    "value": 56,
-                    "checked": true
+                    "value": 60,
+                    "checked": false
                 },
                 {
                     "name": "firstaid",
                     "value": 46,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "intimidate",
@@ -522,6 +625,10 @@
             "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/653989188542398466/spade16.jpg",
             "sheet": "https://amarriner.github.io/coc-discord/character_sheets/Lawrence_Stockwell.pdf",
             "rodbotAlias": "andy",
+            "weapons": [
+                "1911",
+                "browning"
+            ],
             "attributes": {
                 "STR": 60,
                 "CON": 60,
@@ -534,7 +641,7 @@
                 "SAN": 74,
                 "HP": 11,
                 "MP": 13,
-                "Luck": 64
+                "Luck": 58
             },
             "skills": [
                 {
@@ -547,8 +654,8 @@
                 },
                 {
                     "name": "firearmsshotgunrifle",
-                    "value": 58,
-                    "checked": true
+                    "value": 62,
+                    "checked": false
                 },
                 {
                     "name": "firstaid",
@@ -557,7 +664,7 @@
                 {
                     "name": "intimidate",
                     "value": 65,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "libraryuse",
@@ -570,7 +677,7 @@
                 {
                     "name": "track",
                     "value": 29,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "spothidden",

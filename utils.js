@@ -9,6 +9,66 @@ var users;
 var characters;
 var skills;
 var talents;
+var weapons;
+
+const dbb_table = [64, 84, 124, 164, 204, 284, 364, 444, 524];
+const build_table = ['-2', '-1', '0', '+1', '+2', '+3', '+4', '+5', '+6'];
+const damage_bonus_table = ['-2', '-1', '0', '1d4', '1d6', '2d6', '3d6', '4d6', '5d6'];
+
+const parseWeaponDamage = function(character, damage) {
+
+    const dice_regex = /([0-9]+d[0-9]+)/g;
+    const modification_regex = /([+-][0-9]+)/g;
+
+    if (damage.search(/{db}/) >= 0) {
+        db = calculateDamageBonus(character);
+        damage = `${damage}${db}`;
+    }
+
+    dice = damage.match(dice_regex);
+
+    modification = 0;
+    modifications = damage.match(modification_regex);
+    if (modifications !== null) {
+        for (i = 0; i < modifications.length; i++) {
+            modification += parseInt(modifications[i]);
+        }
+    }
+
+    var str = dice.join("+");
+    if (modification > 0) {
+        str = `${str}+${modification.toString()}`;
+    }
+    if (modification < 0) {
+        str = `${str}-${modification.toString()}`;
+    }
+    return {
+        "dice": dice,
+        "modification": modification,
+        "str": str
+    }
+}
+
+const getDbbTableIndex = function(value) {
+    for (i = 0; i < dbb_table.length; i++) {
+        if (value <= dbb_table[i]) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+const calculateBuild = function(character) {
+
+    return build_table[getDbbTableIndex(parseInt(character.attributes.STR) + parseInt(character.attributes.SIZ))];
+
+}
+
+const calculateDamageBonus = function(character) {
+
+    return damage_bonus_table[getDbbTableIndex(parseInt(character.attributes.STR) + parseInt(character.attributes.SIZ))];
+
+}
 
 const getSkillByName = function(skillName) {
 
@@ -34,6 +94,52 @@ const getTalentByName = function(talentName) {
 
 }
 
+const getWeaponByName = function(weaponName) {
+
+    for(var i in weapons) {
+        if (weapons[i].name === weaponName) {
+            return weapons[i];
+        }
+    }
+
+    return undefined;
+}
+
+const getCharacterWeapons = function(discordId, alias) {
+
+   var returnObj = {
+      embed: undefined,
+      error: undefined
+   };
+
+   var character = getCharacter(discordId, alias);
+
+   if (character === undefined) {
+      returnObj.error = "ERROR: Invalid character";
+      return returnObj;
+   }
+
+   returnObj.embed = getCharacterEmbed(character);
+
+   if (character.weapons !== undefined && character.weapons.length) {
+
+      var sortedWeapons = character.weapons.sort((a, b) => (a > b) ? 1 : -1);
+      
+      for (var i in sortedWeapons) {
+         var weapon = getWeaponByName(sortedWeapons[i]);
+         var parsed = parseWeaponDamage(character, weapon.damage);
+         var skill = getSkillByName(weapon.skill);
+         var characterSkillValue = getCharacterSkillValue(character, skill.name);
+         returnObj.embed.fields.push({
+            "name": weapon.description,
+            "value": `Damage: ${parsed.str}\nSkill: ${skill.description} [${characterSkillValue}]\nRange: ${weapon.range}`
+         });
+      }
+   }
+
+   return returnObj;
+
+}
 const getCharacterTalents = function(discordId, alias) {
 
    var returnObj = {
@@ -211,6 +317,13 @@ const findCharacterSkill = function(character, skillKey) {
 
    return skill;
 
+}
+
+const findWeaponKeys = function(searchTerm) {
+    return fuzzysort.go(
+                searchTerm,
+                weapons.filter(w => (w.name !== undefined)),
+                {key: "name", threshold: -10000});
 }
 
 const findCharacterSkillKeys = function(character, searchTerm) {
@@ -531,6 +644,7 @@ const loadDataFiles = function() {
    characters = JSON.parse(fs.readFileSync('characters.json'));
    skills = JSON.parse(fs.readFileSync('skills.json'));
    talents = JSON.parse(fs.readFileSync('talents.json'));
+   weapons = JSON.parse(fs.readFileSync('weapons.json'));
    users = JSON.parse(fs.readFileSync('users.json'));
 
 };
@@ -668,6 +782,9 @@ const rollDice = function(numberOfTens = 1) {
 module.exports = {
 
    addCharacterSkillCheck: addCharacterSkillCheck,
+   calculateBuild: calculateBuild,
+   calculateDamageBonus: calculateDamageBonus,
+   findWeaponKeys: findWeaponKeys,
    getCharacter: getCharacter,
    getCharacterAttribute: getCharacterAttribute,
    getCharacterByAlias: getCharacterByAlias,
@@ -678,10 +795,12 @@ module.exports = {
    getCharacterSkill: getCharacterSkill,
    getCharacterStat: getCharacterStat,
    getCharacterTalents: getCharacterTalents,
+   getCharacterWeapons: getCharacterWeapons,
    getEmojiByName: getEmojiByName,
    getUsers: getUsers,
    getUser: getUser,
    loadDataFiles: loadDataFiles,
+   parseWeaponDamage: parseWeaponDamage,
    saveDataFiles: saveDataFiles,
    removeCharacterSkillCheck: removeCharacterSkillCheck,
    removeCharacterSkillChecks: removeCharacterSkillChecks,
