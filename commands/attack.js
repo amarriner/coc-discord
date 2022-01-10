@@ -2,19 +2,40 @@
 // This will attack as a character
 //
 
+const characters = require("../characters.json");
 const config = require("../config.json");
 const Dice = require('dice-notation-js');
 const utils = require("../utils.js");
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
+utils.loadDataFiles();
+var weapons = [];
+for (discord_id in characters) {
+    for (character_index in characters[discord_id]) {
+        character = characters[discord_id][character_index];
+        for (weapon_index in character.weapons) {
+            weapon = utils.getWeaponByName(character.weapons[weapon_index]);
+            if (!weapons.includes(weapon)) {
+                weapons.push(weapon);
+            }
+        }
+    }
+}
+
 command = new SlashCommandBuilder()
     .setName('attack')
     .setDescription('Have a character make an attack')
-    .addStringOption(option =>
+    .addStringOption(option => {
         option.setName('weapon')
             .setDescription('The weapon to attack with, defaults to unarmed')
-            .setRequired(false))
+            .setRequired(false)
+
+            for (i in weapons) {
+                option.addChoice(weapons[i].description, weapons[i].name)
+            }
+        return option
+    })
     .addIntegerOption(option =>
         option.setName('bonus')
             .setDescription('The number of bonus dice to roll')
@@ -27,10 +48,15 @@ command = new SlashCommandBuilder()
         option.setName('comment')
             .setDescription('A comment to add to the die roll')
             .setRequired(false))
-    .addStringOption(option =>
+    .addStringOption(option => {
         option.setName('alias')
             .setDescription('The alias of the character to attack with')
-            .setRequired(false));
+            .setRequired(false)
+            utils.getCharacterAliases().forEach(function(item) {
+                option.addChoice(item.name, item.alias)
+            })
+            return option
+    });
 
 module.exports = {
 

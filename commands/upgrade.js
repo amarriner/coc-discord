@@ -7,6 +7,7 @@ const utils = require("../utils.js");
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
+utils.loadDataFiles();
 command = new SlashCommandBuilder()
     .setName('upgrade')
     .setDescription("Attempts to upgrade a character's skill")
@@ -14,10 +15,15 @@ command = new SlashCommandBuilder()
         option.setName('stat')
             .setDescription('The stat to upgrade')
             .setRequired(true))
-    .addStringOption(option =>
+    .addStringOption(option => {
         option.setName('alias')
             .setDescription('The alias of the character update')
-            .setRequired(false));
+            .setRequired(false)
+            utils.getCharacterAliases().forEach(function(item) {
+               option.addChoice(item.name, item.alias)
+            })
+            return option
+    });
 
 
 module.exports = {

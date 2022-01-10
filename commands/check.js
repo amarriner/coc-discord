@@ -6,6 +6,7 @@ const utils = require("../utils.js");
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
+utils.loadDataFiles();
 command = new SlashCommandBuilder()
     .setName('check')
     .setDescription("Add a skill check on a character")
@@ -13,10 +14,15 @@ command = new SlashCommandBuilder()
         option.setName('stat')
             .setDescription('The skill to check')
             .setRequired(true))
-    .addStringOption(option =>
+    .addStringOption(option => {
         option.setName('alias')
             .setDescription('The alias of the character to add the checkmarks for')
-            .setRequired(true));
+            .setRequired(true)
+            utils.getCharacterAliases().forEach(function(item) {
+                option.addChoice(item.name, item.alias)
+            })
+            return option
+    });
 
 module.exports = {
 

@@ -6,6 +6,7 @@ const utils = require("../utils.js");
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
+utils.loadDataFiles();
 command = new SlashCommandBuilder()
     .setName('set')
     .setDescription("Adjusts a character's stat or attribute")
@@ -17,10 +18,15 @@ command = new SlashCommandBuilder()
         option.setName('value')
             .setDescription('How to adjust the stat, + add, - minus, = set')
             .setRequired(true))
-    .addStringOption(option =>
+    .addStringOption(option => {
         option.setName('alias')
             .setDescription('The alias of the character update')
-            .setRequired(true));
+            .setRequired(true)
+            utils.getCharacterAliases().forEach(function(item) {
+               option.addChoice(item.name, item.alias)
+            })
+            return option
+    });
 
 
 module.exports = {

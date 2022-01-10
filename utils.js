@@ -15,6 +15,19 @@ const dbb_table = [64, 84, 124, 164, 204, 284, 364, 444, 524];
 const build_table = ['-2', '-1', '0', '+1', '+2', '+3', '+4', '+5', '+6'];
 const damage_bonus_table = ['-2', '-1', '0', '1d4', '1d6', '2d6', '3d6', '4d6', '5d6'];
 
+const getCharacterAliases = function() {
+    var aliases = Array();
+    for(discord_id in characters) {
+        for(i in characters[discord_id]) {
+            aliases.push({
+                'alias': characters[discord_id][i].rodbotAlias,
+                'name': characters[discord_id][i].name
+            });
+        }
+    }
+    return aliases;
+}
+
 const parseWeaponDamage = function(character, damage) {
 
     const dice_regex = /([0-9]+d[0-9]+)/g;
@@ -322,8 +335,8 @@ const findCharacterSkill = function(character, skillKey) {
 const findWeaponKeys = function(searchTerm) {
     return fuzzysort.go(
                 searchTerm,
-                weapons.filter(w => (w.name !== undefined)),
-                {key: "name", threshold: -10000});
+                weapons.filter(w => (w.description !== undefined)),
+                {key: "description", threshold: -10000});
 }
 
 const findCharacterSkillKeys = function(character, searchTerm) {
@@ -786,6 +799,7 @@ module.exports = {
    calculateDamageBonus: calculateDamageBonus,
    findWeaponKeys: findWeaponKeys,
    getCharacter: getCharacter,
+   getCharacterAliases: getCharacterAliases,
    getCharacterAttribute: getCharacterAttribute,
    getCharacterByAlias: getCharacterByAlias,
    getCharacterByName: getCharacterByName,
@@ -799,12 +813,16 @@ module.exports = {
    getEmojiByName: getEmojiByName,
    getUsers: getUsers,
    getUser: getUser,
+   getWeaponByName: getWeaponByName,
    loadDataFiles: loadDataFiles,
    parseWeaponDamage: parseWeaponDamage,
    saveDataFiles: saveDataFiles,
    removeCharacterSkillCheck: removeCharacterSkillCheck,
    removeCharacterSkillChecks: removeCharacterSkillChecks,
    rollDice: rollDice,
-   updateCharacterStat: updateCharacterStat
-
+   updateCharacterStat: updateCharacterStat,
+   characters: characters,
+   weapons: weapons,
+   talents: talents,
+   skills: skills
 };

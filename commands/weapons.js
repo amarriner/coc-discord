@@ -6,13 +6,21 @@ const utils = require("../utils.js");
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
+utils.loadDataFiles();
 command = new SlashCommandBuilder()
     .setName('weapons')
     .setDescription("Displays a character's weapons")
-    .addStringOption(option =>
+    .addStringOption(option => {
         option.setName('alias')
             .setDescription('The alias of the character get the weapons for')
-            .setRequired(false));
+            .setRequired(false)
+
+            utils.getCharacterAliases().forEach(function(item) {
+               option.addChoice(item.name, item.alias)
+            })
+            return option
+    }
+);
 
 
 module.exports = {

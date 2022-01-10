@@ -7,6 +7,7 @@ const utils = require('../utils.js');
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
+utils.loadDataFiles();
 command = new SlashCommandBuilder()
     .setName('rolldice')
     .setDescription('Rolls some dice')
@@ -14,10 +15,15 @@ command = new SlashCommandBuilder()
         option.setName('dice')
             .setDescription('The dice notation to roll (e.g. 1d6+1)')
             .setRequired(true))
-    .addStringOption(option =>
+    .addStringOption(option => {
         option.setName('alias')
             .setDescription('The alias of the character to roll as')
-            .setRequired(false));
+            .setRequired(false)
+            utils.getCharacterAliases().forEach(function(item) {
+               option.addChoice(item.name, item.alias)
+            })
+            return option
+    });
 
 module.exports = {
 

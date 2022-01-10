@@ -6,6 +6,7 @@ const utils = require("../utils.js");
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
+utils.loadDataFiles();
 command = new SlashCommandBuilder()
     .setName('my')
     .setDescription('Displays the value of a skill or attribute')
@@ -13,10 +14,15 @@ command = new SlashCommandBuilder()
         option.setName('stat')
             .setDescription('The skill or attribute to look up')
             .setRequired(true))
-    .addStringOption(option =>
+    .addStringOption(option => {
         option.setName('alias')
             .setDescription('The alias of the character get the skill or attribute from')
-            .setRequired(false));
+            .setRequired(false)
+			utils.getCharacterAliases().forEach(function(item) {
+               option.addChoice(item.name, item.alias)
+            })
+            return option
+    });
 
 
 module.exports = {

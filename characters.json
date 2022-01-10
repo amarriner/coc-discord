@@ -407,9 +407,9 @@
         {
             "name": "Miles 'Thunderball' McGillicutty",
             "description": "Boxer, age 33",
-            "birthplace": "Boston, MA",
+            "birthplace": "New York, NY",
             "residence": "Arkham, MA",
-            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/928443543142400061/3163789878506983776.jpg",
+            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/928731177437769728/-2059895119442857297.jpg",
             "sheet": "https://amarriner.github.io/coc-discord/character_sheets",
             "rodbotAlias": "ant",
             "weapons": [
@@ -505,8 +505,8 @@
             "rodbotAlias": "don",
             "weapons": [
                 "1911",
-                "browning",
-                "brassknuckles"
+                "brassknuckles",
+                "browning"
             ],
             "attributes": {
                 "STR": 80,
@@ -517,10 +517,10 @@
                 "APP": 50,
                 "POW": 45,
                 "EDU": 30,
-                "SAN": 50,
+                "SAN": 59,
                 "HP": 11,
                 "MP": 9,
-                "Luck": 49
+                "Luck": 59
             },
             "skills": [
                 {
@@ -638,10 +638,10 @@
                 "APP": 70,
                 "POW": 65,
                 "EDU": 15,
-                "SAN": 74,
+                "SAN": 81,
                 "HP": 11,
                 "MP": 13,
-                "Luck": 58
+                "Luck": 64
             },
             "skills": [
                 {
