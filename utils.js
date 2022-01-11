@@ -15,6 +15,27 @@ const dbb_table = [64, 84, 124, 164, 204, 284, 364, 444, 524];
 const build_table = ['-2', '-1', '0', '+1', '+2', '+3', '+4', '+5', '+6'];
 const damage_bonus_table = ['-2', '-1', '0', '1d4', '1d6', '2d6', '3d6', '4d6', '5d6'];
 
+const getRandomPlayerCharacter = function() {
+    var players = getPlayerCharacterAliases();
+    var player = players[Math.floor(Math.random() * players.length)];
+    return getCharacterByAlias(player.alias);
+}
+
+const getPlayerCharacterAliases = function() {
+    var aliases = Array();
+    for(discord_id in characters) {
+        for(i in characters[discord_id]) {
+            if(i == 0) {
+                aliases.push({
+                    'alias': characters[discord_id][i].rodbotAlias,
+                    'name': characters[discord_id][i].name
+                });
+            }
+        }
+    }
+    return aliases;
+}
+
 const getCharacterAliases = function() {
     var aliases = Array();
     for(discord_id in characters) {
@@ -811,6 +832,8 @@ module.exports = {
    getCharacterTalents: getCharacterTalents,
    getCharacterWeapons: getCharacterWeapons,
    getEmojiByName: getEmojiByName,
+   getPlayerCharacterAliases: getPlayerCharacterAliases,
+   getRandomPlayerCharacter: getRandomPlayerCharacter,
    getUsers: getUsers,
    getUser: getUser,
    getWeaponByName: getWeaponByName,

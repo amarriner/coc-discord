@@ -15,6 +15,10 @@ command = new SlashCommandBuilder()
         option.setName('dice')
             .setDescription('The dice notation to roll (e.g. 1d6+1)')
             .setRequired(true))
+    .addStringOption(option =>
+        option.setName('comment')
+            .setDescription('A comment to add to the die roll')
+            .setRequired(false))
     .addStringOption(option => {
         option.setName('alias')
             .setDescription('The alias of the character to roll as')
@@ -41,6 +45,9 @@ module.exports = {
 
         result = Dice.detailed(dice);
         embed.description = `Rolled ${dice} and got a ${result.result.toString()}`;
+        if (interaction.options.getString("comment") !== null) {
+             embed.description += "```" + interaction.options.getString("comment").substr(0, 2041) + "```";
+        }
         embed.footer = {
             'text': `Individual dice: ${result.rolls.join(", ")} | Modifier: ${result.modifier.toString()}`
         };
