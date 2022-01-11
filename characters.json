@@ -426,9 +426,9 @@
                 "POW": 40,
                 "EDU": 90,
                 "SAN": 40,
-                "HP": 8,
+                "HP": 26,
                 "MP": 13,
-                "Luck": 54
+                "Luck": 44
             },
             "skills": [
                 {
@@ -549,7 +549,7 @@
                 {
                     "name": "firearmsshotgunrifle",
                     "value": 60,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "firstaid",
@@ -639,7 +639,7 @@
                 "POW": 65,
                 "EDU": 15,
                 "SAN": 81,
-                "HP": 11,
+                "HP": 15,
                 "MP": 13,
                 "Luck": 64
             },

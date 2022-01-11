@@ -43,13 +43,13 @@ module.exports = {
         character = utils.getCharacter(interaction.user.id, alias);
         embed = utils.getCharacterEmbed(character);
 
-        result = Dice.detailed(dice);
-        embed.description = `Rolled ${dice} and got a ${result.result.toString()}`;
+        result = utils.rollDiceString(dice);
+        embed.description = `Rolled ${dice} and got a ${result.total}`;
         if (interaction.options.getString("comment") !== null) {
              embed.description += "```" + interaction.options.getString("comment").substr(0, 2041) + "```";
         }
         embed.footer = {
-            'text': `Individual dice: ${result.rolls.join(", ")} | Modifier: ${result.modifier.toString()}`
+            'text': `Results: ${result.results.join(" + ")} + ${result.modification}`
         };
 
         await interaction.reply({ embeds: [embed] });

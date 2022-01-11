@@ -36,7 +36,6 @@ module.exports = {
             alias = undefined
         }
 
-        console.log(`Looking up ${stat} for ${alias} (${interaction.user.id})`)
         var r;
 
         for (var i = 0; i < stat.split(",").length; i++) {

@@ -81,10 +81,13 @@ module.exports = {
 
         var dice = 1;
         if (interaction.options.getInteger('bonus') !== null) {
-            dice = 1 + interaction.options.getInteger('bonus');
+            dice += interaction.options.getInteger('bonus');
         }
         if (interaction.options.getInteger('penalty') !== null) {
-            dice = 1 - interaction.options.getInteger('penalty');
+            dice -= interaction.options.getInteger('penalty');
+            if (dice === 0) {
+                dice = -1;
+            }
         }
 
         weapons = utils.findWeaponKeys(weapon);

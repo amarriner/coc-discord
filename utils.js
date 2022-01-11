@@ -1,5 +1,6 @@
 const bot = require("./bot.js");
 const config = require("./config.json")
+const Dice = require('dice-notation-js');
 const fs = require("fs");
 const fuzzysort = require("fuzzysort");
 
@@ -813,6 +814,54 @@ const rollDice = function(numberOfTens = 1) {
 
 };
 
+const rollDiceString = function(diceString) {
+
+    const dice_regex = /\+?([0-9]+d[0-9]+)/g;
+    const modification_regex = /([+-][0-9]+)/g;
+
+    results = [];
+    str = "";
+    total = 0;
+    dice = diceString.match(dice_regex);
+    for (i = 0; i < dice.length; i++) {
+        result = Dice.detailed(dice[i]);
+
+        if (str === "") {
+            str = dice[i];
+        }
+        else {
+            str = `${str}+${dice[i].replaceAll(/\+/g, '')}`;
+        }
+
+        results.push(`(${result.rolls.join(", ")})`);
+        total += result.result;
+    }
+
+    modification = 0;
+    modifications = diceString.replaceAll(dice_regex, '').match(modification_regex);
+    if (modifications !== null) {
+        for (i = 0; i < modifications.length; i++) {
+            modification += parseInt(modifications[i]);
+        }
+    }
+
+    if (modification > 0) {
+        str = `${str}+${modification.toString()}`;
+        total += modification;
+    }
+    if (modification < 0) {
+        str = `${str}-${modification.toString()}`;
+        total -= modification;
+    }
+    return {
+        "dice": dice,
+        "modification": modification,
+        "results": results,
+        "str": str,
+        "total": total
+    }
+}
+
 module.exports = {
 
    addCharacterSkillCheck: addCharacterSkillCheck,
@@ -843,6 +892,7 @@ module.exports = {
    removeCharacterSkillCheck: removeCharacterSkillCheck,
    removeCharacterSkillChecks: removeCharacterSkillChecks,
    rollDice: rollDice,
+   rollDiceString: rollDiceString,
    updateCharacterStat: updateCharacterStat,
    characters: characters,
    weapons: weapons,
