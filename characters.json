@@ -520,7 +520,7 @@
                 "SAN": 59,
                 "HP": 11,
                 "MP": 9,
-                "Luck": 59
+                "Luck": 54
             },
             "skills": [
                 {
@@ -650,7 +650,8 @@
                 },
                 {
                     "name": "fightingbrawl",
-                    "value": 56
+                    "value": 56,
+                    "checked": true
                 },
                 {
                     "name": "firearmsshotgunrifle",

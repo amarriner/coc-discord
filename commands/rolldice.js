@@ -44,12 +44,16 @@ module.exports = {
         embed = utils.getCharacterEmbed(character);
 
         result = utils.rollDiceString(dice);
+        resultString = `Results: ${result.results.join(" + ")}`;
+        if (result.modification != 0) {
+            resultString = `${resultString} + ${result.modification}`;
+        }
         embed.description = `Rolled ${dice} and got a ${result.total}`;
         if (interaction.options.getString("comment") !== null) {
              embed.description += "```" + interaction.options.getString("comment").substr(0, 2041) + "```";
         }
         embed.footer = {
-            'text': `Results: ${result.results.join(" + ")} + ${result.modification}`
+            'text': `${resultString}`
         };
 
         await interaction.reply({ embeds: [embed] });
