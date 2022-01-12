@@ -42,6 +42,8 @@ module.exports = {
     data: command,
     async execute(interaction) {
 
+        console.log(interaction.toString());
+
         var stat = interaction.options.getString('stat');
         var alias = interaction.options.getString("alias");
         if (alias === null) {

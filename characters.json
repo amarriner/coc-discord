@@ -348,7 +348,8 @@
                 },
                 {
                     "name": "charm",
-                    "value": 45
+                    "value": 45,
+                    "checked": true
                 },
                 {
                     "name": "fightingbrawl",
@@ -358,7 +359,7 @@
                 {
                     "name": "firearmshandgun",
                     "value": 55,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "history",
@@ -476,7 +477,7 @@
                     "value": 60
                 },
                 {
-                    "name": "archaeology",
+                    "name": "anthropology",
                     "value": 46
                 },
                 {
@@ -554,7 +555,7 @@
                 {
                     "name": "firstaid",
                     "value": 46,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "intimidate",
