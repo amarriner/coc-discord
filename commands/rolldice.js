@@ -50,7 +50,7 @@ module.exports = {
         }
         embed.description = `Rolled ${dice} and got a ${result.total}`;
         if (interaction.options.getString("comment") !== null) {
-             embed.description += "```" + interaction.options.getString("comment").substr(0, 2041) + "```";
+             embed.description += "\n```" + interaction.options.getString("comment").substr(0, 2041) + "```";
         }
         embed.footer = {
             'text': `${resultString}`

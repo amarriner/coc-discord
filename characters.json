@@ -340,7 +340,7 @@
                 {
                     "name": "anthropology",
                     "value": 51,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "archaeology",
@@ -372,21 +372,23 @@
                 },
                 {
                     "name": "libraryuse",
-                    "value": 50
+                    "value": 50,
+                    "checked": true
                 },
                 {
                     "name": "listen",
-                    "value": 50
+                    "value": 50,
+                    "checked": true
                 },
                 {
                     "name": "occult",
                     "value": 55,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "psychology",
                     "value": 39,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "spothidden",
@@ -450,11 +452,13 @@
                 },
                 {
                     "name": "psychology",
-                    "value": 30
+                    "value": 30,
+                    "checked": true
                 },
                 {
                     "name": "spothidden",
-                    "value": 45
+                    "value": 45,
+                    "checked": true
                 },
                 {
                     "name": "history",
@@ -474,11 +478,13 @@
                 },
                 {
                     "name": "libraryuse",
-                    "value": 60
+                    "value": 60,
+                    "checked": true
                 },
                 {
                     "name": "anthropology",
-                    "value": 46
+                    "value": 46,
+                    "checked": true
                 },
                 {
                     "name": "creditrating",
@@ -540,7 +546,7 @@
                 {
                     "name": "fightingbrawl",
                     "value": 69,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "firearmshandgun",
@@ -582,7 +588,7 @@
                 {
                     "name": "spothidden",
                     "value": 57,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "survival",
@@ -670,7 +676,8 @@
                 },
                 {
                     "name": "libraryuse",
-                    "value": 27
+                    "value": 27,
+                    "checked": true
                 },
                 {
                     "name": "survival",
@@ -690,6 +697,11 @@
                     "name": "psychology",
                     "value": 18,
                     "checked": false
+                },
+                {
+                    "name": "listen",
+                    "value": 20,
+                    "checked": true
                 }
             ],
             "talents": [
