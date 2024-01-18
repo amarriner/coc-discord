@@ -25,6 +25,11 @@
         "default": 5
     },
     {
+        "name": "artcraftphotography",
+        "description": "Art/Craft Photography",
+        "default": 5
+    },
+    {
         "name": "charm",
         "description": "Charm",
         "default": 15

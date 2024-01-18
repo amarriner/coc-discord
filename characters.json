@@ -331,7 +331,7 @@
                 "APP": 60,
                 "POW": 50,
                 "EDU": 80,
-                "SAN": 49,
+                "SAN": 46,
                 "HP": 11,
                 "MP": 9,
                 "Luck": 71
@@ -344,7 +344,8 @@
                 },
                 {
                     "name": "archaeology",
-                    "value": 60
+                    "value": 60,
+                    "checked": true
                 },
                 {
                     "name": "charm",
@@ -352,9 +353,13 @@
                     "checked": true
                 },
                 {
+                    "name": "cthulhumythos",
+                    "value": 7
+                },
+                {
                     "name": "fightingbrawl",
                     "value": 60,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "firearmshandgun",
@@ -394,10 +399,6 @@
                     "name": "spothidden",
                     "value": 51,
                     "checked": false
-                },
-                {
-                    "name": "cthulhumythos",
-                    "value": 2
                 }
             ],
             "talents": [
@@ -428,59 +429,12 @@
                 "APP": 35,
                 "POW": 40,
                 "EDU": 90,
-                "SAN": 40,
+                "SAN": 29,
                 "HP": 26,
                 "MP": 13,
                 "Luck": 44
             },
             "skills": [
-                {
-                    "name": "fightingbrawl",
-                    "value": 100
-                },
-                {
-                    "name": "dodge",
-                    "value": 67
-                },
-                {
-                    "name": "intimidate",
-                    "value": 60
-                },
-                {
-                    "name": "jump",
-                    "value": 60
-                },
-                {
-                    "name": "psychology",
-                    "value": 30,
-                    "checked": true
-                },
-                {
-                    "name": "spothidden",
-                    "value": 45,
-                    "checked": true
-                },
-                {
-                    "name": "history",
-                    "value": 45
-                },
-                {
-                    "name": "firearmshandgun",
-                    "value": 85
-                },
-                {
-                    "name": "driveauto",
-                    "value": 50
-                },
-                {
-                    "name": "fasttalk",
-                    "value": 45
-                },
-                {
-                    "name": "libraryuse",
-                    "value": 60,
-                    "checked": true
-                },
                 {
                     "name": "anthropology",
                     "value": 46,
@@ -491,8 +445,60 @@
                     "value": 30
                 },
                 {
+                    "name": "cthulhumythos",
+                    "value": 2
+                },
+                {
+                    "name": "dodge",
+                    "value": 67
+                },
+                {
+                    "name": "driveauto",
+                    "value": 50
+                },
+                {
+                    "name": "fasttalk",
+                    "value": 45
+                },
+                {
+                    "name": "fightingbrawl",
+                    "value": 100,
+                    "checked": true
+                },
+                {
+                    "name": "firearmshandgun",
+                    "value": 85
+                },
+                {
                     "name": "geology",
                     "value": 46
+                },
+                {
+                    "name": "history",
+                    "value": 45
+                },
+                {
+                    "name": "intimidate",
+                    "value": 60
+                },
+                {
+                    "name": "jump",
+                    "value": 60
+                },
+                {
+                    "name": "libraryuse",
+                    "value": 60,
+                    "checked": true
+                },
+                {
+                    "name": "psychology",
+                    "value": 30,
+                    "checked": true
+                },
+                {
+                    "name": "spothidden",
+                    "value": 45,
+                    "checked": true
                 }
             ],
             "talents": [
@@ -524,7 +530,7 @@
                 "APP": 50,
                 "POW": 45,
                 "EDU": 30,
-                "SAN": 59,
+                "SAN": 56,
                 "HP": 11,
                 "MP": 9,
                 "Luck": 54
@@ -532,7 +538,8 @@
             "skills": [
                 {
                     "name": "anthropology",
-                    "value": 31
+                    "value": 31,
+                    "checked": true
                 },
                 {
                     "name": "charm",
@@ -540,13 +547,17 @@
                     "checked": false
                 },
                 {
-                    "name": "medicine",
-                    "value": 45
+                    "name": "cthulhumythos",
+                    "value": 1
                 },
                 {
                     "name": "fightingbrawl",
                     "value": 69,
                     "checked": true
+                },
+                {
+                    "name": "firearms lightning gun",
+                    "value": 25
                 },
                 {
                     "name": "firearmshandgun",
@@ -572,13 +583,22 @@
                     "value": 28
                 },
                 {
+                    "name": "medicine",
+                    "value": 45
+                },
+                {
                     "name": "naturalworld",
                     "value": 48,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "navigate",
                     "value": 15
+                },
+                {
+                    "name": "psychology",
+                    "value": 14,
+                    "checked": true
                 },
                 {
                     "name": "science",
@@ -606,15 +626,6 @@
                 {
                     "name": "track",
                     "value": 22
-                },
-                {
-                    "name": "psychology",
-                    "value": 14,
-                    "checked": false
-                },
-                {
-                    "name": "firearms lightning gun",
-                    "value": 25
                 }
             ],
             "talents": [
@@ -648,9 +659,14 @@
                 "SAN": 81,
                 "HP": 15,
                 "MP": 13,
-                "Luck": 64
+                "Luck": 63
             },
             "skills": [
+                {
+                    "name": "artcraftphotography",
+                    "value": 65,
+                    "checked": true
+                },
                 {
                     "name": "dodge",
                     "value": 40
@@ -663,7 +679,7 @@
                 {
                     "name": "firearmsshotgunrifle",
                     "value": 62,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "firstaid",
@@ -680,12 +696,13 @@
                     "checked": true
                 },
                 {
-                    "name": "survival",
-                    "value": 25
+                    "name": "listen",
+                    "value": 20,
+                    "checked": true
                 },
                 {
-                    "name": "track",
-                    "value": 29,
+                    "name": "psychology",
+                    "value": 18,
                     "checked": false
                 },
                 {
@@ -694,14 +711,13 @@
                     "checked": false
                 },
                 {
-                    "name": "psychology",
-                    "value": 18,
-                    "checked": false
+                    "name": "survival",
+                    "value": 25
                 },
                 {
-                    "name": "listen",
-                    "value": 20,
-                    "checked": true
+                    "name": "track",
+                    "value": 29,
+                    "checked": false
                 }
             ],
             "talents": [

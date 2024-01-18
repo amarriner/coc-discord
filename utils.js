@@ -638,6 +638,10 @@ const getCharacterEmbed = function(character) {
    return embed;
 }
 
+function compareByName(a, b) {
+   return a.name.localeCompare(b.name);
+ }
+
 const getCharacterSheet = function(discordId, alias) {
 
    var returnObj = {
@@ -654,21 +658,62 @@ const getCharacterSheet = function(discordId, alias) {
 
    returnObj.embed = getCharacterEmbed(character);
 
+   str = "";
+   index = 0;
+   title = "ATTRIBUTES";
    for (var attribute in character.attributes) {
+
+      if (index == 0) {
+         str = `${attribute.padEnd(4)}: ${character.attributes[attribute].toString().padStart(2)}`;
+      }
+      else if (index % 2 == 1) {
+         str = `${str} | ${attribute.padEnd(4)}: ${character.attributes[attribute].toString().padStart(2)}`;
+      }
+      else {
+         str = `${str}\n${attribute.padEnd(4)}: ${character.attributes[attribute].toString().padStart(2)}`
+      }
+      
+      index++;
+
+   }
+
+   returnObj.embed.fields.push({
+      "name": " ",
+      "value": "```" + str + "```",
+      "inline": false
+   });
+
+   str = "";
+   title = "SKILLS";
+   for (var s in character.skills.sort(compareByName)) {
+
+      description = (character.skills[s].description !== undefined ? character.skills[s].description : getSkillByName(character.skills[s].name).description);
+      value = character.skills[s].value.toString();
+      if (character.skills[s].checked) {
+         check = ` ${getEmojiByName(config.skillCheckEmoji)}`;
+      }
+      else {
+         check = "";
+      }
+
       returnObj.embed.fields.push({
-         "name": attribute,
-         "value": character.attributes[attribute].toString(),
+         "name": description,
+         "value": `${value}${check}`,
          "inline": true
       });
    }
 
-   for (var s in character.skills) {
-      returnObj.embed.fields.push({
-         "name": (character.skills[s].description !== undefined ? character.skills[s].description : getSkillByName(character.skills[s].name).description),
-         "value": character.skills[s].value.toString(),
-         "inline": true
-      });
-   }
+   returnObj.embed.fields.push({
+      "name": "Talents",
+      "value": character.talents.map(talent => getTalentByName(talent).title).sort().join(", "),
+      "inline": false
+   });
+
+   returnObj.embed.fields.push({
+      "name": "Weapons",
+      "value": character.weapons.map(weapon => getWeaponByName(weapon).description).sort().join(", "),
+      "inline": false
+   });
 
    return returnObj;
 
