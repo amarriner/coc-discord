@@ -6,7 +6,7 @@ let talent_data = {};
 $(document).ready(function() {
 
     $('#character-select').on('change', function() {
-        if ($(this).text() != 'Select a character to view') {
+        if (! $(this).children("option:selected").text().startsWith('Select')) {
             window.location.hash = `#${$(this).val()}`;
         }
     });
@@ -75,20 +75,24 @@ const viewCharacterSheet = function () {
     let character = character_data[id][index];
     $('#character-info').empty()
         .append(`
-            <div class="col">
+        <div class="d-flex align-items-center">
+            <div class="col-sm-4 col-md-2">
                 <em><img class="img-thumbnail" style="height: 5rem;" src="${character.avatar}" alt="${character.name}"></em>
             </div>
             <div class="col">
-                ${character.description}
+                <div class="col">
+                    ${character.description}
+                </div>
+                <div class="col">
+                    <strong>Birthplace: </strong>
+                    ${character.birthplace}
+                </div>
+                <div class="col">
+                    <strong>Residence: </strong>
+                    ${character.residence}
+                </div>
             </div>
-            <div class="col">
-                <strong>Birthplace: </strong>
-                ${character.birthplace}
-            </div>
-            <div class="col">
-                <strong>Residence: </strong>
-                ${character.residence}
-            </div>
+        </div>
         `);
 
     let count = 0;
