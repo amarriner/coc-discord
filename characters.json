@@ -2,6 +2,7 @@
     "84268068800311296": [
         {
             "name": "Louise 'Lulu' Winney",
+            "active_player": false,
             "description": "Dancer, age 23",
             "birthplace": "Blackwater Creek, MA",
             "residence": "Arkham, MA",
@@ -20,10 +21,10 @@
                 "APP": 70,
                 "POW": 50,
                 "EDU": 50,
-                "SAN": 65,
+                "SAN": 81,
                 "HP": 11,
                 "MP": 10,
-                "Luck": 52
+                "Luck": 62
             },
             "skills": [
                 {
@@ -31,13 +32,13 @@
                     "value": 15
                 },
                 {
+                    "name": "climb",
+                    "value": 40
+                },
+                {
                     "name": "dancing",
                     "description": "Dancing",
                     "value": 45
-                },
-                {
-                    "name": "climb",
-                    "value": 40
                 },
                 {
                     "name": "dodge",
@@ -65,6 +66,11 @@
                     "value": 40
                 },
                 {
+                    "name": "martialarts",
+                    "description": "Martial Arts",
+                    "value": 10
+                },
+                {
                     "name": "persuade",
                     "value": 65
                 },
@@ -88,16 +94,12 @@
                 {
                     "name": "track",
                     "value": 50
-                },
-                {
-                    "name": "martialarts",
-                    "description": "Martial Arts",
-                    "value": 10
                 }
             ]
         },
         {
             "name": "Jackson Elias",
+            "active_player": false,
             "description": "Fearless Investigator, age 41",
             "birthplace": "New York City",
             "residence": "New York City",
@@ -204,6 +206,7 @@
         },
         {
             "name": "Savario Rotondo",
+            "active_player": false,
             "description": "Criminal: Bootlegger, age 27",
             "birthplace": "Boston, MA",
             "residence": "Arkham, MA",
@@ -305,6 +308,7 @@
         },
         {
             "name": "The Keeper",
+            "active_player": false,
             "rodbotAlias": "k",
             "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/658396898390048768/Screenshot_20191222-145231_1.png"
         }
@@ -312,6 +316,7 @@
     "424676087218307093": [
         {
             "name": "Edward M. Finnigan",
+            "active_player": true,
             "description": "Professor, age 34",
             "birthplace": "New York City",
             "residence": "Arkham, MA",
@@ -334,7 +339,7 @@
                 "SAN": 46,
                 "HP": 11,
                 "MP": 9,
-                "Luck": 71
+                "Luck": 81
             },
             "skills": [
                 {
@@ -410,6 +415,7 @@
     "643099746868920331": [
         {
             "name": "Miles 'Thunderball' McGillicutty",
+            "active_player": true,
             "description": "Boxer, age 33",
             "birthplace": "New York, NY",
             "residence": "Arkham, MA",
@@ -432,7 +438,7 @@
                 "SAN": 29,
                 "HP": 26,
                 "MP": 13,
-                "Luck": 44
+                "Luck": 54
             },
             "skills": [
                 {
@@ -510,6 +516,7 @@
     "643129636871602179": [
         {
             "name": "Rauthaford Candaverish",
+            "active_player": true,
             "description": "Sailor (Naval), age 30",
             "birthplace": "New York City",
             "residence": "Arkham, MA",
@@ -530,16 +537,16 @@
                 "APP": 50,
                 "POW": 45,
                 "EDU": 30,
-                "SAN": 56,
+                "SAN": 69,
                 "HP": 11,
                 "MP": 9,
-                "Luck": 54
+                "Luck": 64
             },
             "skills": [
                 {
                     "name": "anthropology",
-                    "value": 31,
-                    "checked": true
+                    "value": 39,
+                    "checked": false
                 },
                 {
                     "name": "charm",
@@ -553,7 +560,7 @@
                 {
                     "name": "fightingbrawl",
                     "value": 69,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "firearms lightning gun",
@@ -567,7 +574,7 @@
                 {
                     "name": "firearmsshotgunrifle",
                     "value": 60,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "firstaid",
@@ -584,12 +591,13 @@
                 },
                 {
                     "name": "medicine",
-                    "value": 45
+                    "value": 45,
+                    "checked": false
                 },
                 {
                     "name": "naturalworld",
                     "value": 48,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "navigate",
@@ -598,7 +606,7 @@
                 {
                     "name": "psychology",
                     "value": 14,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "science",
@@ -607,8 +615,8 @@
                 },
                 {
                     "name": "spothidden",
-                    "value": 57,
-                    "checked": true
+                    "value": 59,
+                    "checked": false
                 },
                 {
                     "name": "survival",
@@ -637,6 +645,7 @@
     "644199074714877952": [
         {
             "name": "Lawrence Stockwell",
+            "active_player": true,
             "description": "Private Investigator, age 25",
             "birthplace": "New York City",
             "residence": "Arkham, MA",
@@ -656,16 +665,16 @@
                 "APP": 70,
                 "POW": 65,
                 "EDU": 15,
-                "SAN": 81,
+                "SAN": 90,
                 "HP": 15,
                 "MP": 13,
-                "Luck": 63
+                "Luck": 73
             },
             "skills": [
                 {
                     "name": "artcraftphotography",
                     "value": 65,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "dodge",
@@ -673,13 +682,13 @@
                 },
                 {
                     "name": "fightingbrawl",
-                    "value": 56,
-                    "checked": true
+                    "value": 65,
+                    "checked": false
                 },
                 {
                     "name": "firearmsshotgunrifle",
                     "value": 62,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "firstaid",
@@ -692,13 +701,13 @@
                 },
                 {
                     "name": "libraryuse",
-                    "value": 27,
-                    "checked": true
+                    "value": 28,
+                    "checked": false
                 },
                 {
                     "name": "listen",
-                    "value": 20,
-                    "checked": true
+                    "value": 28,
+                    "checked": false
                 },
                 {
                     "name": "psychology",

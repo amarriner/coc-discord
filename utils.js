@@ -394,6 +394,32 @@ const getCharacter = function(discordId, alias) {
 
 };
 
+const getCharacterIdByAlias = function(alias) {
+
+   for (var discordId in characters) {
+       for (var i = 0; i < characters[discordId].length; i++) {
+           if (characters[discordId][i].rodbotAlias !== undefined && characters[discordId][i].rodbotAlias === alias) {
+               return i;
+           }
+       }
+   }
+
+   return undefined;
+}
+
+const getCharacterDiscordIdByAlias = function(alias) {
+
+   for (var discordId in characters) {
+       for (var i = 0; i < characters[discordId].length; i++) {
+           if (characters[discordId][i].rodbotAlias !== undefined && characters[discordId][i].rodbotAlias === alias) {
+               return discordId;
+           }
+       }
+   }
+
+   return undefined;
+}
+
 const getCharacterByAlias = function(alias) {
 
    for (var discordId in characters) {
@@ -618,7 +644,7 @@ const getCharacterEmbed = function(character) {
    var embed = new MessageEmbed();
 
    embed.title = character.name;
-   embed.url = character.sheet;
+   embed.url = `https://bulletriddenlich.com/coc/character_sheet.html#${getCharacterDiscordIdByAlias(character.rodbotAlias)}-${getCharacterIdByAlias(character.rodbotAlias)}`; // character.sheet;
    embed.color = config.rollSuccessColor;
    //embed.author = {
    //   "name": config.authorName,
@@ -925,6 +951,8 @@ module.exports = {
    getCharacterStat: getCharacterStat,
    getCharacterTalents: getCharacterTalents,
    getCharacterWeapons: getCharacterWeapons,
+   getCharacterDiscordIdByAlias: getCharacterDiscordIdByAlias,
+   getCharacterIdByAlias: getCharacterIdByAlias,
    getEmojiByName: getEmojiByName,
    getPlayerCharacterAliases: getPlayerCharacterAliases,
    getRandomPlayerCharacter: getRandomPlayerCharacter,
