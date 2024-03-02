@@ -48,5 +48,10 @@
         "name": "toughguy",
         "title": "Tough Guy",
         "description": "Soaks up damage, may spend 10 Luck points to shrug off up to 5 hit points worth of damage taken in one combat round"
+    },
+    {
+        "name": "smoothtalker",
+        "title": "Smooth Talker",
+        "description": "Gain a bonus die to Charm rolls"
     }
 ]

@@ -33,19 +33,20 @@ module.exports = {
         await interaction.reply({ content: 'Sending message...' });
         await interaction.deleteReply();
 
-        console.log("---> " + Object.keys(interaction.channel))
-        console.log("---> " + interaction.channel.type)
-        console.log("---> " + typeof(interaction.channel))
+        // console.log("---> " + Object.keys(interaction.channel))
+        // console.log("---> " + interaction.channel.type)
+        // console.log("---> " + typeof(interaction.channel))
         character = utils.getCharacter(interaction.user.id, alias);
 
         if (interaction.channel.type === 'GUILD_PUBLIC_THREAD') {
 
             interaction.guild.channels.fetch(interaction.channel.parentId)
             .then(channel => {
-                console.log(`The channel name is: ${channel.name} and ${interaction.parentId} and ${channel.id}`)
-                console.log("---> " + Object.keys(channel))
-                console.log("---> " + typeof(channel))
-                c = interaction.guild.channels.resolve(channel)
+                // console.log(`The channel name is: ${channel.name} and ${interaction.parentId} and ${channel.id}`)
+                // console.log("---> " + Object.keys(channel))
+                // console.log("---> " + typeof(channel))
+                c = interaction.guild.channels.resolve(channel);
+                console.log(character.avatar);
                 interaction.guild.channels.createWebhook(channel, character.name, {
                     avatar: character.avatar,
                 })
@@ -60,6 +61,7 @@ module.exports = {
          
         }
         else {
+            console.log(character.avatar);
             interaction.channel.createWebhook(character.name, {
                 avatar: character.avatar,
             })

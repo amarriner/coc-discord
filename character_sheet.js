@@ -2,6 +2,7 @@
 let character_data = {};
 let skill_data = {};
 let talent_data = {};
+let weapon_data = {};
 
 $(document).ready(function() {
 
@@ -12,6 +13,11 @@ $(document).ready(function() {
     });
 
     let timestamp = Date.now();
+
+    $.getJSON(`https://bulletriddenlich.com/coc/weapons.json?${timestamp}`, function( data ) {
+        weapon_data = data;
+    });
+
     $.getJSON(`https://bulletriddenlich.com/coc/skills.json?${timestamp}`, function( data ) {
         skill_data = data;
     });
@@ -97,18 +103,22 @@ const viewCharacterSheet = function () {
 
     let count = 0;
     let attributes = "";
-    for (attribute in character.attributes) {
+    let values = character.attributes;
+    values.Build = calculateBuild(character);
+    values.DMB = calculateDamageBonus(character);
+    for (attribute in values) {
 
         stripe = "";
         if (count % 4 == 0 || count % 4 == 1) {
             stripe = " stripe"
         }
 
-        attributes = `${attributes}<div class="col-sm-3${stripe}"><strong>${attribute}</strong></div><div class="col-sm-3${stripe}">${character.attributes[attribute]}</div>`;
+        attributes = `${attributes}<div class="col-sm-3${stripe}"><strong>${attribute}</strong></div><div class="col-sm-3${stripe}">${values[attribute]}</div>`;
 
         count++;
 
     }
+
     $('#character-attributes').empty()
         .append(`
             <div class="row">
@@ -187,6 +197,31 @@ const getTalent = function(talent) {
     }
 
     return {};
+
+}
+
+const dbb_table = [64, 84, 124, 164, 204, 284, 364, 444, 524];
+const build_table = ['-2', '-1', '0', '+1', '+2', '+3', '+4', '+5', '+6'];
+const damage_bonus_table = ['-2', '-1', '0', '1d4', '1d6', '2d6', '3d6', '4d6', '5d6'];
+
+const getDbbTableIndex = function(value) {
+    for (i = 0; i < dbb_table.length; i++) {
+        if (value <= dbb_table[i]) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+const calculateBuild = function(character) {
+
+    return build_table[getDbbTableIndex(parseInt(character.attributes.STR) + parseInt(character.attributes.SIZ))];
+
+}
+
+const calculateDamageBonus = function(character) {
+
+    return damage_bonus_table[getDbbTableIndex(parseInt(character.attributes.STR) + parseInt(character.attributes.SIZ))];
 
 }
 

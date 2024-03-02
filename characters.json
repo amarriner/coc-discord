@@ -6,7 +6,7 @@
             "description": "Dancer, age 23",
             "birthplace": "Blackwater Creek, MA",
             "residence": "Arkham, MA",
-            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/643541050677526528/unknown.png",
+            "avatar": "https://bulletriddenlich.com/coc/images/lulu.png",
             "rodbotAlias": "lulu",
             "weapons": [
                 "1911",
@@ -210,7 +210,7 @@
             "description": "Criminal: Bootlegger, age 27",
             "birthplace": "Boston, MA",
             "residence": "Arkham, MA",
-            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/643185018125942794/Screenshot_20191110-152624.png",
+            "avatar": "https://bulletriddenlich.com/coc/images/savario.png",
             "sheet": "https://amarriner.github.io/coc-discord/character_sheets/Savario_Rotondo.pdf",
             "rodbotAlias": "savario",
             "attributes": {
@@ -310,7 +310,7 @@
             "name": "The Keeper",
             "active_player": false,
             "rodbotAlias": "k",
-            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/658396898390048768/Screenshot_20191222-145231_1.png"
+            "avatar": "https://bulletriddenlich.com/coc/images/keeper.jpg"
         }
     ],
     "424676087218307093": [
@@ -320,7 +320,7 @@
             "description": "Professor, age 34",
             "birthplace": "New York City",
             "residence": "Arkham, MA",
-            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/652577427012190278/finnigan.jpg",
+            "avatar": "https://bulletriddenlich.com/coc/images/ed.jpg",
             "sheet": "https://amarriner.github.io/coc-discord/character_sheets/Edward_M_Finnigan.pdf",
             "rodbotAlias": "james",
             "weapons": [
@@ -336,40 +336,40 @@
                 "APP": 60,
                 "POW": 50,
                 "EDU": 80,
-                "SAN": 46,
+                "SAN": 62,
                 "HP": 11,
                 "MP": 9,
-                "Luck": 81
+                "Luck": 79
             },
             "skills": [
                 {
                     "name": "anthropology",
-                    "value": 51,
-                    "checked": true
+                    "value": 57,
+                    "checked": false
                 },
                 {
                     "name": "archaeology",
-                    "value": 60,
+                    "value": 63,
                     "checked": true
                 },
                 {
                     "name": "charm",
-                    "value": 45,
-                    "checked": true
+                    "value": 50,
+                    "checked": false
                 },
                 {
                     "name": "cthulhumythos",
-                    "value": 7
+                    "value": 15
                 },
                 {
                     "name": "fightingbrawl",
                     "value": 60,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "firearmshandgun",
-                    "value": 55,
-                    "checked": true
+                    "value": 63,
+                    "checked": false
                 },
                 {
                     "name": "history",
@@ -382,28 +382,33 @@
                 },
                 {
                     "name": "libraryuse",
-                    "value": 50,
-                    "checked": true
+                    "value": 59,
+                    "checked": false
                 },
                 {
                     "name": "listen",
                     "value": 50,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "occult",
                     "value": 55,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "psychology",
-                    "value": 39,
-                    "checked": true
+                    "value": 43,
+                    "checked": false
                 },
                 {
                     "name": "spothidden",
                     "value": 51,
                     "checked": false
+                },
+                {
+                    "name": "stealth",
+                    "value": 20,
+                    "checked": true
                 }
             ],
             "talents": [
@@ -419,7 +424,7 @@
             "description": "Boxer, age 33",
             "birthplace": "New York, NY",
             "residence": "Arkham, MA",
-            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/928731177437769728/-2059895119442857297.jpg",
+            "avatar": "https://bulletriddenlich.com/coc/images/miles.jpg",
             "sheet": "https://amarriner.github.io/coc-discord/character_sheets",
             "rodbotAlias": "ant",
             "weapons": [
@@ -435,7 +440,7 @@
                 "APP": 35,
                 "POW": 40,
                 "EDU": 90,
-                "SAN": 29,
+                "SAN": 49,
                 "HP": 26,
                 "MP": 13,
                 "Luck": 54
@@ -444,7 +449,7 @@
                 {
                     "name": "anthropology",
                     "value": 46,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "creditrating",
@@ -494,16 +499,21 @@
                 {
                     "name": "libraryuse",
                     "value": 60,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "psychology",
                     "value": 30,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "spothidden",
-                    "value": 45,
+                    "value": 50,
+                    "checked": true
+                },
+                {
+                    "name": "stealth",
+                    "value": 20,
                     "checked": true
                 }
             ],
@@ -520,7 +530,7 @@
             "description": "Sailor (Naval), age 30",
             "birthplace": "New York City",
             "residence": "Arkham, MA",
-            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/653697884881158146/d65b4fc0811fbe56232551f81a16f40f_2.jpg",
+            "avatar": "https://bulletriddenlich.com/coc/images/ford.jpg",
             "sheet": "https://amarriner.github.io/coc-discord/character_sheets/Rauthaford_Candaverish.pdf",
             "rodbotAlias": "don",
             "weapons": [
@@ -551,11 +561,15 @@
                 {
                     "name": "charm",
                     "value": 36,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "cthulhumythos",
                     "value": 1
+                },
+                {
+                    "name": "electricrepair",
+                    "value": 45
                 },
                 {
                     "name": "fightingbrawl",
@@ -579,7 +593,7 @@
                 {
                     "name": "firstaid",
                     "value": 46,
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "name": "intimidate",
@@ -604,9 +618,15 @@
                     "value": 15
                 },
                 {
+                    "name": "pilot",
+                    "value": 20,
+                    "description": "Pilot (Boat)",
+                    "checked": false
+                },
+                {
                     "name": "psychology",
                     "value": 14,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "science",
@@ -616,7 +636,12 @@
                 {
                     "name": "spothidden",
                     "value": 59,
-                    "checked": false
+                    "checked": true
+                },
+                {
+                    "name": "stealth",
+                    "value": 20,
+                    "checked": true
                 },
                 {
                     "name": "survival",
@@ -638,7 +663,7 @@
             ],
             "talents": [
                 "linguist",
-                "rapidfire"
+                "smoothtalker"
             ]
         }
     ],
@@ -649,7 +674,7 @@
             "description": "Private Investigator, age 25",
             "birthplace": "New York City",
             "residence": "Arkham, MA",
-            "avatar": "https://cdn.discordapp.com/attachments/642854137066946628/653989188542398466/spade16.jpg",
+            "avatar": "https://bulletriddenlich.com/coc/images/lawrence.jpg",
             "sheet": "https://amarriner.github.io/coc-discord/character_sheets/Lawrence_Stockwell.pdf",
             "rodbotAlias": "andy",
             "weapons": [
@@ -677,6 +702,11 @@
                     "checked": false
                 },
                 {
+                    "name": "disguise",
+                    "value": 14,
+                    "checked": false
+                },
+                {
                     "name": "dodge",
                     "value": 40
                 },
@@ -692,7 +722,7 @@
                 },
                 {
                     "name": "firstaid",
-                    "value": 40
+                    "value": 42
                 },
                 {
                     "name": "intimidate",
@@ -701,8 +731,8 @@
                 },
                 {
                     "name": "libraryuse",
-                    "value": 28,
-                    "checked": false
+                    "value": 57,
+                    "checked": true
                 },
                 {
                     "name": "listen",
@@ -710,14 +740,19 @@
                     "checked": false
                 },
                 {
+                    "name": "mechanicalrepair",
+                    "value": 60,
+                    "checked": false
+                },
+                {
                     "name": "psychology",
-                    "value": 18,
+                    "value": 48,
                     "checked": false
                 },
                 {
                     "name": "spothidden",
-                    "value": 28,
-                    "checked": false
+                    "value": 58,
+                    "checked": true
                 },
                 {
                     "name": "survival",
