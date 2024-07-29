@@ -359,7 +359,7 @@
                 },
                 {
                     "name": "cthulhumythos",
-                    "value": 15
+                    "value": 19
                 },
                 {
                     "name": "fightingbrawl",
@@ -388,7 +388,7 @@
                 {
                     "name": "listen",
                     "value": 50,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "occult",
@@ -408,6 +408,11 @@
                 {
                     "name": "stealth",
                     "value": 20,
+                    "checked": true
+                },
+                {
+                    "name": "naturalworld",
+                    "value": 10,
                     "checked": true
                 }
             ],
@@ -737,7 +742,7 @@
                 {
                     "name": "listen",
                     "value": 28,
-                    "checked": false
+                    "checked": true
                 },
                 {
                     "name": "mechanicalrepair",
