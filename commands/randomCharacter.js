@@ -23,7 +23,7 @@ module.exports = function(guildId) {
     module.execute = async function(interaction) {
 
         character = utils.getRandomPlayerCharacter(interaction.guild.id);
-        embed = utils.getCharacterEmbed(character);
+        embed = utils.getCharacterEmbed(character, interaction.guild.id);
         await interaction.reply({ embeds: [embed] });
 
     };

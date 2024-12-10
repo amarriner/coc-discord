@@ -353,8 +353,16 @@
                         "value": 45
                     },
                     {
+                        "name": "fightingbrawl",
+                        "value": 50
+                    },
+                    {
                         "name": "creditrating",
                         "value": 16
+                    },
+                    {
+                        "name": "dodge",
+                        "value": 40
                     },
                     {
                         "name": "fasttalk",
@@ -400,7 +408,7 @@
                     }
                 ],
                 "background": "Max, as his friends call him, has been hunting the unexplained ever since he returned from the Great War. It was while he was in France that his interest in strange phenomena took root. As well as the horrors of war, Max encountered something strange and unexplainable during a sortie through an abandoned churchyard. Since returning home, despite the meager income it brings, he has devoted his life to seeking out the unusual and inexplicable.",
-                "equipment": "Camera and film, “gost hunting kit” (talcum powder, thermometer, string, screw driver, Holy Bible), notepad and ink pen, $10 on hand."
+                "equipment": "Camera and film, “ghost hunting kit” (talcum powder, thermometer, string, screw driver, Holy Bible), notepad and ink pen, $10 on hand."
             },
             {
                 "name": "The Keeper",
@@ -520,7 +528,8 @@
                     "resilient"
                 ]
             }
-        ]
+        ],
+        "468955426558312449": []
     },
     "643099746868920331": {
         "642839182602928168": [
@@ -629,7 +638,8 @@
                     "toughguy"
                 ]
             }
-        ]
+        ],
+        "468955426558312449": []
     },
     "643129636871602179": {
         "642839182602928168": [
@@ -776,7 +786,8 @@
                     "smoothtalker"
                 ]
             }
-        ]
+        ],
+        "468955426558312449": []
     },
     "644199074714877952": {
         "642839182602928168": [
@@ -882,6 +893,7 @@
                     "scary"
                 ]
             }
-        ]
+        ],
+        "468955426558312449": []
     }
 }

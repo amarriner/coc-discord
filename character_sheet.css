@@ -5,15 +5,3 @@ body {
 .stripe {
     background-color: #f8f8f8;
 }
-
-#character-talents-header {
-    visibility: hidden;
-}
-
-#character-background-header {
-    visibility: hidden;
-}
-
-#character-equipment-header {
-    visibility: hidden;
-}

@@ -96,6 +96,9 @@ const viewCharacterSheet = function () {
             </div>
             <div class="col">
                 <div class="col">
+                    <strong>${character.name}</strong>
+                </div>
+                <div class="col">
                     ${character.description}
                 </div>
                 <div class="col">

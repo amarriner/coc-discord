@@ -46,8 +46,9 @@ module.exports = function (guildId) {
             alias = undefined;
         }
 
+        console.error(`${interaction.user.id} - ${interaction.guild.id} - ${alias}`)
         character = utils.getCharacter(interaction.user.id, alias, interaction.guild.id);
-        embed = utils.getCharacterEmbed(character);
+        embed = utils.getCharacterEmbed(character, interaction.guild.id);
 
         result = utils.rollDiceString(dice);
         resultString = `Results: ${result.results.join(" + ")}`;
