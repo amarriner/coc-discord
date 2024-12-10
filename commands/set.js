@@ -6,35 +6,41 @@ const utils = require("../utils.js");
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-utils.loadDataFiles();
-command = new SlashCommandBuilder()
-    .setName('set')
-    .setDescription("Adjusts a character's stat or attribute")
-    .addStringOption(option =>
-        option.setName('stat')
-            .setDescription('The stat to update')
-            .setRequired(true))
-    .addStringOption(option =>
-        option.setName('value')
-            .setDescription('How to adjust the stat, + add, - minus, = set')
-            .setRequired(true))
-    .addStringOption(option => {
-        option.setName('alias')
-            .setDescription('The alias of the character update')
-            .setRequired(true)
-            utils.getCharacterAliases().forEach(function(item) {
-               option.addChoice(item.name, item.alias)
+const buildCommand = function (guildId) {
+
+    utils.loadDataFiles();
+    var command = new SlashCommandBuilder()
+        .setName('set')
+        .setDescription("Adjusts a character's stat or attribute")
+        .addStringOption(option =>
+            option.setName('stat')
+                .setDescription('The stat to update')
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('value')
+                .setDescription('How to adjust the stat, + add, - minus, = set')
+                .setRequired(true))
+        .addStringOption(option => {
+            option.setName('alias')
+                .setDescription('The alias of the character update')
+                .setRequired(true)
+            utils.getCharacterAliases(guildId).forEach(function (item) {
+                option.addChoice(item.name, item.alias)
             })
             return option
-    });
+        });
 
+    return command;
+}
 
-module.exports = {
+module.exports = function(guildId) {
 
-    data: command,
-    async execute(interaction) {
+    var module = {};
 
-        var user = utils.getUser(interaction.user.id);
+    module.data = buildCommand(guildId);
+    module.execute = async function(interaction) {
+
+        var user = utils.getUser(interaction.user.id, interaction.guild.id);
         if (user === undefined || !user.gm) {
             await interaction.reply("Only keepers can use this command");
             return;
@@ -49,9 +55,11 @@ module.exports = {
             alias = undefined
         }
 
-        var r = utils.updateCharacterStat(stat, parseInt(value), alias, action);
+        var r = utils.updateCharacterStat(stat, parseInt(value), alias, action, interaction.guild.id);
 
         await interaction.reply({ embeds: [r] });
 
     }
+
+    return module;
 };

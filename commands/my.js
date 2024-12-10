@@ -6,29 +6,34 @@ const utils = require("../utils.js");
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-utils.loadDataFiles();
-command = new SlashCommandBuilder()
-    .setName('my')
-    .setDescription('Displays the value of a skill or attribute')
-    .addStringOption(option =>
-        option.setName('stat')
-            .setDescription('The skill or attribute to look up')
-            .setRequired(true))
-    .addStringOption(option => {
-        option.setName('alias')
-            .setDescription('The alias of the character get the skill or attribute from')
-            .setRequired(false)
-			utils.getCharacterAliases().forEach(function(item) {
-               option.addChoice(item.name, item.alias)
+const buildCommand = function (guildId) {
+    utils.loadDataFiles();
+    var command = new SlashCommandBuilder()
+        .setName('my')
+        .setDescription('Displays the value of a skill or attribute')
+        .addStringOption(option =>
+            option.setName('stat')
+                .setDescription('The skill or attribute to look up')
+                .setRequired(true))
+        .addStringOption(option => {
+            option.setName('alias')
+                .setDescription('The alias of the character get the skill or attribute from')
+                .setRequired(false)
+            utils.getCharacterAliases(guildId).forEach(function (item) {
+                option.addChoice(item.name, item.alias)
             })
             return option
-    });
+        });
 
+    return command;
+}
 
-module.exports = {
+module.exports = function(guildId) {
 
-    data: command,
-    async execute(interaction) {
+    var module = {};
+    
+    module.data = buildCommand(guildId);
+    module.execute = async function(interaction) {
 
         var stat = interaction.options.getString("stat")
         var alias = interaction.options.getString("alias")
@@ -40,7 +45,7 @@ module.exports = {
 
         for (var i = 0; i < stat.split(",").length; i++) {
 
-            s = utils.getCharacterStat(interaction.user.id, stat.split(",")[i].trim(), alias);
+            s = utils.getCharacterStat(interaction.user.id, stat.split(",")[i].trim(), alias, interaction.guild.id);
             if (r === undefined) {
                 r = s;
             }
@@ -52,5 +57,7 @@ module.exports = {
         }
 
         await interaction.reply({ embeds: [r.message] });
-    }
+    };
+
+    return module;
 };

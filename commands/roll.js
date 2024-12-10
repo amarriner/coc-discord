@@ -7,42 +7,49 @@ const utils = require("../utils.js");
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-utils.loadDataFiles();
-command = new SlashCommandBuilder()
-    .setName('roll')
-    .setDescription('Rolls a skill or attribute for a character')
-    .addStringOption(option =>
-        option.setName('stat')
-            .setDescription('The skill or attribute to roll against')
-            .setRequired(true))
-    .addIntegerOption(option =>
-        option.setName('bonus')
-            .setDescription('The number of bonus dice to roll')
-            .setRequired(false))
-    .addIntegerOption(option =>
-        option.setName('penalty')
-            .setDescription('The number of penalty dice to roll')
-            .setRequired(false))
-    .addStringOption(option =>
-        option.setName('comment')
-            .setDescription('A comment to add to the die roll')
-            .setRequired(false))
-    .addStringOption(option => {
-        option.setName('alias')
-            .setDescription('The alias of the character to roll for')
-            .setRequired(false)
-            utils.getCharacterAliases().forEach(function(item) {
-               option.addChoice(item.name, item.alias)
+const buildCommand = function (guildId) {
+
+    utils.loadDataFiles();
+    var command = new SlashCommandBuilder()
+        .setName('roll')
+        .setDescription('Rolls a skill or attribute for a character')
+        .addStringOption(option =>
+            option.setName('stat')
+                .setDescription('The skill or attribute to roll against')
+                .setRequired(true))
+        .addIntegerOption(option =>
+            option.setName('bonus')
+                .setDescription('The number of bonus dice to roll')
+                .setRequired(false))
+        .addIntegerOption(option =>
+            option.setName('penalty')
+                .setDescription('The number of penalty dice to roll')
+                .setRequired(false))
+        .addStringOption(option =>
+            option.setName('comment')
+                .setDescription('A comment to add to the die roll')
+                .setRequired(false))
+        .addStringOption(option => {
+            option.setName('alias')
+                .setDescription('The alias of the character to roll for')
+                .setRequired(false)
+            utils.getCharacterAliases(guildId).forEach(function (item) {
+                option.addChoice(item.name, item.alias)
             })
             return option
-    });
+        });
 
-module.exports = {
+    return command;
+}
 
-    data: command,
-    async execute(interaction) {
+module.exports = function (guildId) {
 
-        console.log(interaction.toString());
+    var module = {};
+
+    module.data = buildCommand(guildId);
+    module.execute = async function (interaction) {
+
+        // console.log(interaction.toString());
 
         var stat = interaction.options.getString('stat');
         var alias = interaction.options.getString("alias");
@@ -63,7 +70,7 @@ module.exports = {
             dice = 1 - interaction.options.getInteger('penalty');
         }
 
-        var r = utils.getCharacterStat(interaction.user.id, stat, alias);
+        var r = utils.getCharacterStat(interaction.user.id, stat, alias, interaction.guild.id);
         var title;
         var value;
 
@@ -119,4 +126,6 @@ module.exports = {
         });
 
     }
+
+    return module;
 };

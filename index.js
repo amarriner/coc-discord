@@ -9,39 +9,45 @@ const { Routes } = require('discord-api-types/v9');
 
 const commandPrefix = config.commandPrefix;
 
-// https://discordjs.guide/creating-your-bot/command-handling.html#reading-command-files
-bot.client.commands = new discord.Collection();
-var commands = [];
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    // Set a new item in the Collection
-    // With the key as the command name and the value as the exported module
-    bot.client.commands.set(command.data.name, command);
-    commands.push(command.data);
+for (i = 0; i < config.guilds.length; i++) {
+
+    // https://discordjs.guide/creating-your-bot/command-handling.html#reading-command-files
+    bot.client.commands = new discord.Collection();
+    var commands = [];
+    const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+    for (const file of commandFiles) {
+        const command = require(`./commands/${file}`)(config.guilds[i]);
+        // Set a new item in the Collection
+        // With the key as the command name and the value as the exported module
+        bot.client.commands.set(command.data.name, command);
+        commands.push(command.data);
+    }
+
+    const rest = new REST({ version: '9' }).setToken(config.botToken);
+
+    rest.put(Routes.applicationGuildCommands(config.clientId, config.guilds[i]), { body: commands.map(command => command.toJSON()) })
+        .then(() => console.log('Successfully registered application commands.'))
+        .catch(console.error);
+
 }
-
-const rest = new REST({ version: '9' }).setToken(config.botToken);
-
-rest.put(Routes.applicationGuildCommands(config.clientId, config.guildId), { body: commands.map(command => command.toJSON()) })
-    .then(() => console.log('Successfully registered application commands.'))
-    .catch(console.error);
 
 bot.client.once('ready', () => {
 
     utils.loadDataFiles();
     bot.client.user.setActivity(" Great Cthulhu rise from the depths ", { type: "WATCHING" });
 
-    bot.client.guilds.cache.get(config.guildId).fetchWebhooks()
-        .then(hooks => {
-            botHooks = hooks.filter(hook => hook.owner.id === config.clientId)
-            console.log(`This server has ${botHooks.size} coc-discord hooks`)
-            for(let [id, hook] of botHooks) {
-                console.log(`Deleting old hook ID ${id} ${JSON.stringify(hook)}`);
-                hook.delete();
-            }
-        })
-        .catch(console.error);
+    for (i = 0; i < config.guilds.length; i++) {
+        bot.client.guilds.cache.get(config.guilds[i]).fetchWebhooks()
+            .then(hooks => {
+                botHooks = hooks.filter(hook => hook.owner.id === config.clientId)
+                console.log(`This server ${config.guilds[i]} has ${botHooks.size} coc-discord hooks`)
+                for(let [id, hook] of botHooks) {
+                    console.log(`Deleting old hook ID ${id} ${JSON.stringify(hook)}`);
+                    hook.delete();
+                }
+            })
+            .catch(console.error);
+    }
 
     console.log('I am ready!');
 

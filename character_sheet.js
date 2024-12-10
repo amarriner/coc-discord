@@ -3,68 +3,73 @@ let character_data = {};
 let skill_data = {};
 let talent_data = {};
 let weapon_data = {};
+let guild_data = {};
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-    $('#character-select').on('change', function() {
-        if (! $(this).children("option:selected").text().startsWith('Select')) {
+    $('#character-select').on('change', function () {
+        if (!$(this).children("option:selected").text().startsWith('Select')) {
             window.location.hash = `#${$(this).val()}`;
         }
     });
 
     let timestamp = Date.now();
 
-    $.getJSON(`https://bulletriddenlich.com/coc/weapons.json?${timestamp}`, function( data ) {
+    $.getJSON(`https://bulletriddenlich.com/coc/weapons.json?${timestamp}`, function (data) {
         weapon_data = data;
     });
 
-    $.getJSON(`https://bulletriddenlich.com/coc/skills.json?${timestamp}`, function( data ) {
+    $.getJSON(`https://bulletriddenlich.com/coc/skills.json?${timestamp}`, function (data) {
         skill_data = data;
     });
 
-    $.getJSON(`https://bulletriddenlich.com/coc/talents.json?${timestamp}`, function( data ) {
+    $.getJSON(`https://bulletriddenlich.com/coc/talents.json?${timestamp}`, function (data) {
         talent_data = data;
     });
 
-    $.getJSON(`https://bulletriddenlich.com/coc/characters.json?${timestamp}`, function( data ) {
+    $.getJSON(`https://bulletriddenlich.com/coc/guilds.json?${timestamp}`, function (data) {
+        guild_data = data;
+    });
+
+    $.getJSON(`https://bulletriddenlich.com/coc/characters.json?${timestamp}`, function (data) {
 
         character_data = data;
-        // console.log(data);
-        $('#character-select-card-loading').removeClass('visible').addClass('invisible');
-        $('#character-select-card-body').removeClass('invisible').addClass('visible');
-        $('#character-select').empty().append('<option>Select a character to view</option>');
+        // $('#character-select-card-loading').removeClass('visible').addClass('invisible');
+        // $('#character-select-card-body').removeClass('invisible').addClass('visible');
+        // $('#character-select').empty().append('<option>Select a character to view</option>');
 
-        for (id in character_data) {
+        // for (id in character_data) {
 
-            for (let i = 0; i < character_data[id].length; i++) {
+        //     for (let i = 0; i < character_data[id].length; i++) {
 
-                if (character_data[id][i].active_player) {
+        //         if (character_data[id][i].active_player) {
 
-                    let character = character_data[id][i];
-                    // console.log(character.name.replace(/[^a-zA-Z0-9 ]/g, '').replace(/[ ]/g, '-').toLowerCase());
+        //             let character = character_data[id][i];
+        //             // console.log(character.name.replace(/[^a-zA-Z0-9 ]/g, '').replace(/[ ]/g, '-').toLowerCase());
 
-                    // console.log(character.name);
-                    $('#character-select').append(`<option value="${id}-${i}"> ${character.name}`);
-                }
-            }
-        }
+        //             // console.log(character.name);
+        //             $('#character-select').append(`<option value="${id}-${i}"> ${character.name}`);
+        //         }
+        //     }
+        // }
 
-        var href = window.location.href;
-        if (href.split('#').length > 1) {
+        // var href = window.location.href;
+        // if (href.split('#').length > 1) {
 
-            let slug = href.split('#')[1];
-            // console.log(slug);
-            $('#character-select option').each(function() {
+        //     let slug = href.split('#')[1];
+        //     // console.log(slug);
+        //     $('#character-select option').each(function() {
 
-                $(this).prop('selected', false);
+        //         $(this).prop('selected', false);
 
-                if ($(this).val() == slug) {
-                    $(this).prop('selected', true);
-                    viewCharacterSheet();
-                }
+        //         if ($(this).val() == slug) {
+        //             $(this).prop('selected', true);
+        //             viewCharacterSheet();
+        //         }
 
-            });
-        }
+        //     });
+        // }
+        viewCharacterSheet();
 
     });
 });
@@ -73,12 +78,16 @@ const viewCharacterSheet = function () {
 
     $('#character-sheet-body').removeClass('invisible').addClass('visible');
 
-    let slug = $('#character-select').children("option:selected").val();
+    // let slug = $('#character-select').children("option:selected").val();
+    let slug = window.location.hash.replace('#', '');
     let id = slug.split('-')[0];
-    let index = slug.split('-')[1];
-    // console.log(slug);
+    let guildId = slug.split('-')[1]
+    let index = slug.split('-')[2];
 
-    let character = character_data[id][index];
+    $(document).prop('title', guild_data[guildId]);
+    $('#guild').text(guild_data[guildId]);
+
+    let character = character_data[id][guildId][index];
     $('#character-info').empty()
         .append(`
         <div class="d-flex align-items-center">
@@ -163,20 +172,41 @@ const viewCharacterSheet = function () {
 
     }
 
-    $('#character-talents').empty()
-    .append(`
-        <div class="row">
-            ${talents}    
-        </div>
-    `);
+    if (!character.pulp) {
+        $('#character-talents-header').remove();
+        $('#character-talents').remove();
+    }
+    else {
+        $('#character-talents').empty()
+            .append(`
+            <div class="row">
+                ${talents}    
+            </div>
+        `);
+    }
 
+    if (!character.background) {
+        $('#character-background-header').remove();
+        $('#character-background').remove();
+    }
+    else {
+        $('#character-background').text(character.background);
+    }
+
+    if (!character.equipment) {
+        $('#character-equipment-header').remove();
+        $('#character-equipment').remove();
+    }
+    else {
+        $('#character-equipment').text(character.equipment);
+    }
 }
 
-const getCharacterSlug = function(character) {
+const getCharacterSlug = function (character) {
     return character.name.replace(/[^a-zA-Z0-9 ]/g, '').replace(/[ ]/g, '-').toLowerCase();
 }
 
-const getSkill = function(skill) {
+const getSkill = function (skill) {
 
     for (let i in skill_data) {
         if (skill_data[i].name == skill) {
@@ -188,7 +218,7 @@ const getSkill = function(skill) {
 
 }
 
-const getTalent = function(talent) {
+const getTalent = function (talent) {
 
     for (let i in talent_data) {
         if (talent_data[i].name == talent) {
@@ -204,7 +234,7 @@ const dbb_table = [64, 84, 124, 164, 204, 284, 364, 444, 524];
 const build_table = ['-2', '-1', '0', '+1', '+2', '+3', '+4', '+5', '+6'];
 const damage_bonus_table = ['-2', '-1', '0', '1d4', '1d6', '2d6', '3d6', '4d6', '5d6'];
 
-const getDbbTableIndex = function(value) {
+const getDbbTableIndex = function (value) {
     for (i = 0; i < dbb_table.length; i++) {
         if (value <= dbb_table[i]) {
             return i;
@@ -213,19 +243,19 @@ const getDbbTableIndex = function(value) {
     return -1;
 }
 
-const calculateBuild = function(character) {
+const calculateBuild = function (character) {
 
     return build_table[getDbbTableIndex(parseInt(character.attributes.STR) + parseInt(character.attributes.SIZ))];
 
 }
 
-const calculateDamageBonus = function(character) {
+const calculateDamageBonus = function (character) {
 
     return damage_bonus_table[getDbbTableIndex(parseInt(character.attributes.STR) + parseInt(character.attributes.SIZ))];
 
 }
 
-const toast = function(id) {
+const toast = function (id) {
 
     // console.log(id);
     const toastTrigger = document.getElementById(id)
