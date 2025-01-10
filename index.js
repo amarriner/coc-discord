@@ -1,105 +1,105 @@
 const bot = require("./bot.js");
 const config = require("./config.json");
 const discord = require("discord.js");
-const fs = require("fs")
+const fs = require("fs");
 const utils = require("./utils.js");
 
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+const { REST } = require("@discordjs/rest");
+const { Routes } = require("discord-api-types/v9");
 
 const commandPrefix = config.commandPrefix;
 
 for (i = 0; i < config.guilds.length; i++) {
+  // https://discordjs.guide/creating-your-bot/command-handling.html#reading-command-files
+  bot.client.commands = new discord.Collection();
+  var commands = [];
+  const commandFiles = fs
+    .readdirSync("./commands")
+    .filter((file) => file.endsWith(".js"));
+  for (const file of commandFiles) {
+    const command = require(`./commands/${file}`)(config.guilds[i]);
+    // Set a new item in the Collection
+    // With the key as the command name and the value as the exported module
+    bot.client.commands.set(command.data.name, command);
+    commands.push(command.data);
+  }
 
-    // https://discordjs.guide/creating-your-bot/command-handling.html#reading-command-files
-    bot.client.commands = new discord.Collection();
-    var commands = [];
-    const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-    for (const file of commandFiles) {
-        const command = require(`./commands/${file}`)(config.guilds[i]);
-        // Set a new item in the Collection
-        // With the key as the command name and the value as the exported module
-        bot.client.commands.set(command.data.name, command);
-        commands.push(command.data);
-    }
+  const rest = new REST({ version: "9" }).setToken(config.botToken);
 
-    const rest = new REST({ version: '9' }).setToken(config.botToken);
-
-    rest.put(Routes.applicationGuildCommands(config.clientId, config.guilds[i]), { body: commands.map(command => command.toJSON()) })
-        .then(() => console.log('Successfully registered application commands.'))
-        .catch(console.error);
-
+  rest
+    .put(Routes.applicationGuildCommands(config.clientId, config.guilds[i]), {
+      body: commands.map((command) => command.toJSON()),
+    })
+    .then(() => console.log("Successfully registered application commands."))
+    .catch(console.error);
 }
 
-bot.client.once('ready', () => {
+bot.client.once("ready", () => {
+  utils.loadDataFiles();
+  bot.client.user.setActivity(" Great Cthulhu rise from the depths ", {
+    type: "WATCHING",
+  });
 
-    utils.loadDataFiles();
-    bot.client.user.setActivity(" Great Cthulhu rise from the depths ", { type: "WATCHING" });
+  for (i = 0; i < config.guilds.length; i++) {
+    bot.client.guilds.cache
+      .get(config.guilds[i])
+      .fetchWebhooks()
+      .then((hooks) => {
+        botHooks = hooks.filter((hook) => hook.owner.id === config.clientId);
+        console.log(
+          `This server ${config.guilds[i]} has ${botHooks.size} coc-discord hooks`,
+        );
+        for (const [id, hook] of botHooks) {
+          console.log(`Deleting old hook ID ${id} ${JSON.stringify(hook)}`);
+          hook.delete();
+        }
+      })
+      .catch(console.error);
+  }
 
-    for (i = 0; i < config.guilds.length; i++) {
-        bot.client.guilds.cache.get(config.guilds[i]).fetchWebhooks()
-            .then(hooks => {
-                botHooks = hooks.filter(hook => hook.owner.id === config.clientId)
-                console.log(`This server ${config.guilds[i]} has ${botHooks.size} coc-discord hooks`)
-                for(let [id, hook] of botHooks) {
-                    console.log(`Deleting old hook ID ${id} ${JSON.stringify(hook)}`);
-                    hook.delete();
-                }
-            })
-            .catch(console.error);
-    }
-
-    console.log('I am ready!');
-
+  console.log("I am ready!");
 });
 
-bot.client.on('interactionCreate', async interaction => {
+bot.client.on("interactionCreate", async (interaction) => {
+  if (interaction.isCommand()) {
+    const command = bot.client.commands.get(interaction.commandName);
 
-    if (interaction.isCommand()) {
+    if (!command) return;
 
-        const command = bot.client.commands.get(interaction.commandName);
-
-        if (!command) return;
-
-        try {
-            await command.execute(interaction);
-        } catch (error) {
-            console.error(error);
-            await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-        }
-
-        utils.saveDataFiles();
+    try {
+      await command.execute(interaction);
+    } catch (error) {
+      console.error(error);
+      await interaction.reply({
+        content: "There was an error while executing this command!",
+        ephemeral: true,
+      });
     }
 
+    utils.saveDataFiles();
+  }
 });
 
-bot.client.on("messageCreate", message => {
-
-    //
-    // Reload JSON files from disk
-    //
-    if (message.content.toLowerCase().startsWith(commandPrefix + "reload")) {
-
-        var user = utils.getUser(message.author.id);
-        if (user !== undefined && user.gm) {
-            utils.loadDataFiles();
-        }
-
+bot.client.on("messageCreate", (message) => {
+  //
+  // Reload JSON files from disk
+  //
+  if (message.content.toLowerCase().startsWith(commandPrefix + "reload")) {
+    var user = utils.getUser(message.author.id);
+    if (user !== undefined && user.gm) {
+      utils.loadDataFiles();
     }
+  }
 
-    //
-    // Save data objects out to disk as JSON
-    //
-    else if (message.content.toLowerCase().startsWith(commandPrefix + "save")) {
-
-        var user = utils.getUser(message.author.id);
-        if (user !== undefined && user.gm) {
-            utils.saveDataFiles();
-        }
-
+  //
+  // Save data objects out to disk as JSON
+  //
+  else if (message.content.toLowerCase().startsWith(commandPrefix + "save")) {
+    var user = utils.getUser(message.author.id);
+    if (user !== undefined && user.gm) {
+      utils.saveDataFiles();
     }
-
+  }
 });
 
 bot.client.login(config.botToken);
-

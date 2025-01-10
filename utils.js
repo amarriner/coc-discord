@@ -1,5 +1,5 @@
 const bot = require("./bot.js");
-const config = require("./config.json")
+const config = require("./config.json");
 const Dice = require('dice-notation-js');
 const fs = require("fs");
 const fuzzysort = require("fuzzysort");
@@ -20,7 +20,7 @@ const getRandomPlayerCharacter = function (guildId) {
    var players = getPlayerCharacterAliases(guildId);
    var player = players[Math.floor(Math.random() * players.length)];
    return getCharacterByAlias(player.alias, guildId);
-}
+};
 
 const getPlayerCharacterAliases = function (guildId) {
    var aliases = Array();
@@ -35,7 +35,19 @@ const getPlayerCharacterAliases = function (guildId) {
       }
    }
    return aliases;
-}
+};
+
+const getCharacterInitiative = function (guildId) {
+  var initiative = Array();
+  for (discord_id in characters) {
+    for (i in characters[discord_id][guildId]) {
+      initiative.push({
+        'name': characters[discord_id][guildId][i].name,
+        'dex': characters[discord_id][guildId][i].attributes.DEX
+      });
+    }
+  }
+};
 
 const getCharacterAliases = function (guildId) {
    var aliases = Array();
@@ -48,7 +60,7 @@ const getCharacterAliases = function (guildId) {
       }
    }
    return aliases;
-}
+};
 
 const parseWeaponDamage = function (character, damage) {
 
@@ -81,8 +93,8 @@ const parseWeaponDamage = function (character, damage) {
       "dice": dice,
       "modification": modification,
       "str": str
-   }
-}
+   };
+};
 
 const getDbbTableIndex = function (value) {
    for (i = 0; i < dbb_table.length; i++) {
@@ -91,19 +103,19 @@ const getDbbTableIndex = function (value) {
       }
    }
    return -1;
-}
+};
 
 const calculateBuild = function (character) {
 
    return build_table[getDbbTableIndex(parseInt(character.attributes.STR) + parseInt(character.attributes.SIZ))];
 
-}
+};
 
 const calculateDamageBonus = function (character) {
 
    return damage_bonus_table[getDbbTableIndex(parseInt(character.attributes.STR) + parseInt(character.attributes.SIZ))];
 
-}
+};
 
 const getSkillByName = function (skillName) {
 
@@ -115,7 +127,7 @@ const getSkillByName = function (skillName) {
 
    return undefined;
 
-}
+};
 
 const getTalentByName = function (talentName) {
 
@@ -127,7 +139,7 @@ const getTalentByName = function (talentName) {
 
    return undefined;
 
-}
+};
 
 const getWeaponByName = function (weaponName) {
 
@@ -138,7 +150,7 @@ const getWeaponByName = function (weaponName) {
    }
 
    return undefined;
-}
+};
 
 const getCharacterWeapons = function (discordId, alias, guildId) {
 
@@ -174,7 +186,7 @@ const getCharacterWeapons = function (discordId, alias, guildId) {
 
    return returnObj;
 
-}
+};
 const getCharacterTalents = function (discordId, alias, guildId) {
 
    var returnObj = {
@@ -205,7 +217,7 @@ const getCharacterTalents = function (discordId, alias, guildId) {
 
    return returnObj;
 
-}
+};
 
 const addCharacterSkillCheck = function (skillSearchTerm, alias, guildId) {
 
@@ -242,7 +254,7 @@ const addCharacterSkillCheck = function (skillSearchTerm, alias, guildId) {
 
    return "ERROR: Invalid skill " + skillSearchTerm + " for " + character.name;
 
-}
+};
 
 const removeCharacterSkillCheck = function (skillSearchTerm, alias, guildId) {
 
@@ -297,7 +309,7 @@ const removeCharacterSkillChecks = function (alias, guildId) {
    r.footer = { text: "Removed all character checks for " + character.name };
    return r;
 
-}
+};
 
 const findCharacterAttribute = function (character, searchTerm) {
 
@@ -352,14 +364,14 @@ const findCharacterSkill = function (character, skillKey) {
 
    return skill;
 
-}
+};
 
 const findWeaponKeys = function (searchTerm) {
    return fuzzysort.go(
       searchTerm,
       weapons.filter(w => (w.description !== undefined)),
       { key: "description", threshold: -10000 });
-}
+};
 
 const findCharacterSkillKeys = function (character, searchTerm) {
 
@@ -375,7 +387,7 @@ const findCharacterSkillKeys = function (character, searchTerm) {
    var baseSkills = fuzzysort.go(searchTerm, skills, { key: "description", threshold: -10000 });
    return Array.from(new Set(baseSkills.concat(characterSkills).map(s => s.obj.name)));
 
-}
+};
 
 const getCharacter = function (discordId, alias, guildId) {
 
@@ -389,7 +401,7 @@ const getCharacter = function (discordId, alias, guildId) {
          ) {
             returnCharacter = character;
          }
-      })
+      });
    }
 
    return returnCharacter;
@@ -407,7 +419,7 @@ const getCharacterIdByAlias = function (alias, guildId) {
   }
 
   return undefined;
-}
+};
 
 const getCharacterDiscordIdByAlias = function (alias, guildId) {
 
@@ -418,11 +430,11 @@ const getCharacterDiscordIdByAlias = function (alias, guildId) {
          if (character.rodbotAlias !== undefined && character.rodbotAlias === alias) {
             returnValue = characterDiscordId;
          }
-      })
+      });
    }
 
    return returnValue;
-}
+};
 
 const getCharacterByAlias = function (alias, guildId) {
 
@@ -470,7 +482,7 @@ const getDiscordIdByAlias = function (alias, guildId) {
 
    return foundId;
 
-}
+};
 
 const getCharacterStat = function (discordId, searchTerm, alias, guildId) {
 
@@ -493,7 +505,7 @@ const getCharacterStat = function (discordId, searchTerm, alias, guildId) {
 
    return getCharacterSkill(discordId, searchTerm, alias, guildId);
 
-}
+};
 
 const getCharacterChecks = function (discordId, alias, guildId) {
 
@@ -511,7 +523,7 @@ const getCharacterChecks = function (discordId, alias, guildId) {
 
    var emoji = getEmojiByName(config.skillCheckEmoji);
    var embed = getCharacterEmbed(character, guildId);
-   checked = 0
+   checked = 0;
    for (var s = 0; s < character.skills.length; s++) {
       if (character.skills[s].checked !== undefined && character.skills[s].checked) {
          embed.fields.push({
@@ -526,13 +538,13 @@ const getCharacterChecks = function (discordId, alias, guildId) {
    if (checked === 0) {
       embed.footer = {
          "text": "No checks yet"
-      }
+      };
    }
 
    returnObj.message = embed;
    return returnObj;
 
-}
+};
 
 const getCharacterAttribute = function (discordId, searchTerm, alias, guildId) {
 
@@ -672,7 +684,7 @@ const getCharacterEmbed = function (character, guildId) {
    embed.fields = [];
 
    return embed;
-}
+};
 
 function compareByName(a, b) {
    return a.name.localeCompare(b.name);
@@ -706,7 +718,7 @@ const getCharacterSheet = function (discordId, alias, guildId) {
          str = `${str} | ${attribute.padEnd(4)}: ${character.attributes[attribute].toString().padStart(2)}`;
       }
       else {
-         str = `${str}\n${attribute.padEnd(4)}: ${character.attributes[attribute].toString().padStart(2)}`
+         str = `${str}\n${attribute.padEnd(4)}: ${character.attributes[attribute].toString().padStart(2)}`;
       }
 
       index++;
@@ -791,7 +803,7 @@ const getUser = function (discordId, guildId) {
    }
 
    for (gid in users[discordId]) {
-      console.log(`${discordId} -- ${guildId} -- ${gid}`);
+      // console.log(`${discordId} -- ${guildId} -- ${gid}`);
       if (gid === guildId) {
          return users[discordId][gid];
       }
@@ -948,8 +960,8 @@ const rollDiceString = function (diceString) {
       "results": results,
       "str": str,
       "total": total
-   }
-}
+   };
+};
 
 module.exports = {
 
@@ -958,6 +970,7 @@ module.exports = {
    calculateDamageBonus: calculateDamageBonus,
    findWeaponKeys: findWeaponKeys,
    getCharacter: getCharacter,
+   getCharacterInitiative: getCharacterInitiative,
    getCharacterAliases: getCharacterAliases,
    getCharacterAttribute: getCharacterAttribute,
    getCharacterByAlias: getCharacterByAlias,

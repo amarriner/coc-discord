@@ -121,7 +121,7 @@ module.exports = function (guildId) {
         };
         collector = rollMessage.createReactionCollector({ filter, time: 15000 });
         collector.on('collect', (reaction, user) => {
-            console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
+            // console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
             user.send({ embeds: [utils.addCharacterSkillCheck(rollMessage.embeds[0].fields[0].name, utils.getCharacterByName(rollMessage.embeds[0].title).rodbotAlias)] });
         });
 

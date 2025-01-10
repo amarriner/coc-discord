@@ -18,18 +18,18 @@ const buildCommand = function (guildId) {
         .addStringOption(option => {
             option.setName('alias')
                 .setDescription('The alias of the character to roll for')
-                .setRequired(false)
+                .setRequired(false);
             utils.getCharacterAliases(guildId).forEach(function (item) {
-                option.addChoice(item.name, item.alias)
-            })
-            return option
+                option.addChoice(item.name, item.alias);
+            });
+            return option;
         });
     // .addStringOption(option =>
     //     option.setName('alias')
     //         .setDescription('The alias of the character to speak as')
     //         .setRequired(false));
     return command;
-}
+};
 
 module.exports = function(guildId){
 
@@ -39,10 +39,10 @@ module.exports = function(guildId){
     module.execute = async function(interaction) {
 
         var user = utils.getUser(interaction.user.id, interaction.guild.id);
-        var message = interaction.options.getString("message")
-        var alias = interaction.options.getString("alias")
+        var message = interaction.options.getString("message");
+        var alias = interaction.options.getString("alias");
         if (alias === null || !user.gm) {
-            alias = undefined
+            alias = undefined;
         }
 
         await interaction.reply({ content: 'Sending message...' });
@@ -61,34 +61,34 @@ module.exports = function(guildId){
                     // console.log("---> " + Object.keys(channel))
                     // console.log("---> " + typeof(channel))
                     c = interaction.guild.channels.resolve(channel);
-                    console.log(character.avatar);
+                    // console.log(character.avatar);
                     interaction.guild.channels.createWebhook(channel, character.name, {
                         avatar: character.avatar,
                     })
                         .then(async webhook => {
                             await webhook.send({
-                                content: message,
+                                content: message.replace("\n", "\\n"),
                                 threadId: interaction.channel.id
                             });
                             await webhook.delete();
-                        })
-                })
+                        });
+                });
 
         }
         else {
-            console.log(character.avatar);
+            // console.log(character.avatar);
             interaction.channel.createWebhook(character.name, {
                 avatar: character.avatar,
             })
                 .then(async webhook => {
                     await webhook.send({
-                        content: message
+                        content: message.replace("\n", "\\n")
                     });
                     await webhook.delete();
                 })
                 .catch(console.error);
         }
-    }
+    };
 
     return module;
 };
