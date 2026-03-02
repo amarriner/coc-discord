@@ -4,6 +4,7 @@
             {
                 "name": "Louise 'Lulu' Winney",
                 "active_player": false,
+                "active_from": "2010-01-01",
                 "description": "Dancer, age 23",
                 "birthplace": "Blackwater Creek, MA",
                 "residence": "Arkham, MA",
@@ -26,7 +27,7 @@
                     "SAN": 81,
                     "HP": 11,
                     "MP": 10,
-                    "Luck": 62
+                    "Luck": 54
                 },
                 "skills": [
                     {
@@ -79,7 +80,7 @@
                     {
                         "name": "psychology",
                         "value": 53,
-                        "checked": false
+                        "checked": true
                     },
                     {
                         "name": "sleightofhand",
@@ -103,6 +104,7 @@
             {
                 "name": "Jackson Elias",
                 "active_player": false,
+                "active_from": "2010-01-01",
                 "description": "Fearless Investigator, age 41",
                 "birthplace": "New York City",
                 "residence": "New York City",
@@ -211,6 +213,7 @@
             {
                 "name": "Savario Rotondo",
                 "active_player": false,
+                "active_from": "2010-01-01",
                 "description": "Criminal: Bootlegger, age 27",
                 "birthplace": "Boston, MA",
                 "residence": "Arkham, MA",
@@ -314,6 +317,7 @@
             {
                 "name": "The Keeper",
                 "active_player": false,
+                "active_from": "2010-01-01",
                 "rodbotAlias": "k",
                 "avatar": "https://bulletriddenlich.com/coc/images/keeper.jpg"
             }
@@ -423,6 +427,7 @@
             {
                 "name": "Edward M. Finnigan",
                 "active_player": true,
+                "active_from": "2010-01-01",
                 "description": "Professor, age 34",
                 "birthplace": "New York City",
                 "residence": "Arkham, MA",
@@ -536,6 +541,7 @@
             {
                 "name": "Miles 'Thunderball' McGillicutty",
                 "active_player": true,
+                "active_from": "2022-06-22",
                 "description": "Boxer, age 33",
                 "birthplace": "New York, NY",
                 "residence": "Arkham, MA",
@@ -646,6 +652,7 @@
             {
                 "name": "Rauthaford Candaverish",
                 "active_player": true,
+                "active_from": "2010-01-01",
                 "description": "Sailor (Naval), age 30",
                 "birthplace": "New York City",
                 "residence": "Arkham, MA",
@@ -670,7 +677,7 @@
                     "SAN": 69,
                     "HP": 11,
                     "MP": 9,
-                    "Luck": 64
+                    "Luck": 55
                 },
                 "skills": [
                     {
@@ -794,6 +801,7 @@
             {
                 "name": "Lawrence Stockwell",
                 "active_player": true,
+                "active_from": "2010-01-01",
                 "description": "Private Investigator, age 25",
                 "birthplace": "New York City",
                 "residence": "Arkham, MA",
