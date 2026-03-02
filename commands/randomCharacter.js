@@ -3,7 +3,7 @@
 //
 const utils = require("../utils.js");
 
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require("discord.js");
 
 const buildCommand = function (guildId) {
 

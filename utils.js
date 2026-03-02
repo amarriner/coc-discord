@@ -4,7 +4,7 @@ const Dice = require('dice-notation-js');
 const fs = require("fs");
 const fuzzysort = require("fuzzysort");
 
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 var users;
 var characters;
@@ -177,7 +177,7 @@ const getCharacterWeapons = function (discordId, alias, guildId) {
          var parsed = parseWeaponDamage(character, weapon.damage);
          var skill = getSkillByName(weapon.skill);
          var characterSkillValue = getCharacterSkillValue(character, skill.name);
-         returnObj.embed.fields.push({
+         returnObj.embed.addFields({
             "name": weapon.description,
             "value": `Damage: ${parsed.str}\nSkill: ${skill.description} [${characterSkillValue}]\nRange: ${weapon.range}`
          });
@@ -208,7 +208,7 @@ const getCharacterTalents = function (discordId, alias, guildId) {
       var sortedTalents = character.talents.sort((a, b) => (a > b) ? 1 : -1);
 
       for (var i in sortedTalents) {
-         returnObj.embed.fields.push({
+         returnObj.embed.addFields({
             "name": getTalentByName(sortedTalents[i]).title,
             "value": getTalentByName(sortedTalents[i]).description
          });
@@ -247,7 +247,7 @@ const addCharacterSkillCheck = function (skillSearchTerm, alias, guildId) {
       character.skills[character.skills.map(function (e) { return e.name; }).indexOf(searchSkill[0])].checked = true;
       saveDataFiles();
       r = getCharacterSkill(discordId, skillSearchTerm, alias, guildId);
-      r.message.footer = { text: "Checked skill " + getCharacterSkillDescription(character, searchSkill[0]) };
+      r.message.setFooter = { text: "Checked skill " + getCharacterSkillDescription(character, searchSkill[0]) };
       return r.message;
 
    }
@@ -278,7 +278,7 @@ const removeCharacterSkillCheck = function (skillSearchTerm, alias, guildId) {
       character.skills[character.skills.map(function (e) { return e.name; }).indexOf(skill[0])].checked = false;
       saveDataFiles();
       r = getCharacterSkill(discordId, skillSearchTerm, alias, guildId);
-      r.message.footer = { text: "Unchecked skill " + getCharacterSkillDescription(character, skill[0]) };
+      r.message.setFooter({ text: "Unchecked skill " + getCharacterSkillDescription(character, skill[0]) });
       return r.message;
 
    }
@@ -526,7 +526,7 @@ const getCharacterChecks = function (discordId, alias, guildId) {
    checked = 0;
    for (var s = 0; s < character.skills.length; s++) {
       if (character.skills[s].checked !== undefined && character.skills[s].checked) {
-         embed.fields.push({
+         embed.addFields({
             "name": getCharacterSkillDescription(character, character.skills[s].name),
             "value": getCharacterSkillValue(character, character.skills[s].name) + (isCharacterSkillChecked(character, character.skills[s].name) ? " <:" + emoji.name + ":" + emoji.id + ">" : ""),
             "inline": true
@@ -536,9 +536,7 @@ const getCharacterChecks = function (discordId, alias, guildId) {
    }
 
    if (checked === 0) {
-      embed.footer = {
-         "text": "No checks yet"
-      };
+      embed.setFooter({text: "No checks yet"});
    }
 
    returnObj.message = embed;
@@ -573,7 +571,7 @@ const getCharacterAttribute = function (discordId, searchTerm, alias, guildId) {
    }
 
    var embed = getCharacterEmbed(character, guildId);
-   embed.fields.push({
+   embed.addFields({
       "name": attribute,
       "value": character.attributes[attribute].toString(),
       "inline": true
@@ -625,7 +623,7 @@ const getCharacterSkill = function (discordId, searchTerm, alias, guildId) {
          "inline": true
       };
 
-      embed.fields.push(s);
+      embed.addFields(s);
       returnObj.skillObjects.push(s);
 
       if (i === 0) {
@@ -663,25 +661,13 @@ const isCharacterSkillChecked = function (character, skillsKey) {
 
 const getCharacterEmbed = function (character, guildId) {
 
-   var embed = new MessageEmbed();
-
-   embed.title = character.name;
-   embed.url = `https://bulletriddenlich.com/coc/character_sheet.html#${getCharacterDiscordIdByAlias(character.rodbotAlias, guildId)}-${guildId}-${getCharacterIdByAlias(character.rodbotAlias, guildId)}`; // character.sheet;
-   embed.color = config.rollSuccessColor;
-   //embed.author = {
-   //   "name": config.authorName,
-   //   "icon_url": config.authorIconUrl,
-   //   "url": config.authorUrl
-   //};
-   embed.description = character.description;
-   embed.thumbnail = {
-      "url": character.avatar
-   };
-   //embed.footer = {
-   //   "text": "Born: " + character.birthplace + " | Lives: " + character.residence
-   //}
-
-   embed.fields = [];
+   var embed = new EmbedBuilder()
+      .setTitle(character.name)
+      .setURL(`https://bulletriddenlich.com/coc/character_sheet.html#${getCharacterDiscordIdByAlias(character.rodbotAlias, guildId)}-${guildId}-${getCharacterIdByAlias(character.rodbotAlias, guildId)}`) // character.sheet;
+      .setColor(config.rollSuccessColor)
+      .setDescription(character.description || "Unknown description")
+      .setThumbnail(character.avatar)
+      .setFields([]);
 
    return embed;
 };
@@ -725,7 +711,7 @@ const getCharacterSheet = function (discordId, alias, guildId) {
 
    }
 
-   returnObj.embed.fields.push({
+   returnObj.embed.addFields({
       "name": " ",
       "value": "```" + str + "```",
       "inline": false
@@ -744,20 +730,20 @@ const getCharacterSheet = function (discordId, alias, guildId) {
          check = "";
       }
 
-      returnObj.embed.fields.push({
+      returnObj.embed.addFields({
          "name": description,
          "value": `${value}${check}`,
          "inline": true
       });
    }
 
-   returnObj.embed.fields.push({
+   returnObj.embed.addFields({
       "name": "Talents",
       "value": character.talents.map(talent => getTalentByName(talent).title).sort().join(", "),
       "inline": false
    });
 
-   returnObj.embed.fields.push({
+   returnObj.embed.addFields({
       "name": "Weapons",
       "value": character.weapons.map(weapon => getWeaponByName(weapon).description).sort().join(", "),
       "inline": false
@@ -845,7 +831,7 @@ const updateCharacterStat = function (stat, value, alias, action, guildId) {
 
       saveDataFiles();
       r = getCharacterAttribute(discordId, stat, alias, guildId);
-      r.message.footer = { text: "Updated attribute " + r.attributeName + " to " + r.attributeValue };
+      r.message.setFooter({ text: "Updated attribute " + r.attributeName + " to " + r.attributeValue });
       return r.message;
 
    }
@@ -878,7 +864,7 @@ const updateCharacterStat = function (stat, value, alias, action, guildId) {
 
       saveDataFiles();
       r = getCharacterSkill(discordId, stat, alias, guildId);
-      r.message.footer = { text: "Updated skill " + getCharacterSkillDescription(character, skill[0]) + " to " + character.skills[character.skills.map(function (e) { return e.name; }).indexOf(skill[0])].value };
+      r.message.setFooter({ text: "Updated skill " + getCharacterSkillDescription(character, skill[0]) + " to " + character.skills[character.skills.map(function (e) { return e.name; }).indexOf(skill[0])].value });
       return r.message;
 
    }

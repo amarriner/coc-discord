@@ -1,8 +1,12 @@
-const discord = require("discord.js");
+const { Client, GatewayIntentBits } = require("discord.js");
 
-// var client = new discord.Client({ intents: [discord.Intents.FLAGS.GUILDS] });
-var client = new discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS"] });
+var client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMessageReactions
+  ]
+});
 
-module.exports = {
-    client: client
-};
+module.exports = { client };

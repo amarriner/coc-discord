@@ -5,7 +5,7 @@
 const config = require("../config.json");
 const utils = require("../utils.js");
 
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require("discord.js");
 
 const buildCommand = function (guildId) {
 
@@ -34,7 +34,7 @@ const buildCommand = function (guildId) {
                 .setDescription('The alias of the character to roll for')
                 .setRequired(false)
             utils.getCharacterAliases(guildId).forEach(function (item) {
-                option.addChoice(item.name, item.alias)
+                option.addChoices({ name: item.name, value: item.alias })
             })
             return option
         });
@@ -95,7 +95,7 @@ module.exports = function (guildId) {
         }
 
         var result = "Success"
-        r.message.description += comment;
+        r.message.setDescription(`${comment}`);
         var diceRollResult = utils.rollDice(dice);
         if (parseInt(parseInt(diceRollResult[0])) > parseInt(value)) {
             result = "Failure"

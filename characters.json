@@ -62,7 +62,8 @@
                     },
                     {
                         "name": "firstaid",
-                        "value": 75
+                        "value": 75,
+                        "checked": true
                     },
                     {
                         "name": "jump",

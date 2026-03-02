@@ -4,8 +4,7 @@ const discord = require("discord.js");
 const fs = require("fs");
 const utils = require("./utils.js");
 
-const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9");
+const { REST, Routes, MessageFlags } = require("discord.js");
 
 const commandPrefix = config.commandPrefix;
 
@@ -24,7 +23,7 @@ for (i = 0; i < config.guilds.length; i++) {
     commands.push(command.data);
   }
 
-  const rest = new REST({ version: "9" }).setToken(config.botToken);
+  const rest = new REST({ version: "10" }).setToken(config.botToken);
 
   rest
     .put(Routes.applicationGuildCommands(config.clientId, config.guilds[i]), {
@@ -34,11 +33,14 @@ for (i = 0; i < config.guilds.length; i++) {
     .catch(console.error);
 }
 
-bot.client.once("ready", () => {
+bot.client.once("clientReady", () => {
   utils.loadDataFiles();
-  bot.client.user.setActivity(" Great Cthulhu rise from the depths ", {
-    type: "WATCHING",
+  const { ActivityType } = require("discord.js");
+
+  bot.client.user.setActivity("Great Cthulhu rise from the depths", {
+    type: ActivityType.Watching
   });
+  
 
   for (i = 0; i < config.guilds.length; i++) {
     bot.client.guilds.cache
@@ -72,7 +74,7 @@ bot.client.on("interactionCreate", async (interaction) => {
       console.error(error);
       await interaction.reply({
         content: "There was an error while executing this command!",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
     }
 

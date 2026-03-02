@@ -4,7 +4,7 @@
 //
 const utils = require("../utils.js");
 
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require("discord.js");
 
 const buildCommand = function (guildId) {
     utils.loadDataFiles();
@@ -20,7 +20,7 @@ const buildCommand = function (guildId) {
                 .setDescription('The alias of the character get the skill or attribute from')
                 .setRequired(false)
             utils.getCharacterAliases(guildId).forEach(function (item) {
-                option.addChoice(item.name, item.alias)
+                option.addChoices({ name: item.name, value: item.alias })
             })
             return option
         });

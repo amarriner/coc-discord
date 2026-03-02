@@ -3,7 +3,7 @@
 //
 const utils = require("../utils.js");
 
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require("discord.js");
 
 const buildCommand = function (guildId) {
 
@@ -20,7 +20,7 @@ const buildCommand = function (guildId) {
                 .setDescription('The alias of the character to roll for')
                 .setRequired(false);
             utils.getCharacterAliases(guildId).forEach(function (item) {
-                option.addChoice(item.name, item.alias);
+                option.addChoices({ name: item.name, value: item.alias });
             });
             return option;
         });
@@ -77,13 +77,9 @@ module.exports = function(guildId){
         }
         else {
             // console.log(character.avatar);
-            interaction.channel.createWebhook(character.name, {
-                avatar: character.avatar,
-            })
+            interaction.channel.createWebhook({name:character.name, avatar: character.avatar})
                 .then(async webhook => {
-                    await webhook.send({
-                        content: message.replace("\n", "\\n")
-                    });
+                    await webhook.send({ content: message.replace("\n", "\\n") });
                     await webhook.delete();
                 })
                 .catch(console.error);

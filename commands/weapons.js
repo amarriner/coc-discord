@@ -4,7 +4,7 @@
 
 const utils = require("../utils.js");
 
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require("discord.js");
 
 const buildCommand = function (guildId) {
 
@@ -18,7 +18,7 @@ const buildCommand = function (guildId) {
                 .setRequired(false)
 
             utils.getCharacterAliases(guildId).forEach(function (item) {
-                option.addChoice(item.name, item.alias)
+                option.addChoices({ name: item.name, value: item.alias })
             })
             return option
         });

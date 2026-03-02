@@ -5,7 +5,7 @@
 const Dice = require('dice-notation-js');
 const utils = require('../utils.js');
 
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require("discord.js");
 
 const buildCommand = function (guildId) {
     utils.loadDataFiles();
@@ -25,7 +25,7 @@ const buildCommand = function (guildId) {
                 .setDescription('The alias of the character to roll as')
                 .setRequired(false)
             utils.getCharacterAliases(guildId).forEach(function (item) {
-                option.addChoice(item.name, item.alias)
+                option.addChoices({ name: item.name, value: item.alias })
             })
             return option
         });
@@ -55,13 +55,12 @@ module.exports = function (guildId) {
         if (result.modification != 0) {
             resultString = `${resultString} + ${result.modification}`;
         }
-        embed.description = `Rolled ${dice} and got a ${result.total}`;
+        var description = `Rolled ${dice} and got a ${result.total}`;
         if (interaction.options.getString("comment") !== null) {
-            embed.description += "\n```" + interaction.options.getString("comment").substr(0, 2041) + "```";
+            description += "\n```" + interaction.options.getString("comment").substr(0, 2041) + "```";
         }
-        embed.footer = {
-            'text': `${resultString}`
-        };
+        embed.setDescription(description);
+        embed.setFooter({text: `${resultString}`});
 
         await interaction.reply({ embeds: [embed] });
 
